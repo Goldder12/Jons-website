@@ -51,20 +51,19 @@
 
   <div class="page-shell">
     <main class="dashboard">
-      <aside class="sidebar card">
-        <div class="brand">
-          <span class="brand-icon">
-            <svg><use href="#icon-menu"></use></svg>
-          </span>
-          <span class="brand-name">SkillSet</span>
-        </div>
-
-        <nav class="sidebar-nav" aria-label="Main navigation">
-          <ul id="nav-list"></ul>
-        </nav>
-      </aside>
-
       <section class="content card">
+        <aside class="sidebar" aria-label="Sidebar navigation">
+          <div class="sidebar-top">
+            <span class="brand-icon" aria-hidden="true">
+              <svg><use href="#icon-menu"></use></svg>
+            </span>
+          </div>
+
+          <nav class="sidebar-nav" aria-label="Main navigation">
+            <ul id="nav-list"></ul>
+          </nav>
+        </aside>
+
         <header class="topbar">
           <label class="searchbar" aria-label="Search books">
             <svg><use href="#icon-search"></use></svg>
@@ -73,9 +72,6 @@
 
           <div class="topbar-actions">
             <button class="live-pill" type="button">Live</button>
-            <button class="icon-btn" type="button" aria-label="Theme">
-              <svg><use href="#icon-moon"></use></svg>
-            </button>
             <button class="icon-btn" type="button" aria-label="Notifications">
               <svg><use href="#icon-bell"></use></svg>
             </button>
@@ -86,6 +82,17 @@
         </header>
 
         <section class="hero">
+          <button
+            class="theme-toggle hero-theme-toggle"
+            id="theme-toggle"
+            type="button"
+            aria-label="Switch to dark mode"
+            aria-pressed="false"
+            title="Dark mode"
+          >
+            <svg><use href="#icon-moon"></use></svg>
+          </button>
+
           <div class="hero-illustration hero-illustration-left" aria-hidden="true">
             <div class="book-stack">
               <span></span>

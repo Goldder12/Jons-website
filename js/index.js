@@ -78,15 +78,53 @@ const popularGrid = document.querySelector("#popular-grid");
 const ongoingGrid = document.querySelector("#ongoing-grid");
 const achievementList = document.querySelector("#achievement-list");
 const salesList = document.querySelector("#sales-list");
+const themeToggle = document.querySelector("#theme-toggle");
+
+function syncThemeToggle(theme) {
+  if (!themeToggle) {
+    return;
+  }
+
+  const isDark = theme === "dark";
+  themeToggle.setAttribute("aria-pressed", String(isDark));
+  themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+  themeToggle.setAttribute("title", isDark ? "Light mode" : "Dark mode");
+}
+
+function applyTheme(theme) {
+  document.body.classList.toggle("dark-theme", theme === "dark");
+  syncThemeToggle(theme);
+}
+
+function setupThemeToggle() {
+  if (!themeToggle) {
+    return;
+  }
+
+  const savedTheme = localStorage.getItem("skillset-theme");
+  const initialTheme = savedTheme === "dark" ? "dark" : "light";
+  applyTheme(initialTheme);
+
+  themeToggle.addEventListener("click", () => {
+    const nextTheme = document.body.classList.contains("dark-theme") ? "light" : "dark";
+    localStorage.setItem("skillset-theme", nextTheme);
+    applyTheme(nextTheme);
+  });
+}
 
 function renderNavigation() {
   navList.innerHTML = navigationItems
     .map(
       (item) => `
         <li>
-          <button class="nav-link ${item.active ? "is-active" : ""}" type="button" data-nav="${item.id}">
+          <button
+            class="nav-link ${item.active ? "is-active" : ""}"
+            type="button"
+            data-nav="${item.id}"
+            aria-label="${item.label}"
+            title="${item.label}"
+          >
             <svg aria-hidden="true"><use href="#icon-${item.icon}"></use></svg>
-            <span>${item.label}</span>
           </button>
         </li>
       `
@@ -199,3 +237,4 @@ renderBooks(popularBooks, popularGrid);
 renderBooks(ongoingBooks, ongoingGrid);
 renderAchievements();
 renderSales();
+setupThemeToggle();
