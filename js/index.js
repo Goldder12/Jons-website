@@ -5,26 +5,44 @@ const navigationItems = [
   { id: "dualigo", label: "Dualigo", icon: "user" }
 ];
 
+<<<<<<< HEAD
 const popularBooks = [
   {
     title: "The book is an essential guide",
     subtitle: "This is just a general example...",
+=======
+const groups = [
+  {
+    title: "IELTS Morning Group",
+    subtitle: "Mon, Wed, Fri • 09:00",
+>>>>>>> 351700ed1a3d53ea36d6d3eefcaf507a031a91a9
     scene: "stack",
     colors: ["#8fb3ff", "#cdb4ff"]
   },
   {
+<<<<<<< HEAD
     title: "The book is an essential guide",
     subtitle: "This is just a general example...",
+=======
+    title: "Beginner English",
+    subtitle: "Tue, Thu, Sat • 11:00",
+>>>>>>> 351700ed1a3d53ea36d6d3eefcaf507a031a91a9
     scene: "tilt",
     colors: ["#ffd1c1", "#ffe596"]
   },
   {
+<<<<<<< HEAD
     title: "The book is an essential guide",
     subtitle: "This is just a general example...",
+=======
+    title: "Speaking Booster",
+    subtitle: "Mon, Wed, Fri • 14:00",
+>>>>>>> 351700ed1a3d53ea36d6d3eefcaf507a031a91a9
     scene: "files",
     colors: ["#d1bbff", "#f4b6ff"]
   },
   {
+<<<<<<< HEAD
     title: "The book is an essential guide",
     subtitle: "This is just a general example...",
     scene: "coffee",
@@ -36,29 +54,55 @@ const ongoingBooks = [
   {
     title: "The book is an essential guide",
     subtitle: "This is just a general example...",
+=======
+    title: "General English Teens",
+    subtitle: "Daily • 16:30",
+    scene: "coffee",
+    colors: ["#ff9cc2", "#ffcf7b"]
+  },
+  {
+    title: "Grammar Focus",
+    subtitle: "Tue, Thu • 10:00",
+>>>>>>> 351700ed1a3d53ea36d6d3eefcaf507a031a91a9
     scene: "papers",
     colors: ["#9e81ff", "#b59bff"]
   },
   {
+<<<<<<< HEAD
     title: "The book is an essential guide",
     subtitle: "This is just a general example...",
+=======
+    title: "Elementary A1",
+    subtitle: "Mon, Wed, Fri • 13:00",
+>>>>>>> 351700ed1a3d53ea36d6d3eefcaf507a031a91a9
     scene: "stack",
     colors: ["#8ce3ff", "#f9b9ff"]
   },
   {
+<<<<<<< HEAD
     title: "The book is an essential guide",
     subtitle: "This is just a general example...",
+=======
+    title: "IELTS Writing Lab",
+    subtitle: "Sat, Sun • 15:00",
+>>>>>>> 351700ed1a3d53ea36d6d3eefcaf507a031a91a9
     scene: "tower",
     colors: ["#ffcdf0", "#ffd586"]
   },
   {
+<<<<<<< HEAD
     title: "The book is an essential guide",
     subtitle: "This is just a general example...",
+=======
+    title: "Kids English Club",
+    subtitle: "Weekend • 12:00",
+>>>>>>> 351700ed1a3d53ea36d6d3eefcaf507a031a91a9
     scene: "duo",
     colors: ["#b7c7ff", "#ffe28b"]
   }
 ];
 
+<<<<<<< HEAD
 const achievements = [
   { name: "Alex Andrew", note: "7 Day Streak", days: "7 Day", color: "linear-gradient(135deg, #67d7ff, #7f7bff)" },
   { name: "Alda Ahmed", note: "12 Study Hours", days: "12 Day", color: "linear-gradient(135deg, #ff9f85, #ff6aac)" },
@@ -78,15 +122,72 @@ const popularGrid = document.querySelector("#popular-grid");
 const ongoingGrid = document.querySelector("#ongoing-grid");
 const achievementList = document.querySelector("#achievement-list");
 const salesList = document.querySelector("#sales-list");
+=======
+const studentRanking = [
+  { name: "Aziza Karimova", level: "IELTS 7.0 Track", score: "98 pts", rank: "#1", color: "linear-gradient(135deg, #67d7ff, #7f7bff)" },
+  { name: "Muhammad Ali", level: "Advanced Speaking", score: "94 pts", rank: "#2", color: "linear-gradient(135deg, #ff9f85, #ff6aac)" },
+  { name: "Lina Ahmed", level: "General English", score: "91 pts", rank: "#3", color: "linear-gradient(135deg, #7ce5bf, #63b1ff)" },
+  { name: "Sardor Xasanov", level: "Grammar Focus", score: "89 pts", rank: "#4", color: "linear-gradient(135deg, #ffd57d, #ff8a70)" },
+  { name: "Malika Noor", level: "Speaking Booster", score: "87 pts", rank: "#5", color: "linear-gradient(135deg, #c7a0ff, #ff9cc4)" }
+];
+
+const navList = document.querySelector("#nav-list");
+const groupsGrid = document.querySelector("#groups-grid");
+const rankingList = document.querySelector("#ranking-list");
+const themeToggle = document.querySelector("#theme-toggle");
+
+function syncThemeToggle(theme) {
+  if (!themeToggle) {
+    return;
+  }
+
+  const isDark = theme === "dark";
+  themeToggle.setAttribute("aria-pressed", String(isDark));
+  themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+  themeToggle.setAttribute("title", isDark ? "Light mode" : "Dark mode");
+}
+
+function applyTheme(theme) {
+  document.body.classList.toggle("dark-theme", theme === "dark");
+  syncThemeToggle(theme);
+}
+
+function setupThemeToggle() {
+  if (!themeToggle) {
+    return;
+  }
+
+  const savedTheme = localStorage.getItem("skillset-theme");
+  const initialTheme = savedTheme === "dark" ? "dark" : "light";
+  applyTheme(initialTheme);
+
+  themeToggle.addEventListener("click", () => {
+    const nextTheme = document.body.classList.contains("dark-theme") ? "light" : "dark";
+    localStorage.setItem("skillset-theme", nextTheme);
+    applyTheme(nextTheme);
+  });
+}
+>>>>>>> 351700ed1a3d53ea36d6d3eefcaf507a031a91a9
 
 function renderNavigation() {
   navList.innerHTML = navigationItems
     .map(
       (item) => `
         <li>
+<<<<<<< HEAD
           <button class="nav-link ${item.active ? "is-active" : ""}" type="button" data-nav="${item.id}">
             <svg aria-hidden="true"><use href="#icon-${item.icon}"></use></svg>
             <span>${item.label}</span>
+=======
+          <button
+            class="nav-link ${item.active ? "is-active" : ""}"
+            type="button"
+            data-nav="${item.id}"
+            aria-label="${item.label}"
+            title="${item.label}"
+          >
+            <svg aria-hidden="true"><use href="#icon-${item.icon}"></use></svg>
+>>>>>>> 351700ed1a3d53ea36d6d3eefcaf507a031a91a9
           </button>
         </li>
       `
@@ -156,16 +257,26 @@ function initialsFromName(name) {
     .toUpperCase();
 }
 
+<<<<<<< HEAD
 function renderAchievements() {
   achievementList.innerHTML = achievements
     .map(
       (item) => `
         <article class="achievement-item">
           <div class="achievement-avatar" style="background:${item.color}">
+=======
+function renderRanking() {
+  rankingList.innerHTML = studentRanking
+    .map(
+      (item) => `
+        <article class="ranking-item">
+          <div class="ranking-avatar" style="background:${item.color}">
+>>>>>>> 351700ed1a3d53ea36d6d3eefcaf507a031a91a9
             ${initialsFromName(item.name)}
           </div>
           <div>
             <h4>${item.name}</h4>
+<<<<<<< HEAD
             <p>${item.note}</p>
           </div>
           <strong>${item.days}</strong>
@@ -188,6 +299,14 @@ function renderSales() {
             <p>${item.price}</p>
           </div>
           <button type="button">Order</button>
+=======
+            <p>${item.level}</p>
+          </div>
+          <div class="ranking-meta">
+            <strong>${item.score}</strong>
+            <span>${item.rank}</span>
+          </div>
+>>>>>>> 351700ed1a3d53ea36d6d3eefcaf507a031a91a9
         </article>
       `
     )
@@ -195,7 +314,13 @@ function renderSales() {
 }
 
 renderNavigation();
+<<<<<<< HEAD
 renderBooks(popularBooks, popularGrid);
 renderBooks(ongoingBooks, ongoingGrid);
 renderAchievements();
 renderSales();
+=======
+renderBooks(groups, groupsGrid);
+renderRanking();
+setupThemeToggle();
+>>>>>>> 351700ed1a3d53ea36d6d3eefcaf507a031a91a9
