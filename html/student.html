@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Student Dashboard</title>
+
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/student.css">
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-card">
+            <div class="brand mb-4">
+                <span class="brand-icon">
+                    <i class="bi bi-list"></i>
+                </span>
+                <span class="brand-name text-dark fw-bold">SkillSet</span>
+            </div>
+            
+            <nav class="nav-menu d-flex flex-column gap-2 w-100 mb-auto">
+                <a href="../html/index.html" class="nav-link-custom"><i class="bi bi-house-door"></i> Home</a>
+                <a href="#" class="nav-link-custom"><i class="bi bi-people"></i> Students</a>
+                <a href="#" class="nav-link-custom is-active"><i class="bi bi-book"></i> Library</a>
+                <a href="#" class="nav-link-custom"><i class="bi bi-person"></i> Dualigo</a>
+            </nav>
+            
+            <div id="theme-toggle" class="theme-toggle mt-4 position-relative d-flex flex-column gap-2 p-1 rounded-pill cursor-pointer align-self-center" style="width: 52px;">
+                <div class="theme-slider position-absolute rounded-circle"></div>
+                <button id="theme-btn-light" class="btn btn-sm rounded-circle theme-btn active z-1 border-0 shadow-none"><i class="bi bi-sun"></i></button>
+                <button id="theme-btn-dark" class="btn btn-sm rounded-circle theme-btn text-muted z-1 border-0 shadow-none"><i class="bi bi-moon"></i></button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content-area pe-4 pb-4">
+
+            <!-- Top Navbar -->
+            <header class="d-flex justify-content-between align-items-center py-4 top-navbar w-100">
+                <div class="header-spacer"></div>
+
+                <div class="nav-pills-custom glass-card px-2 py-2 rounded-pill d-none d-md-flex">
+                    <button class="btn btn-dark rounded-pill px-4">Dashboard</button>
+                    <button class="btn text-muted fw-medium rounded-pill px-4 btn-nav-hover">Speaking</button>
+                    <button class="btn text-muted fw-medium rounded-pill px-4 btn-nav-hover">Progress</button>
+                    <button class="btn text-muted fw-medium rounded-pill px-4 btn-nav-hover">Courses</button>
+                </div>
+
+                <div class="user-actions d-flex align-items-center gap-3">
+                    <button class="btn glass-btn rounded-circle"><i class="bi bi-search"></i></button>
+                    <button class="btn glass-btn rounded-circle position-relative">
+                        <i class="bi bi-bell"></i>
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle notification-dot"></span>
+                    </button>
+                    <div class="profile-avatar overflow-hidden rounded-circle shadow-sm ms-2">
+                        <img src="https://i.pravatar.cc/150?img=47" alt="User"
+                            class="img-fluid w-100 h-100 object-fit-cover">
+                    </div>
+                </div>
+            </header>
+
+            <h1 class="page-title mb-4 ms-2">Dashboard</h1>
+
+            <div class="container-fluid p-0">
+                <div class="row g-4 m-0 w-100">
+
+                    <!-- Left Column: Courses -->
+                    <div class="col-xl-4 col-lg-5 ps-2">
+                        <div class="glass-card card-wrapper d-flex flex-column h-100 h-courses-card">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <div>
+                                    <h4 class="mb-1 text-dark fw-semibold">Select a course</h4>
+                                    <p class="text-muted small mb-0">Start learning today.</p>
+                                </div>
+                                <button class="btn glass-btn rounded-circle"><i
+                                        class="bi bi-arrows-angle-expand"></i></button>
+                            </div>
+
+                            <div class="search-box position-relative mb-4">
+                                <input type="text" id="courseSearch" class="form-control rounded-pill bg-light border-0 ps-4 py-2"
+                                    placeholder="Search">
+                                <button
+                                    class="btn btn-dark rounded-circle position-absolute end-0 top-50 translate-middle-y me-1 p-0 d-flex align-items-center justify-content-center"
+                                    style="width: 32px; height: 32px;">
+                                    <i class="bi bi-search" style="font-size: 12px;"></i>
+                                </button>
+                            </div>
+
+                            <div class="course-list flex-grow-1 overflow-auto pe-2 custom-scrollbar">
+
+                                <!-- Course 1 -->
+                                <div class="course-item rounded-4 p-4 mb-3 card-purple glow-hover">
+                                    <h5 class="fw-semibold text-dark mb-2">Speak with Confidence</h5>
+                                    <p class="text-dark opacity-75 small lh-sm mb-4">Learn how to speak English clearly
+                                        and confidently in everyday situations.</p>
+                                    <div class="d-flex justify-content-between align-items-center pt-2">
+                                        <div
+                                            class="course-date text-dark small fw-medium d-flex align-items-center gap-2">
+                                            <div
+                                                class="icon-box-dark rounded-3 d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-calendar2"></i>
+                                            </div>
+                                            27 Apr 2025
+                                        </div>
+                                        <div class="avatar-group">
+                                            <img src="https://i.pravatar.cc/150?img=32" alt="Tutor"
+                                                class="rounded-circle avatar-small border border-2 border-white ms-n2">
+                                            <img src="https://i.pravatar.cc/150?img=12" alt="Tutor"
+                                                class="rounded-circle avatar-small border border-2 border-white ms-n2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Course 2 -->
+                                <div class="course-item rounded-4 p-4 mb-3 card-blue glow-hover">
+                                    <h5 class="fw-semibold text-dark mb-2">Master the Basics</h5>
+                                    <p class="text-dark opacity-75 small lh-sm mb-4">Build a strong foundation with
+                                        essential grammar and vocabulary.</p>
+                                    <div class="d-flex justify-content-between align-items-center pt-2">
+                                        <div
+                                            class="course-date text-dark small fw-medium d-flex align-items-center gap-2">
+                                            <div
+                                                class="icon-box-dark rounded-3 d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-calendar2"></i>
+                                            </div>
+                                            30 Apr 2025
+                                        </div>
+                                        <div class="avatar-group">
+                                            <img src="https://i.pravatar.cc/150?img=68" alt="Tutor"
+                                                class="rounded-circle avatar-small border border-2 border-white ms-n2">
+                                            <img src="https://i.pravatar.cc/150?img=43" alt="Tutor"
+                                                class="rounded-circle avatar-small border border-2 border-white ms-n2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Course 3 -->
+                                <div class="course-item rounded-4 p-4 mb-1 card-green glow-hover">
+                                    <h5 class="fw-semibold text-dark mb-2">Sound Like a Native</h5>
+                                    <p class="text-dark opacity-75 small lh-sm mb-4">Improve your pronunciation and
+                                        intonation for natural speech.</p>
+                                    <div class="d-flex justify-content-between align-items-center pt-2">
+                                        <div
+                                            class="course-date text-dark small fw-medium d-flex align-items-center gap-2">
+                                            <div
+                                                class="icon-box-dark rounded-3 d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-calendar2"></i>
+                                            </div>
+                                            15 May 2025
+                                        </div>
+                                        <div class="avatar-group">
+                                            <img src="https://i.pravatar.cc/150?img=25" alt="Tutor"
+                                                class="rounded-circle avatar-small border border-2 border-white ms-n2">
+                                            <img src="https://i.pravatar.cc/150?img=53" alt="Tutor"
+                                                class="rounded-circle avatar-small border border-2 border-white ms-n2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Chart & Bottom Widgets -->
+                    <div class="col-xl-8 col-lg-7 d-flex flex-column gap-4 pe-2">
+
+                        <!-- Performance Chart Section -->
+                        <div class="glass-card card-wrapper flex-grow-1 min-h-350">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <div>
+                                    <h4 class="mb-1 text-dark fw-semibold">Performance Chart</h4>
+                                    <p class="text-muted small mb-0">Track results and watch your progress rise.</p>
+
+                                    <div class="chart-legend mt-3 d-flex gap-3 text-muted small fw-medium">
+                                        <div class="d-flex align-items-center gap-1"><span
+                                                class="legend-dot color-blue"></span> Theory</div>
+                                        <div class="d-flex align-items-center gap-1"><span
+                                                class="legend-dot color-purple"></span> Practice</div>
+                                        <div class="d-flex align-items-center gap-1"><span
+                                                class="legend-dot color-orange"></span> Lexicon</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <select
+                                        class="form-select border-light bg-light rounded-pill rounded-select text-muted px-3 shadow-none">
+                                        <option>Weekly</option>
+                                        <option>Monthly</option>
+                                        <option>Yearly</option>
+                                    </select>
+                                    <button class="btn glass-btn rounded-circle"><i
+                                            class="bi bi-arrows-angle-expand"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Chart Container -->
+                            <div class="chart-container position-relative w-100" style="height: 250px;">
+                                <canvas id="performanceChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Row: Homework & Friends -->
+                        <div class="row g-4 m-0 w-100">
+
+                            <!-- Homework Widget -->
+                            <div class="col-md-6 ps-0 pb-0 pe-md-2 pe-0">
+                                <div class="glass-card card-wrapper h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <h5 class="mb-0 text-dark fw-semibold">Homework <br><span
+                                                class="text-muted small fw-normal">Check and complete tasks</span></h5>
+                                        <select
+                                            class="form-select border-light bg-light rounded-pill rounded-select text-muted w-auto shadow-none">
+                                            <option>Day</option>
+                                            <option>Week</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="homework-list d-flex flex-column gap-3">
+                                        <!-- Item 1 -->
+                                        <div class="homework-item d-flex align-items-center gap-3">
+                                            <div
+                                                class="icon-box-dark rounded-4 d-flex align-items-center justify-content-center p-3">
+                                                <i class="bi bi-book fs-5"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <span class="text-dark small fw-medium">Learn 10 new words
+                                                        today</span>
+                                                </div>
+                                                <div class="progress hw-progress" style="height: 6px;">
+                                                    <div class="progress-bar bg-info" role="progressbar"
+                                                        style="width: 57%" aria-valuenow="57" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <span class="fw-semibold text-dark fs-5">57%</span>
+                                        </div>
+
+                                        <!-- Item 2 -->
+                                        <div class="homework-item d-flex align-items-center gap-3">
+                                            <div
+                                                class="icon-box-dark rounded-4 d-flex align-items-center justify-content-center p-3">
+                                                <i class="bi bi-folder2 fs-5"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <span class="text-dark small fw-medium">Do 1 grammar task
+                                                        today</span>
+                                                </div>
+                                                <div class="progress hw-progress" style="height: 6px;">
+                                                    <div class="progress-bar bg-primary" role="progressbar"
+                                                        style="width: 42%" aria-valuenow="42" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <span class="fw-semibold text-dark fs-5">42%</span>
+                                        </div>
+
+                                        <!-- Item 3 -->
+                                        <div class="homework-item d-flex align-items-center gap-3">
+                                            <div
+                                                class="icon-box-dark rounded-4 d-flex align-items-center justify-content-center p-3">
+                                                <i class="bi bi-cup-hot fs-5"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <span class="text-dark small fw-medium">Watch a video, answer 3
+                                                        questions</span>
+                                                </div>
+                                                <div class="progress hw-progress" style="height: 6px;">
+                                                    <div class="progress-bar bg-success" role="progressbar"
+                                                        style="width: 31%" aria-valuenow="31" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <span class="fw-semibold text-dark fs-5">31%</span>
+                                        </div>
+
+                                        <!-- Item 4 -->
+                                        <div class="homework-item d-flex align-items-center gap-3">
+                                            <div
+                                                class="icon-box-dark rounded-4 d-flex align-items-center justify-content-center p-3">
+                                                <i class="bi bi-pencil-square fs-5"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <span class="text-dark small fw-medium">Write 3 sentences with
+                                                        vocab</span>
+                                                </div>
+                                                <div class="progress hw-progress" style="height: 6px;">
+                                                    <div class="progress-bar bg-success" role="progressbar"
+                                                        style="width: 84%" aria-valuenow="84" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <span class="fw-semibold text-dark fs-5">84%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Friends Score Widget -->
+                            <div class="col-md-6 pe-0 pb-0 ps-md-2 ps-0">
+                                <div class="glass-card card-wrapper h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <h5 class="mb-0 text-dark fw-semibold">Friends Score <br><span
+                                                class="text-muted small fw-normal">See how you rank among friends</span>
+                                        </h5>
+                                        <button
+                                            class="btn btn-outline-light text-muted border-light bg-light rounded-pill px-3 shadow-none fw-medium small">All</button>
+                                    </div>
+
+                                    <div class="friends-list d-flex flex-column gap-3">
+                                        <!-- Friend 1 -->
+                                        <div class="friend-item d-flex align-items-center">
+                                            <img src="https://i.pravatar.cc/150?img=5" alt="Anna Morgan"
+                                                class="rounded-circle avatar-md me-3">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0 text-dark fw-semibold">Anna Morgan</h6>
+                                                <div class="text-muted small d-flex gap-2 align-items-center">
+                                                    <span><i class="bi bi-shield-check"></i> 25</span>
+                                                    <span><i class="bi bi-clock-history"></i> 832h</span>
+                                                    <span><i class="bi bi-award"></i> 48</span>
+                                                </div>
+                                            </div>
+                                            <div class="fw-bold fs-5 text-dark ms-2">10,568</div>
+                                        </div>
+
+                                        <!-- Friend 2 -->
+                                        <div class="friend-item d-flex align-items-center">
+                                            <img src="https://i.pravatar.cc/150?img=11" alt="Jake Thompson"
+                                                class="rounded-circle avatar-md me-3">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0 text-dark fw-semibold">Jake Thompson</h6>
+                                                <div class="text-muted small d-flex gap-2 align-items-center">
+                                                    <span><i class="bi bi-shield-check"></i> 23</span>
+                                                    <span><i class="bi bi-clock-history"></i> 778h</span>
+                                                    <span><i class="bi bi-award"></i> 39</span>
+                                                </div>
+                                            </div>
+                                            <div class="fw-bold fs-5 text-dark ms-2">10,234</div>
+                                        </div>
+
+                                        <!-- Friend 3 -->
+                                        <div class="friend-item d-flex align-items-center">
+                                            <img src="https://i.pravatar.cc/150?img=9" alt="Sofia Bennett"
+                                                class="rounded-circle avatar-md me-3">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0 text-dark fw-semibold">Sofia Bennett</h6>
+                                                <div class="text-muted small d-flex gap-2 align-items-center">
+                                                    <span><i class="bi bi-shield-check"></i> 20</span>
+                                                    <span><i class="bi bi-clock-history"></i> 742h</span>
+                                                    <span><i class="bi bi-award"></i> 33</span>
+                                                </div>
+                                            </div>
+                                            <div class="fw-bold fs-5 text-dark ms-2">9,892</div>
+                                        </div>
+
+                                        <!-- Friend 4 -->
+                                        <div class="friend-item d-flex align-items-center">
+                                            <img src="https://i.pravatar.cc/150?img=20" alt="Emily Carter"
+                                                class="rounded-circle avatar-md me-3 border border-2 border-danger-subtle p-0"
+                                                style="padding: 1px;">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0 text-dark fw-semibold">Emily Carter</h6>
+                                                <div class="text-muted small d-flex gap-2 align-items-center">
+                                                    <span class="text-danger"><i class="bi bi-shield-check"></i>
+                                                        17</span>
+                                                    <span class="text-danger"><i class="bi bi-clock-history"></i>
+                                                        643h</span>
+                                                    <span class="text-danger"><i class="bi bi-award"></i> 28</span>
+                                                </div>
+                                            </div>
+                                            <div class="fw-bold fs-5 text-dark ms-2">9,322</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Bootstrap Bunle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom JS -->
+    <script src="../js/student.js"></script>
+</body>
+
+</html>

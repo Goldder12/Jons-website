@@ -1,0 +1,366 @@
+/* Main Design Variables */
+:root {
+  --bg-gradient: linear-gradient(135deg, #eef1f9 0%, #dae1f3 100%);
+  --card-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  --accent-purple: #a894ff;
+  --accent-blue: #5ea8ff;
+  --accent-green: #57d9a3;
+  --text-main: #1e2025;
+  --text-muted: #8b92a5;
+  
+  --sidebar-w: 240px;
+}
+
+/* Dark Mode Overrides */
+body.dark-mode {
+  --bg-gradient: linear-gradient(135deg, #12141d 0%, #1e202e 100%);
+  --card-bg: rgba(30, 32, 45, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  --text-main: #f0f2f5;
+  --text-muted: #bdc3d1;
+}
+
+/* Reset and Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.4s ease;
+}
+
+/* Custom Scrollbar for Course List */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+body.dark-mode .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Main Wrapper */
+.main-wrapper {
+  display: flex;
+  min-height: 100vh;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  max-width: 1220px;
+  margin: 0 auto;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-wrapper {
+  padding: 1.5rem;
+  border-radius: 28px;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  position: sticky;
+  top: 1.5rem;
+  height: calc(100vh - 3rem);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+body.dark-mode .sidebar {
+  background: var(--card-bg);
+}
+
+.brand-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #7f85ff, #bc8dff);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-link-custom {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  transition: background 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.nav-link-custom i {
+  font-size: 1.15rem;
+}
+
+.nav-link-custom:hover, 
+.nav-link-custom.is-active {
+  background: linear-gradient(90deg, rgba(113, 108, 255, 0.12), rgba(255, 123, 165, 0.06));
+  color: #6f6cff;
+}
+
+body.dark-mode .nav-link-custom.is-active {
+  background: rgba(113, 108, 255, 0.2);
+}
+
+/* Theme Toggle Pill */
+.theme-toggle {
+  background: #f0f3fa;
+  width: 100%;
+}
+body.dark-mode .theme-toggle {
+  background: rgba(0,0,0,0.2);
+}
+
+.theme-slider {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  top: 4px;
+  left: 4px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .theme-slider {
+  transform: translateX(24px);
+  background: #40445a;
+}
+
+.theme-btn i {
+  font-size: 1rem;
+}
+
+/* Main Content Area */
+.content-area {
+  flex-grow: 1;
+}
+
+.top-navbar {
+  margin-bottom: 0.5rem;
+}
+
+.nav-pills-custom {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.btn-nav-hover:hover {
+  background: rgba(0,0,0,0.03);
+}
+body.dark-mode .btn-nav-hover:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.glass-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+  backdrop-filter: blur(8px);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-avatar {
+  width: 44px;
+  height: 44px;
+  border: 2px solid white;
+}
+
+.notification-dot {
+  width: 8px;
+  height: 8px;
+}
+
+/* Course List Custom Cards */
+.h-courses-card {
+  min-height: 100%;
+}
+
+.card-purple {
+  background: linear-gradient(135deg, #f0ebff 0%, #e6dfff 100%);
+  border: 1px solid rgba(168, 148, 255, 0.2);
+}
+.card-blue {
+  background: linear-gradient(135deg, #ebf4ff 0%, #def0ff 100%);
+  border: 1px solid rgba(94, 168, 255, 0.2);
+}
+.card-green {
+  background: linear-gradient(135deg, #e7fff6 0%, #d8ffef 100%);
+  border: 1px solid rgba(87, 217, 163, 0.2);
+}
+
+body.dark-mode .card-purple {
+  background: linear-gradient(135deg, rgba(168, 148, 255, 0.15) 0%, rgba(168, 148, 255, 0.05) 100%);
+  border-color: rgba(168, 148, 255, 0.1);
+}
+body.dark-mode .card-blue {
+  background: linear-gradient(135deg, rgba(94, 168, 255, 0.15) 0%, rgba(94, 168, 255, 0.05) 100%);
+  border-color: rgba(94, 168, 255, 0.1);
+}
+body.dark-mode .card-green {
+  background: linear-gradient(135deg, rgba(87, 217, 163, 0.15) 0%, rgba(87, 217, 163, 0.05) 100%);
+  border-color: rgba(87, 217, 163, 0.1);
+}
+
+.icon-box-dark {
+  background: rgba(0, 0, 0, 0.06);
+  width: 30px;
+  height: 30px;
+}
+body.dark-mode .icon-box-dark {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.avatar-small {
+  width: 32px;
+  height: 32px;
+}
+.ms-n2 { margin-left: -12px; }
+
+/* Performance Chart */
+.min-h-350 { min-height: 350px; }
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.color-blue { background: #5ea8ff; }
+.color-purple { background: #a894ff; }
+.color-orange { background: #ff9f43; }
+
+.rounded-select {
+  font-size: 0.85rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+/* Homework List */
+.hw-progress .progress-bar {
+  border-radius: 10px;
+}
+
+/* Ranking List */
+.avatar-md {
+  width: 48px;
+  height: 48px;
+}
+
+/* Layout Utilities */
+.object-fit-cover { object-fit: cover; }
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    left: 0;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 24px;
+    z-index: 100;
+  }
+  
+  .sidebar .brand { margin-bottom: 0 !important; margin-right: 2rem; }
+  .sidebar .nav-menu { flex-direction: row !important; gap: 1rem !important; }
+  .sidebar .theme-toggle { width: auto !important; flex-direction: row !important; margin-top: 0 !important; }
+  
+  .main-wrapper { flex-direction: column; padding: 1rem; }
+  
+  .content-area { padding-right: 0 !important; }
+  
+  .col-xl-4 { margin-top: 0; }
+  
+  .h-courses-card { min-height: 400px; }
+}
+
+@media (max-width: 767px) {
+  .nav-menu { display: none !important; } /* Hide menu text on mobile */
+  .brand-name { display: none; }
+  .top-navbar .nav-pills-custom { display: none !important; }
+  .avatar-small { width: 26px; height: 26px; }
+  .hw-progress { width: 40px !important; }
+}
+
+/* Interaction Hover effects */
+.glow-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+}
+body.dark-mode .glow-hover:hover {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.btn-nav-hover {
+  transition: all 0.2s ease;
+}
+
+/* Dark Mode Typography Adjustments */
+body.dark-mode .text-dark {
+  color: #fff !important;
+}
+body.dark-mode .bg-light {
+  background-color: rgba(255,255,255,0.05) !important;
+}
+body.dark-mode .btn-outline-light {
+  border-color: rgba(255,255,255,0.1) !important;
+  background: rgba(255,255,255,0.03) !important;
+}
+body.dark-mode .form-control {
+  color: #fff;
+}
+body.dark-mode .form-control::placeholder {
+  color: rgba(255,255,255,0.3);
+}
