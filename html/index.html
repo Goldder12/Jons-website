@@ -81,7 +81,7 @@
           </div>
         </header>
 
-        <section class="hero">
+        <section class="overview-panel">
           <button
             class="theme-toggle hero-theme-toggle"
             id="theme-toggle"
@@ -93,31 +93,100 @@
             <svg><use href="#icon-moon"></use></svg>
           </button>
 
-          <div class="hero-illustration hero-illustration-left" aria-hidden="true">
-            <div class="book-stack">
-              <span></span>
-              <span></span>
-              <span></span>
+          <div class="overview-header">
+            <div>
+              <p class="overview-eyebrow">Johns English Center</p>
+              <h1>Today overview</h1>
+              <p class="overview-description">
+                Keep track of active students, classes, attendance, and urgent
+                payment follow-ups from one place.
+              </p>
             </div>
-            <div class="glasses"></div>
           </div>
 
-          <div class="hero-copy">
-            <p class="eyebrow">Welcome back</p>
-            <h1>Hi, Irham Muhammad Shidiq</h1>
-            <p>
-              The library serves as a welcoming home for knowledge seekers and
-              avid readers alike.
-            </p>
-            <button type="button">Learn more</button>
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span class="stat-icon">
+                <svg><use href="#icon-users"></use></svg>
+              </span>
+              <strong>248</strong>
+              <p>Active students</p>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-icon">
+                <svg><use href="#icon-calendar"></use></svg>
+              </span>
+              <strong>14</strong>
+              <p>Lessons today</p>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-icon">
+                <svg><use href="#icon-book"></use></svg>
+              </span>
+              <strong>6</strong>
+              <p>IELTS groups</p>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-icon">
+                <svg><use href="#icon-wallet"></use></svg>
+              </span>
+              <strong>19</strong>
+              <p>Pending payments</p>
+            </article>
           </div>
 
-          <div class="hero-illustration hero-illustration-right" aria-hidden="true">
-            <div class="shelf">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+          <div class="overview-grid">
+            <section class="overview-card">
+              <div class="section-heading compact">
+                <div>
+                  <h3>Quick actions</h3>
+                  <p>Daily admin shortcuts for the center.</p>
+                </div>
+              </div>
+
+              <div class="quick-actions">
+                <button type="button">Add student</button>
+                <button type="button">Create group</button>
+                <button type="button">Mark attendance</button>
+                <button type="button">Add payment</button>
+              </div>
+            </section>
+
+            <section class="overview-card">
+              <div class="section-heading compact">
+                <div>
+                  <h3>Upcoming lessons</h3>
+                  <p>Nearest English lessons and teachers.</p>
+                </div>
+              </div>
+
+              <div class="lesson-list">
+                <article class="lesson-item">
+                  <strong>09:00</strong>
+                  <div>
+                    <h4>IELTS Morning Group</h4>
+                    <p>Teacher: Malika • Room 2</p>
+                  </div>
+                </article>
+                <article class="lesson-item">
+                  <strong>11:00</strong>
+                  <div>
+                    <h4>Beginner Speaking</h4>
+                    <p>Teacher: John • Room 1</p>
+                  </div>
+                </article>
+                <article class="lesson-item">
+                  <strong>16:30</strong>
+                  <div>
+                    <h4>General English Teens</h4>
+                    <p>Teacher: Aziza • Room 4</p>
+                  </div>
+                </article>
+              </div>
+            </section>
           </div>
         </section>
 
@@ -125,18 +194,10 @@
           <div class="library-sections">
             <section class="catalog-section">
               <div class="section-heading">
-                <h2>Popular</h2>
+                <h2>Groups</h2>
                 <button type="button">View all</button>
               </div>
-              <div class="book-grid" id="popular-grid"></div>
-            </section>
-
-            <section class="catalog-section">
-              <div class="section-heading">
-                <h2>Ongoing</h2>
-                <button type="button">View all</button>
-              </div>
-              <div class="book-grid" id="ongoing-grid"></div>
+              <div class="book-grid" id="groups-grid"></div>
             </section>
           </div>
 
@@ -144,22 +205,12 @@
             <section class="side-panel card-lite">
               <div class="section-heading compact">
                 <div>
-                  <h3>Unlocks achievement</h3>
-                  <p>Goal achieved success unlocked.</p>
+                  <h3>Student ranking</h3>
+                  <p>Top English learners this week.</p>
                 </div>
-                <button class="icon-btn small" type="button" aria-label="More">
-                  <svg><use href="#icon-dot"></use></svg>
-                </button>
-              </div>
-              <div id="achievement-list" class="achievement-list"></div>
-            </section>
-
-            <section class="side-panel card-lite">
-              <div class="section-heading compact">
-                <h3>Best sales</h3>
                 <button type="button">View all</button>
               </div>
-              <div id="sales-list" class="sales-list"></div>
+              <div id="ranking-list" class="ranking-list"></div>
             </section>
           </aside>
         </div>

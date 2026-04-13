@@ -5,79 +5,68 @@ const navigationItems = [
   { id: "dualigo", label: "Dualigo", icon: "user" }
 ];
 
-const popularBooks = [
+const groups = [
   {
-    title: "The book is an essential guide",
-    subtitle: "This is just a general example...",
+    title: "IELTS Morning Group",
+    subtitle: "Mon, Wed, Fri • 09:00",
     scene: "stack",
     colors: ["#8fb3ff", "#cdb4ff"]
   },
   {
-    title: "The book is an essential guide",
-    subtitle: "This is just a general example...",
+    title: "Beginner English",
+    subtitle: "Tue, Thu, Sat • 11:00",
     scene: "tilt",
     colors: ["#ffd1c1", "#ffe596"]
   },
   {
-    title: "The book is an essential guide",
-    subtitle: "This is just a general example...",
+    title: "Speaking Booster",
+    subtitle: "Mon, Wed, Fri • 14:00",
     scene: "files",
     colors: ["#d1bbff", "#f4b6ff"]
   },
   {
-    title: "The book is an essential guide",
-    subtitle: "This is just a general example...",
+    title: "General English Teens",
+    subtitle: "Daily • 16:30",
     scene: "coffee",
     colors: ["#ff9cc2", "#ffcf7b"]
-  }
-];
-
-const ongoingBooks = [
+  },
   {
-    title: "The book is an essential guide",
-    subtitle: "This is just a general example...",
+    title: "Grammar Focus",
+    subtitle: "Tue, Thu • 10:00",
     scene: "papers",
     colors: ["#9e81ff", "#b59bff"]
   },
   {
-    title: "The book is an essential guide",
-    subtitle: "This is just a general example...",
+    title: "Elementary A1",
+    subtitle: "Mon, Wed, Fri • 13:00",
     scene: "stack",
     colors: ["#8ce3ff", "#f9b9ff"]
   },
   {
-    title: "The book is an essential guide",
-    subtitle: "This is just a general example...",
+    title: "IELTS Writing Lab",
+    subtitle: "Sat, Sun • 15:00",
     scene: "tower",
     colors: ["#ffcdf0", "#ffd586"]
   },
   {
-    title: "The book is an essential guide",
-    subtitle: "This is just a general example...",
+    title: "Kids English Club",
+    subtitle: "Weekend • 12:00",
     scene: "duo",
     colors: ["#b7c7ff", "#ffe28b"]
   }
 ];
 
-const achievements = [
-  { name: "Alex Andrew", note: "7 Day Streak", days: "7 Day", color: "linear-gradient(135deg, #67d7ff, #7f7bff)" },
-  { name: "Alda Ahmed", note: "12 Study Hours", days: "12 Day", color: "linear-gradient(135deg, #ff9f85, #ff6aac)" },
-  { name: "Lina Ahmed", note: "12 Day Visit", days: "12 Day", color: "linear-gradient(135deg, #7ce5bf, #63b1ff)" }
-];
-
-const sales = [
-  { title: "Grow green", price: "$4.5", color: "linear-gradient(135deg, #ffb56f, #ff77a9)" },
-  { title: "Raise a plant", price: "$4.0", color: "linear-gradient(135deg, #8be5ff, #7f8dff)" },
-  { title: "One question", price: "$4.5", color: "linear-gradient(135deg, #c7a0ff, #ff9cc4)" },
-  { title: "Unplug day", price: "$4.0", color: "linear-gradient(135deg, #ffd57d, #ff8a70)" },
-  { title: "Best year", price: "$3.5", color: "linear-gradient(135deg, #7ce4bf, #6e8cff)" }
+const studentRanking = [
+  { name: "Aziza Karimova", level: "IELTS 7.0 Track", score: "98 pts", rank: "#1", color: "linear-gradient(135deg, #67d7ff, #7f7bff)" },
+  { name: "Muhammad Ali", level: "Advanced Speaking", score: "94 pts", rank: "#2", color: "linear-gradient(135deg, #ff9f85, #ff6aac)" },
+  { name: "Lina Ahmed", level: "General English", score: "91 pts", rank: "#3", color: "linear-gradient(135deg, #7ce5bf, #63b1ff)" },
+  { name: "Sardor Xasanov", level: "Grammar Focus", score: "89 pts", rank: "#4", color: "linear-gradient(135deg, #ffd57d, #ff8a70)" },
+  { name: "Malika Noor", level: "Speaking Booster", score: "87 pts", rank: "#5", color: "linear-gradient(135deg, #c7a0ff, #ff9cc4)" }
 ];
 
 const navList = document.querySelector("#nav-list");
-const popularGrid = document.querySelector("#popular-grid");
-const ongoingGrid = document.querySelector("#ongoing-grid");
-const achievementList = document.querySelector("#achievement-list");
-const salesList = document.querySelector("#sales-list");
+const groupsGrid = document.querySelector("#groups-grid");
+const rankingList = document.querySelector("#ranking-list");
 const themeToggle = document.querySelector("#theme-toggle");
 
 function syncThemeToggle(theme) {
@@ -194,38 +183,22 @@ function initialsFromName(name) {
     .toUpperCase();
 }
 
-function renderAchievements() {
-  achievementList.innerHTML = achievements
+function renderRanking() {
+  rankingList.innerHTML = studentRanking
     .map(
       (item) => `
-        <article class="achievement-item">
-          <div class="achievement-avatar" style="background:${item.color}">
+        <article class="ranking-item">
+          <div class="ranking-avatar" style="background:${item.color}">
             ${initialsFromName(item.name)}
           </div>
           <div>
             <h4>${item.name}</h4>
-            <p>${item.note}</p>
+            <p>${item.level}</p>
           </div>
-          <strong>${item.days}</strong>
-        </article>
-      `
-    )
-    .join("");
-}
-
-function renderSales() {
-  salesList.innerHTML = sales
-    .map(
-      (item) => `
-        <article class="sales-item">
-          <div class="sales-avatar" style="background:${item.color}">
-            ${item.title.slice(0, 1)}
+          <div class="ranking-meta">
+            <strong>${item.score}</strong>
+            <span>${item.rank}</span>
           </div>
-          <div>
-            <h4>${item.title}</h4>
-            <p>${item.price}</p>
-          </div>
-          <button type="button">Order</button>
         </article>
       `
     )
@@ -233,8 +206,6 @@ function renderSales() {
 }
 
 renderNavigation();
-renderBooks(popularBooks, popularGrid);
-renderBooks(ongoingBooks, ongoingGrid);
-renderAchievements();
-renderSales();
+renderBooks(groups, groupsGrid);
+renderRanking();
 setupThemeToggle();
