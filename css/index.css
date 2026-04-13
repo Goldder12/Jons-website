@@ -608,6 +608,12 @@ button {
   box-shadow: 0 16px 30px rgba(143, 127, 196, 0.12);
 }
 
+.group-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
 .book-thumb {
   position: relative;
   overflow: hidden;

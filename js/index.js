@@ -1,59 +1,10 @@
+import { groupsData } from "../data/group_data.js";
+
 const navigationItems = [
   { id: "home", label: "Home", icon: "home" },
   { id: "students", label: "Students", icon: "users" },
-  { id: "library", label: "Library", icon: "book", active: true },
-  { id: "dualigo", label: "Dualigo", icon: "user" }
-];
-
-const groups = [
-  {
-    title: "IELTS Morning Group",
-    subtitle: "Mon, Wed, Fri • 09:00",
-    scene: "stack",
-    colors: ["#8fb3ff", "#cdb4ff"]
-  },
-  {
-    title: "Beginner English",
-    subtitle: "Tue, Thu, Sat • 11:00",
-    scene: "tilt",
-    colors: ["#ffd1c1", "#ffe596"]
-  },
-  {
-    title: "Speaking Booster",
-    subtitle: "Mon, Wed, Fri • 14:00",
-    scene: "files",
-    colors: ["#d1bbff", "#f4b6ff"]
-  },
-  {
-    title: "General English Teens",
-    subtitle: "Daily • 16:30",
-    scene: "coffee",
-    colors: ["#ff9cc2", "#ffcf7b"]
-  },
-  {
-    title: "Grammar Focus",
-    subtitle: "Tue, Thu • 10:00",
-    scene: "papers",
-    colors: ["#9e81ff", "#b59bff"]
-  },
-  {
-    title: "Elementary A1",
-    subtitle: "Mon, Wed, Fri • 13:00",
-    scene: "stack",
-    colors: ["#8ce3ff", "#f9b9ff"]
-  },
-  {
-    title: "IELTS Writing Lab",
-    subtitle: "Sat, Sun • 15:00",
-    scene: "tower",
-    colors: ["#ffcdf0", "#ffd586"]
-  },
-  {
-    title: "Kids English Club",
-    subtitle: "Weekend • 12:00",
-    scene: "duo",
-    colors: ["#b7c7ff", "#ffe28b"]
-  }
+  { id: "groups", label: "Groups", icon: "book", active: true },
+  { id: "teachers", label: "Teachers", icon: "user" }
 ];
 
 const studentRanking = [
@@ -151,24 +102,24 @@ function createShapes(scene) {
     .join("");
 }
 
-function renderBooks(books, target) {
-  target.innerHTML = books
+function renderGroups(groups, target) {
+  target.innerHTML = groups
     .map(
-      (book) => `
-        <article class="book-card">
+      (group) => `
+        <a class="book-card group-card-link" href="../html/group.html?id=${group.id}">
           <div
             class="book-thumb"
-            data-scene="${book.scene}"
-            style="--card-a:${book.colors[0]}; --card-b:${book.colors[1]};"
+            data-scene="${group.scene}"
+            style="--card-a:${group.colors[0]}; --card-b:${group.colors[1]};"
           >
-            ${createShapes(book.scene)}
+            ${createShapes(group.scene)}
             <span class="book-badge">
               <svg aria-hidden="true"><use href="#icon-book"></use></svg>
             </span>
           </div>
-          <h3>${book.title}</h3>
-          <p>${book.subtitle}</p>
-        </article>
+          <h3>${group.title}</h3>
+          <p>${group.subtitle}</p>
+        </a>
       `
     )
     .join("");
@@ -206,6 +157,6 @@ function renderRanking() {
 }
 
 renderNavigation();
-renderBooks(groups, groupsGrid);
+renderGroups(groupsData, groupsGrid);
 renderRanking();
 setupThemeToggle();
