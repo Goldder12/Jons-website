@@ -2,10 +2,10 @@
 import { groupsData } from "../data/group_data.js";
 
 const navigationItems = [
-  { id: "home", label: "Home", icon: "home" },
-  { id: "students", label: "Students", icon: "users" },
-  { id: "groups", label: "Groups", icon: "book", active: true },
-  { id: "teachers", label: "Teachers", icon: "user" }
+  { id: "home", label: "Home", icon: "home", href: "../html/index.html" },
+  { id: "students", label: "Students", icon: "users", href: "../html/student.html" },
+  { id: "groups", label: "Groups", icon: "book", active: true, href: "#" },
+  { id: "teachers", label: "Teachers", icon: "user", href: "#" }
 ];
 
 const studentRanking = [
@@ -58,31 +58,22 @@ function renderNavigation() {
     .map(
       (item) => `
         <li>
-          <button
+          <a
             class="nav-link ${item.active ? "is-active" : ""}"
-            type="button"
+            href="${item.href}"
             data-nav="${item.id}"
             aria-label="${item.label}"
             title="${item.label}"
           >
             <svg aria-hidden="true"><use href="#icon-${item.icon}"></use></svg>
-          </button>
+            <span class="nav-label">${item.label}</span>
+          </a>
         </li>
       `
     )
     .join("");
 
-  navList.addEventListener("click", (event) => {
-    const targetButton = event.target.closest(".nav-link");
-    if (!targetButton) {
-      return;
-    }
-
-    navList.querySelectorAll(".nav-link").forEach((button) => {
-      button.classList.remove("is-active");
-    });
-    targetButton.classList.add("is-active");
-  });
+  // Navigation clicks natively handled via a tags.
 }
 
 function createShapes(scene) {

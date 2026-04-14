@@ -185,17 +185,15 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Check if dark mode is active
             if (document.body.classList.contains('dark-mode')) {
-                btnLight.classList.remove('active');
-                btnLight.classList.add('text-muted');
-                
+                btnLight.classList.add('d-none');
+                btnDark.classList.remove('d-none');
                 btnDark.classList.remove('text-muted');
-                btnDark.classList.add('active');
+                btnDark.classList.add('text-dark');
             } else {
+                btnDark.classList.add('d-none');
+                btnLight.classList.remove('d-none');
                 btnLight.classList.remove('text-muted');
-                btnLight.classList.add('active');
-                
-                btnDark.classList.remove('active');
-                btnDark.classList.add('text-muted');
+                btnLight.classList.add('text-dark');
             }
         });
     }

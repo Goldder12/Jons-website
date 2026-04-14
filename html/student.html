@@ -30,20 +30,26 @@
                 <span class="brand-icon">
                     <i class="bi bi-list"></i>
                 </span>
-                <span class="brand-name text-dark fw-bold">SkillSet</span>
             </div>
-            
+
             <nav class="nav-menu d-flex flex-column gap-2 w-100 mb-auto">
-                <a href="../html/index.html" class="nav-link-custom"><i class="bi bi-house-door"></i> Home</a>
-                <a href="#" class="nav-link-custom"><i class="bi bi-people"></i> Students</a>
-                <a href="#" class="nav-link-custom is-active"><i class="bi bi-book"></i> Library</a>
-                <a href="#" class="nav-link-custom"><i class="bi bi-person"></i> Dualigo</a>
+                <a href="../html/index.html" class="nav-link-custom"><i class="bi bi-house-door"></i> <span
+                        class="nav-label">Home</span></a>
+                <a href="#" class="nav-link-custom is-active"><i class="bi bi-people"></i> <span
+                        class="nav-label">Students</span></a>
+                <a href="#" class="nav-link-custom"><i class="bi bi-book"></i> <span
+                        class="nav-label">Library</span></a>
+                <a href="#" class="nav-link-custom"><i class="bi bi-person"></i> <span
+                        class="nav-label">Dualigo</span></a>
             </nav>
-            
-            <div id="theme-toggle" class="theme-toggle mt-4 position-relative d-flex flex-column gap-2 p-1 rounded-pill cursor-pointer align-self-center" style="width: 52px;">
-                <div class="theme-slider position-absolute rounded-circle"></div>
-                <button id="theme-btn-light" class="btn btn-sm rounded-circle theme-btn active z-1 border-0 shadow-none"><i class="bi bi-sun"></i></button>
-                <button id="theme-btn-dark" class="btn btn-sm rounded-circle theme-btn text-muted z-1 border-0 shadow-none"><i class="bi bi-moon"></i></button>
+
+            <div id="theme-toggle" class="theme-toggle-container mt-4">
+                <div class="theme-icon-box">
+                    <i id="theme-btn-light" class="bi bi-sun active text-dark"></i>
+                    <i id="theme-btn-dark"
+                        class="bi bi-moon position-absolute top-50 start-50 translate-middle text-muted d-none"></i>
+                </div>
+                <span class="nav-label theme-label text-dark fw-bold">Dark Mode</span>
             </div>
         </aside>
 
@@ -93,8 +99,8 @@
                             </div>
 
                             <div class="search-box position-relative mb-4">
-                                <input type="text" id="courseSearch" class="form-control rounded-pill bg-light border-0 ps-4 py-2"
-                                    placeholder="Search">
+                                <input type="text" id="courseSearch"
+                                    class="form-control rounded-pill bg-light border-0 ps-4 py-2" placeholder="Search">
                                 <button
                                     class="btn btn-dark rounded-circle position-absolute end-0 top-50 translate-middle-y me-1 p-0 d-flex align-items-center justify-content-center"
                                     style="width: 32px; height: 32px;">
