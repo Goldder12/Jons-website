@@ -9,13 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctx = document.getElementById('performanceChart').getContext('2d');
     
     // Gradient definitions for the chart areas
-    const blueGradient = ctx.createLinearGradient(0, 0, 0, 300);
-    blueGradient.addColorStop(0, 'rgba(94, 168, 255, 0.4)');
-    blueGradient.addColorStop(1, 'rgba(94, 168, 255, 0.0)');
+    const orangeGradient = ctx.createLinearGradient(0, 0, 0, 300);
+    orangeGradient.addColorStop(0, 'rgba(255, 157, 104, 0.4)');
+    orangeGradient.addColorStop(1, 'rgba(255, 157, 104, 0.0)');
     
-    const purpleGradient = ctx.createLinearGradient(0, 0, 0, 300);
-    purpleGradient.addColorStop(0, 'rgba(168, 148, 255, 0.4)');
-    purpleGradient.addColorStop(1, 'rgba(168, 148, 255, 0.0)');
+    const pinkGradient = ctx.createLinearGradient(0, 0, 0, 300);
+    pinkGradient.addColorStop(0, 'rgba(255, 123, 165, 0.4)');
+    pinkGradient.addColorStop(1, 'rgba(255, 123, 165, 0.0)');
+
     
     const performanceChart = new Chart(ctx, {
         type: 'line',
@@ -25,11 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 {
                     label: 'Practice',
                     data: [15, 25, 20, 45, 60, 95, 65],
-                    borderColor: '#a894ff',
-                    backgroundColor: purpleGradient,
+                    borderColor: '#ff7ba5',
+                    backgroundColor: pinkGradient,
                     borderWidth: 3,
                     pointBackgroundColor: '#fff',
-                    pointBorderColor: '#a894ff',
+                    pointBorderColor: '#ff7ba5',
                     pointBorderWidth: 2,
                     pointRadius: 4,
                     pointHoverRadius: 6,
@@ -39,17 +40,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 {
                     label: 'Theory',
                     data: [10, 15, 12, 30, 40, 60, 45],
-                    borderColor: '#5ea8ff',
-                    backgroundColor: blueGradient,
+                    borderColor: '#ff9d68',
+                    backgroundColor: orangeGradient,
                     borderWidth: 2,
                     pointBackgroundColor: '#fff',
-                    pointBorderColor: '#5ea8ff',
+                    pointBorderColor: '#ff9d68',
                     pointBorderWidth: 2,
                     pointRadius: 0,
                     pointHoverRadius: 5,
                     fill: true,
                     tension: 0.4
                 }
+
             ]
         },
         options: {
