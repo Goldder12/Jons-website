@@ -1,36 +1,42 @@
-import { adminCredentials, authStorageKey } from "../data/login_data.js";
+import { adminCredentials, studentCredentials, authStorageKey } from "../data/login_data.js";
 
 const loginForm = document.querySelector("#login-form");
 const usernameInput = document.querySelector("#username");
 const passwordInput = document.querySelector("#password");
 const loginError = document.querySelector("#login-error");
 
-function redirectToDashboard() {
-  window.location.href = "../html/index.html";
+const supportedCredentials = [adminCredentials, studentCredentials];
+
+function redirectToDashboard(redirectTo = "../html/index.html") {
+  window.location.href = redirectTo;
 }
 
-function setSession() {
+function setSession(user) {
   localStorage.setItem(
     authStorageKey,
     JSON.stringify({
-      username: adminCredentials.username,
-      role: "admin",
+      username: user.username,
+      role: user.role,
+      displayName: user.displayName ?? user.username,
+      groupId: user.groupId ?? null,
+      redirectTo: user.redirectTo,
       isAuthenticated: true
     })
   );
 }
 
-function hasActiveSession() {
+function getActiveSession() {
   try {
-    const savedSession = JSON.parse(localStorage.getItem(authStorageKey) || "null");
-    return Boolean(savedSession?.isAuthenticated);
+    return JSON.parse(localStorage.getItem(authStorageKey) || "null");
   } catch {
-    return false;
+    return null;
   }
 }
 
-if (hasActiveSession()) {
-  redirectToDashboard();
+const activeSession = getActiveSession();
+
+if (activeSession?.isAuthenticated) {
+  redirectToDashboard(activeSession.redirectTo);
 }
 
 loginForm?.addEventListener("submit", (event) => {
@@ -39,13 +45,14 @@ loginForm?.addEventListener("submit", (event) => {
   const username = usernameInput.value.trim();
   const password = passwordInput.value.trim();
 
-  if (
-    username === adminCredentials.username &&
-    password === adminCredentials.password
-  ) {
+  const matchedUser = supportedCredentials.find(
+    (user) => user.username === username && user.password === password
+  );
+
+  if (matchedUser) {
     loginError.textContent = "";
-    setSession();
-    redirectToDashboard();
+    setSession(matchedUser);
+    redirectToDashboard(matchedUser.redirectTo);
     return;
   }
 

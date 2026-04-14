@@ -6,6 +6,34 @@
 import { groupsData, getGroupById } from "../data/group_data.js";
 
 document.addEventListener('DOMContentLoaded', () => {
+    const THEME_STORAGE_KEY = 'skillset-theme';
+
+    function applyTheme(theme) {
+        document.body.classList.toggle('dark-mode', theme === 'dark');
+    }
+
+    function setupTheme() {
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', function() {
+                const nextTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+                localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+                applyTheme(nextTheme);
+            });
+        }
+
+        window.addEventListener('storage', function(event) {
+            if (event.key === THEME_STORAGE_KEY) {
+                applyTheme(event.newValue === 'dark' ? 'dark' : 'light');
+            }
+        });
+    }
+
+    setupTheme();
+
     // 1. Initialize Performance Chart using Chart.js
     const ctx = document.getElementById('performanceChart').getContext('2d');
     
@@ -273,28 +301,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Dark Mode / Light Mode Advanced Toggle
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const btnLight = document.getElementById('theme-btn-light');
-    const btnDark = document.getElementById('theme-btn-dark');
-
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', function() {
-            // Toggle body class
-            document.body.classList.toggle('dark-mode');
-            
-            // Check if dark mode is active
-            if (document.body.classList.contains('dark-mode')) {
-                btnLight.classList.add('d-none');
-                btnDark.classList.remove('d-none');
-                btnDark.classList.remove('text-muted');
-                btnDark.classList.add('text-dark');
-            } else {
-                btnDark.classList.add('d-none');
-                btnLight.classList.remove('d-none');
-                btnLight.classList.remove('text-muted');
-                btnLight.classList.add('text-dark');
-            }
-        });
-    }
 });

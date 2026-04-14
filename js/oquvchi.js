@@ -73,6 +73,7 @@ function renderNavigation() {
             title="${item.label}"
           >
             <svg aria-hidden="true"><use href="#icon-${item.icon}"></use></svg>
+            <span class="nav-label">${item.label}</span>
           </a>
         </li>
       `
