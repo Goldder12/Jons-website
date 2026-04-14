@@ -629,7 +629,7 @@ body.dark-theme .dualigo-delete-button {
   color: #ff9d9d;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1200px) {
   .dashboard {
     grid-template-columns: 1fr;
   }
@@ -637,11 +637,17 @@ body.dark-theme .dualigo-delete-button {
   .sidebar {
     position: static;
     min-height: auto;
+    width: 100%;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 10px 14px;
     border-radius: 24px;
+    overflow: visible;
+  }
+
+  .sidebar-top {
+    width: auto;
   }
 
   .sidebar-nav {
@@ -658,6 +664,16 @@ body.dark-theme .dualigo-delete-button {
   .sidebar-nav ul {
     flex-direction: row;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .nav-link {
+    width: 48px;
+    padding: 0;
+    justify-content: center;
+    gap: 0;
+    overflow: visible;
   }
 }
 

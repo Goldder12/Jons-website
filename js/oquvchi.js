@@ -61,6 +61,10 @@ function setupThemeToggle() {
 }
 
 function renderNavigation() {
+  if (!navList) {
+    return;
+  }
+
   navList.innerHTML = navigationItems
     .map(
       (item) => `

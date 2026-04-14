@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutButton = document.getElementById('logout-button');
 
     function redirectToLogin() {
-        window.location.href = '../login.html';
+        window.location.href = '../home.html';
     }
 
     function setupLogout() {

@@ -60,7 +60,7 @@ function ensureStudentSession() {
   const session = getSession();
 
   if (!session?.isAuthenticated) {
-    redirectTo("../login.html");
+    redirectTo("../home.html");
     return null;
   }
 

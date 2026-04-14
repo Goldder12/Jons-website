@@ -165,14 +165,6 @@ function renderLessons(selectedGroup) {
         <p>Teacher-created lessons for this group</p>
       </div>
       <div class="hero-lessons-actions">
-        <div class="lesson-carousel-controls" aria-label="Lesson carousel controls">
-          <button class="lesson-carousel-button" id="lesson-prev-button" type="button" aria-label="Previous lesson">
-            &larr;
-          </button>
-          <button class="lesson-carousel-button" id="lesson-next-button" type="button" aria-label="Next lesson">
-            &rarr;
-          </button>
-        </div>
         <button class="lesson-create-toggle" id="lesson-create-toggle" type="button" aria-expanded="false">
           Create lesson
         </button>
@@ -197,6 +189,16 @@ function renderLessons(selectedGroup) {
       <div class="lesson-builder-actions">
         <button class="lesson-builder-secondary" id="lesson-cancel-button" type="button">Cancel</button>
         <button class="lesson-builder-primary" id="lesson-save-button" type="button">OK</button>
+      </div>
+    </div>
+    <div class="lesson-carousel-row">
+      <div class="lesson-carousel-controls" aria-label="Lesson carousel controls">
+        <button class="lesson-carousel-button" id="lesson-prev-button" type="button" aria-label="Previous lesson">
+          &larr;
+        </button>
+        <button class="lesson-carousel-button" id="lesson-next-button" type="button" aria-label="Next lesson">
+          &rarr;
+        </button>
       </div>
     </div>
     <div class="hero-lessons-viewport">

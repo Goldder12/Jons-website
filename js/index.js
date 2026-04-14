@@ -25,7 +25,7 @@ const adminChip = document.querySelector("#admin-chip");
 const logoutButton = document.querySelector("#logout-button");
 
 function redirectToLogin() {
-  window.location.href = "../login.html";
+  window.location.href = "../home.html";
 }
 
 function getAdminSession() {

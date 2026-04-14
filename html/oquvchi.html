@@ -8,6 +8,9 @@
 </head>
 <body>
   <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+      <path d="M15 18 9 12l6-6"/>
+    </symbol>
     <symbol id="icon-home" viewBox="0 0 24 24">
       <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1z"/>
     </symbol>
@@ -42,21 +45,13 @@
 
   <div class="page-shell">
     <main class="dashboard card">
-      <aside class="sidebar" aria-label="Sidebar navigation">
-        <div class="sidebar-top">
-          <span class="brand-icon" aria-hidden="true">
-            <img class="brand-image" src="../img/photo_2023-03-10_05-57-29.jpg" alt="John's logo">
-          </span>
-        </div>
-
-        <nav class="sidebar-nav" aria-label="Main navigation">
-          <ul id="nav-list"></ul>
-        </nav>
-      </aside>
-
       <section class="page-main">
         <header class="page-topbar">
           <div>
+            <a class="back-link" href="../html/index.html">
+              <svg><use href="#icon-arrow-left"></use></svg>
+              <span>Back to dashboard</span>
+            </a>
             <p class="eyebrow">Johns English Center</p>
             <h1>O'quvchilar paneli</h1>
             <p class="page-description">Birinchi ochilganda barcha o'quvchilar ro'yxati shu yerda ko'rinadi.</p>
