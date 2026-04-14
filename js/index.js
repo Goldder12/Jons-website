@@ -1,10 +1,10 @@
 import { groupsData } from "../data/group_data.js";
 
 const navigationItems = [
-  { id: "home", label: "Home", icon: "home" },
+  { id: "home", label: "Home", icon: "home", href: "../html/index.html" },
   { id: "students", label: "Students", icon: "users" },
-  { id: "groups", label: "Groups", icon: "book", active: true },
-  { id: "teachers", label: "Teachers", icon: "user" }
+  { id: "groups", label: "Groups", icon: "book" },
+  { id: "dualigo", label: "Dualigo", icon: "user", href: "../html/dualigo.html" }
 ];
 
 const studentRanking = [
@@ -19,6 +19,8 @@ const navList = document.querySelector("#nav-list");
 const groupsGrid = document.querySelector("#groups-grid");
 const rankingList = document.querySelector("#ranking-list");
 const themeToggle = document.querySelector("#theme-toggle");
+const groupsPrevButton = document.querySelector("#groups-prev-button");
+const groupsNextButton = document.querySelector("#groups-next-button");
 
 function syncThemeToggle(theme) {
   if (!themeToggle) {
@@ -53,35 +55,31 @@ function setupThemeToggle() {
 }
 
 function renderNavigation() {
+  const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+  const activeNavByPage = {
+    "": "home",
+    "index.html": "home",
+    "dualigo.html": "dualigo"
+  };
+  const activeNavId = activeNavByPage[currentPage] ?? "home";
+
   navList.innerHTML = navigationItems
     .map(
       (item) => `
         <li>
-          <button
-            class="nav-link ${item.active ? "is-active" : ""}"
-            type="button"
+          <a
+            class="nav-link ${item.id === activeNavId ? "is-active" : ""}"
+            href="${item.href ?? "#"}"
             data-nav="${item.id}"
             aria-label="${item.label}"
             title="${item.label}"
           >
             <svg aria-hidden="true"><use href="#icon-${item.icon}"></use></svg>
-          </button>
+          </a>
         </li>
       `
     )
     .join("");
-
-  navList.addEventListener("click", (event) => {
-    const targetButton = event.target.closest(".nav-link");
-    if (!targetButton) {
-      return;
-    }
-
-    navList.querySelectorAll(".nav-link").forEach((button) => {
-      button.classList.remove("is-active");
-    });
-    targetButton.classList.add("is-active");
-  });
 }
 
 function createShapes(scene) {
@@ -123,6 +121,63 @@ function renderGroups(groups, target) {
       `
     )
     .join("");
+
+  updateGroupCarouselButtons();
+}
+
+function getGroupCarouselStep() {
+  const firstCard = groupsGrid.querySelector(".group-card-link");
+
+  if (!firstCard) {
+    return 0;
+  }
+
+  const gridStyles = window.getComputedStyle(groupsGrid);
+  const gap = Number.parseFloat(gridStyles.columnGap) || 14;
+  return firstCard.getBoundingClientRect().width + gap;
+}
+
+function updateGroupCarouselButtons() {
+  if (!groupsPrevButton || !groupsNextButton) {
+    return;
+  }
+
+  const maxScrollLeft = groupsGrid.scrollWidth - groupsGrid.clientWidth;
+  const hasOverflow = maxScrollLeft > 4;
+
+  groupsPrevButton.disabled = !hasOverflow || groupsGrid.scrollLeft <= 4;
+  groupsNextButton.disabled = !hasOverflow || groupsGrid.scrollLeft >= maxScrollLeft - 4;
+}
+
+function setupGroupCarousel() {
+  if (!groupsGrid || !groupsPrevButton || !groupsNextButton) {
+    return;
+  }
+
+  function slideGroups(direction) {
+    const step = getGroupCarouselStep();
+
+    if (!step) {
+      return;
+    }
+
+    groupsGrid.scrollBy({
+      left: step * direction,
+      behavior: "smooth"
+    });
+  }
+
+  groupsPrevButton.addEventListener("click", () => {
+    slideGroups(-1);
+  });
+
+  groupsNextButton.addEventListener("click", () => {
+    slideGroups(1);
+  });
+
+  groupsGrid.addEventListener("scroll", updateGroupCarouselButtons);
+  window.addEventListener("resize", updateGroupCarouselButtons);
+  updateGroupCarouselButtons();
 }
 
 function initialsFromName(name) {
@@ -159,4 +214,5 @@ function renderRanking() {
 renderNavigation();
 renderGroups(groupsData, groupsGrid);
 renderRanking();
+setupGroupCarousel();
 setupThemeToggle();
