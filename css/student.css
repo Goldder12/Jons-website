@@ -173,12 +173,14 @@ body.dark-mode .custom-scrollbar::-webkit-scrollbar-thumb {
   z-index: 1000;
 }
 
+@media (min-width: 1201px) {
 .sidebar:hover,
 .sidebar:focus-within {
   width: 255px;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
     0 32px 64px rgba(4, 6, 12, 0.3);
+}
 }
 
 .brand {
@@ -189,7 +191,7 @@ body.dark-mode .custom-scrollbar::-webkit-scrollbar-thumb {
   white-space: nowrap;
 }
 
-.brand-icon {
+.brand-icon { overflow: hidden;
   width: 48px;
   height: 48px;
   border-radius: 18px;
@@ -215,10 +217,12 @@ body.dark-mode .custom-scrollbar::-webkit-scrollbar-thumb {
   pointer-events: none;
 }
 
+@media (min-width: 1201px) {
 .sidebar:hover .brand-name,
 .sidebar:focus-within .brand-name {
   opacity: 1;
   transition: opacity 0.3s ease 0.1s;
+}
 }
 
 
@@ -274,10 +278,12 @@ body.dark-mode .custom-scrollbar::-webkit-scrollbar-thumb {
   pointer-events: none;
 }
 
+@media (min-width: 1201px) {
 .sidebar:hover .nav-label,
 .sidebar:focus-within .nav-label {
   opacity: 1;
   transition: opacity 0.3s ease 0.1s;
+}
 }
 
 .nav-link-custom:hover, 
@@ -567,4 +573,68 @@ body.dark-mode .feedback-box {
 }
 .teacher-feedback {
   background: var(--card-bg);
+}
+
+/* Course Cards from Dualigo/Index */
+.dualigo-group-list { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.dualigo-group-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 18px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+.dualigo-group-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+body.dark-mode .dualigo-group-card {
+  background: rgba(15, 22, 36, 0.9);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.dualigo-group-card h3 { margin: 0 0 6px; font-size: 1.1rem; color: var(--text-main); }
+.dualigo-group-card p { margin: 0; color: var(--text-soft); font-size: 0.9rem; }
+.dualigo-group-copy { min-width: 0; }
+.dualigo-group-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.dualigo-group-meta span { 
+    padding: 6px 12px; 
+    border-radius: 999px; 
+    border: 1px solid var(--line); 
+    background: rgba(255, 255, 255, 0.4); 
+    font-size: 0.78rem; 
+    color: var(--text-main);
+}
+body.dark-mode .dualigo-group-meta span {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.brand-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- GLOBAL MOBILE SIDEBAR UNIFICATION --- */
+@media (max-width: 1200px) {
+  .brand-name, 
+  .nav-label {
+    display: none !important;
+  }
+  
+  /* Disable hover background effect on links on smaller screens */
+  .nav-link:hover:not(.is-active)::before,
+  .nav-link-custom:hover:not(.is-active)::before {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+  .nav-link:hover:not(.is-active),
+  .nav-link-custom:hover:not(.is-active) {
+    color: var(--sidebar-icon-soft) !important;
+    transform: none !important;
+  }
 }

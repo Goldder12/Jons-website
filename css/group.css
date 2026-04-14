@@ -443,3 +443,23 @@ button {
     text-align: left;
   }
 }
+
+/* --- GLOBAL MOBILE SIDEBAR UNIFICATION --- */
+@media (max-width: 1100px) {
+  .brand-name, 
+  .nav-label {
+    display: none !important;
+  }
+  
+  /* Disable hover background effect on links on smaller screens */
+  .nav-link:hover:not(.is-active)::before,
+  .nav-link-custom:hover:not(.is-active)::before {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+  .nav-link:hover:not(.is-active),
+  .nav-link-custom:hover:not(.is-active) {
+    color: var(--sidebar-icon-soft) !important;
+  }
+}

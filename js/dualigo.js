@@ -3,9 +3,8 @@ import { dualigoPromptsData } from "../data/dualigo_prompts_data.js";
 
 const navigationItems = [
   { id: "home", label: "Home", icon: "home", href: "../html/index.html" },
-  { id: "students", label: "Students", icon: "users" },
-  { id: "groups", label: "Groups", icon: "book" },
-  { id: "dualigo", label: "Dualigo", icon: "user", href: "../html/dualigo.html" }
+  { id: "students", label: "Students", icon: "users", href: "../html/oquvchi.html" },
+  { id: "dualigo", label: "Dualigo", icon: "book", href: "../html/dualigo.html" }
 ];
 
 const navList = document.querySelector("#nav-list");
@@ -57,6 +56,10 @@ function escapeHtml(value) {
 }
 
 function syncThemeToggle(theme) {
+  if (!themeToggle) {
+    return;
+  }
+
   const isDark = theme === "dark";
   themeToggle.setAttribute("aria-pressed", String(isDark));
   themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
@@ -72,6 +75,10 @@ function setupThemeToggle() {
   const savedTheme = localStorage.getItem("skillset-theme");
   const initialTheme = savedTheme === "dark" ? "dark" : "light";
   applyTheme(initialTheme);
+
+  if (!themeToggle) {
+    return;
+  }
 
   themeToggle.addEventListener("click", () => {
     const nextTheme = document.body.classList.contains("dark-theme") ? "light" : "dark";

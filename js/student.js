@@ -3,6 +3,7 @@
  * JavaScript logic for the modern student dashboard.
  * Implements Chart.js configuration and dynamic interactions.
  */
+import { groupsData, getGroupById } from "../data/group_data.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Initialize Performance Chart using Chart.js
@@ -126,7 +127,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Add subtle interactive elements
     // Tab switching interaction
-    const navButtons = document.querySelectorAll('.nav-pills-custom .btn');
+    const navButtons = document.querySelectorAll('.nav-pills-custom .tab-btn');
+    const sections = document.querySelectorAll('.tab-content-section');
+    const mainPageTitle = document.getElementById('main-page-title');
+
     navButtons.forEach(button => {
         button.addEventListener('click', function() {
             // Remove active classes
@@ -139,8 +143,104 @@ document.addEventListener('DOMContentLoaded', () => {
             this.classList.remove('text-muted');
             this.classList.remove('btn-nav-hover');
             this.classList.add('btn-dark');
+
+            // Switch section
+            const targetId = this.getAttribute('data-target');
+            sections.forEach(sec => {
+                if (sec.id === targetId) {
+                    sec.classList.remove('d-none');
+                } else {
+                    sec.classList.add('d-none');
+                }
+            });
+            
+            // Update Title
+            if (mainPageTitle) {
+                if (targetId === 'section-dashboard') mainPageTitle.textContent = 'Dashboard';
+                if (targetId === 'section-speaking') mainPageTitle.textContent = 'Speaking';
+                if (targetId === 'section-progress') mainPageTitle.textContent = 'Progress';
+                if (targetId === 'section-courses') mainPageTitle.textContent = 'Courses';
+            }
         });
     });
+
+    // 2.5 Dynamic Courses & Details Rendering
+    const coursesGrid = document.getElementById('student-courses-grid');
+    if (coursesGrid) {
+        coursesGrid.innerHTML = `
+            <div class="dualigo-group-list w-100">
+                ${groupsData.map(group => `
+                    <article class="dualigo-group-card" data-course-id="${group.id}">
+                        <div class="dualigo-group-copy">
+                            <h3>${group.title}</h3>
+                            <p>${group.description}</p>
+                            <div class="dualigo-group-meta">
+                                <span>${group.level}</span>
+                                <span>${group.teacher}</span>
+                                <span>${group.subtitle}</span>
+                            </div>
+                        </div>
+                    </article>
+                `).join('')}
+            </div>
+        `;
+
+        // Handle card click
+        const courseCards = coursesGrid.querySelectorAll('.dualigo-group-card');
+        courseCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const groupId = card.getAttribute('data-course-id');
+                const group = getGroupById(groupId);
+                if (!group) return;
+
+                // Populate details
+                document.getElementById('detail-course-title').textContent = group.title;
+                document.getElementById('detail-course-desc').textContent = group.description;
+                document.getElementById('detail-course-teacher').textContent = group.teacher;
+                document.getElementById('detail-course-level').textContent = group.level;
+                document.getElementById('detail-course-schedule').textContent = group.nextLesson;
+                document.getElementById('detail-course-duration').textContent = group.duration;
+
+                // Populate tasks / lessons
+                const taskList = document.getElementById('detail-course-tasks');
+                taskList.innerHTML = group.lessons.map(lesson => `
+                    <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center border-light px-0 py-3">
+                        <div>
+                            <h6 class="mb-1 text-dark fw-semibold">${lesson.title}: ${lesson.topic}</h6>
+                            <span class="text-muted small"><i class="bi bi-calendar-event me-1"></i> ${lesson.schedule}</span>
+                        </div>
+                        <button class="btn btn-sm btn-dark rounded-pill px-3">Start Task</button>
+                    </li>
+                `).join('');
+
+                // Hide courses, show details
+                sections.forEach(sec => sec.classList.add('d-none'));
+                document.getElementById('section-course-details').classList.remove('d-none');
+                if (mainPageTitle) mainPageTitle.textContent = group.title;
+            });
+        });
+    }
+
+    // Back button in course details
+    const btnBackCourses = document.getElementById('btn-back-courses');
+    if (btnBackCourses) {
+        btnBackCourses.addEventListener('click', () => {
+            sections.forEach(sec => sec.classList.add('d-none'));
+            document.getElementById('section-courses').classList.remove('d-none');
+            if (mainPageTitle) mainPageTitle.textContent = 'Courses';
+            
+            // Sync nav pill
+            navButtons.forEach(btn => {
+                if (btn.getAttribute('data-target') === 'section-courses') {
+                    btn.classList.add('btn-dark');
+                    btn.classList.remove('text-muted', 'btn-nav-hover');
+                } else {
+                    btn.classList.remove('btn-dark');
+                    btn.classList.add('text-muted', 'btn-nav-hover');
+                }
+            });
+        });
+    }
 
     // Sidebar navigation active state
     const sidebarNavItems = document.querySelectorAll('.nav-menu .nav-item');
