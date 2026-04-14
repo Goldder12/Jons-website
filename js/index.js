@@ -1,10 +1,10 @@
 import { groupsData } from "../data/group_data.js";
+import { authStorageKey } from "../data/login_data.js";
 
 const navigationItems = [
   { id: "home", label: "Home", icon: "home", href: "../html/index.html" },
   { id: "students", label: "Students", icon: "users", href: "../html/oquvchi.html" },
-  { id: "groups", label: "Groups", icon: "book" },
-  { id: "dualigo", label: "Dualigo", icon: "user", href: "../html/dualigo.html" }
+  { id: "dualigo", label: "Dualigo", icon: "book", href: "../html/dualigo.html" }
 ];
 
 const studentRanking = [
@@ -21,6 +21,40 @@ const rankingList = document.querySelector("#ranking-list");
 const themeToggle = document.querySelector("#theme-toggle");
 const groupsPrevButton = document.querySelector("#groups-prev-button");
 const groupsNextButton = document.querySelector("#groups-next-button");
+const adminChip = document.querySelector("#admin-chip");
+const logoutButton = document.querySelector("#logout-button");
+
+function redirectToLogin() {
+  window.location.href = "../html/login.html";
+}
+
+function getAdminSession() {
+  try {
+    return JSON.parse(localStorage.getItem(authStorageKey) || "null");
+  } catch {
+    return null;
+  }
+}
+
+function setupAdminSession() {
+  const adminSession = getAdminSession();
+
+  if (!adminSession?.isAuthenticated) {
+    redirectToLogin();
+    return false;
+  }
+
+  if (adminChip) {
+    adminChip.textContent = `${adminSession.username} | admin`;
+  }
+
+  logoutButton?.addEventListener("click", () => {
+    localStorage.removeItem(authStorageKey);
+    redirectToLogin();
+  });
+
+  return true;
+}
 
 function syncThemeToggle(theme) {
   if (!themeToggle) {
@@ -211,8 +245,10 @@ function renderRanking() {
     .join("");
 }
 
-renderNavigation();
-renderGroups(groupsData, groupsGrid);
-renderRanking();
-setupGroupCarousel();
-setupThemeToggle();
+if (setupAdminSession()) {
+  renderNavigation();
+  renderGroups(groupsData, groupsGrid);
+  renderRanking();
+  setupGroupCarousel();
+  setupThemeToggle();
+}

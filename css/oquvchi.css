@@ -766,11 +766,20 @@ body.dark-theme .custom-select-option.is-selected {
 
   .sidebar {
     position: sticky;
+    left: auto;
+    right: auto;
     bottom: 14px;
+    top: auto;
     z-index: 20;
+    order: 4;
     min-height: 0;
     width: 100%;
     max-width: 272px;
+    transform: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
     margin: 4px auto 0;
     padding: 10px 12px;
     border-radius: 24px;
@@ -786,9 +795,12 @@ body.dark-theme .custom-select-option.is-selected {
 
   .sidebar-nav {
     flex: 1 1 auto;
+    justify-content: center;
   }
 
   .sidebar-nav ul {
+    flex-direction: row;
+    justify-content: center;
     gap: 8px;
     width: 100%;
   }
@@ -813,5 +825,17 @@ body.dark-theme .custom-select-option.is-selected {
 
   .student-rank {
     text-align: left;
+  }
+
+  .page-topbar {
+    order: 1;
+  }
+
+  .hero-panel {
+    order: 2;
+  }
+
+  .students-panel {
+    order: 3;
   }
 }
