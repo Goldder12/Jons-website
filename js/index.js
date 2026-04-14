@@ -2,7 +2,7 @@ import { groupsData } from "../data/group_data.js";
 
 const navigationItems = [
   { id: "home", label: "Home", icon: "home", href: "../html/index.html" },
-  { id: "students", label: "Students", icon: "users" },
+  { id: "students", label: "Students", icon: "users", href: "../html/oquvchi.html" },
   { id: "groups", label: "Groups", icon: "book" },
   { id: "dualigo", label: "Dualigo", icon: "user", href: "../html/dualigo.html" }
 ];
