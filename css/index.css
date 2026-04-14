@@ -133,10 +133,10 @@ button {
   grid-row: 1 / span 3;
   align-self: start;
   min-height: calc(100vh - 68px);
-  padding: 16px 10px;
+  padding: 16px 12px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 18px;
   border-radius: 32px;
   background: var(--sidebar-shell);
@@ -144,13 +144,46 @@ button {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
     0 24px 48px rgba(4, 6, 12, 0.22);
+  width: 72px;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.sidebar:hover,
+.sidebar:focus-within {
+  width: 255px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 32px 64px rgba(4, 6, 12, 0.3);
 }
 
 .sidebar-top,
 .sidebar-bottom {
   display: flex;
-  justify-content: center;
   width: 100%;
+}
+
+.sidebar-top {
+  gap: 16px;
+  align-items: center;
+  padding-left: 2px;
+  white-space: nowrap;
+}
+
+.brand-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.sidebar:hover .brand-name,
+.sidebar:focus-within .brand-name {
+  opacity: 1;
+  transition: opacity 0.3s ease 0.1s;
 }
 
 .brand-icon,
@@ -160,6 +193,7 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .brand-icon {
@@ -191,36 +225,72 @@ button {
   margin: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 14px;
+  width: 100%;
 }
 
 .nav-link {
-  width: 48px;
+  position: relative;
+  width: 100%;
   height: 48px;
-  border: 1px solid transparent;
   background: transparent;
   color: var(--sidebar-icon-soft);
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0;
+  justify-content: flex-start;
+  padding: 0 14px;
   border-radius: 18px;
-  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, color 0.2s ease;
+  gap: 16px;
+  white-space: nowrap;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  z-index: 1;
+}
+
+.nav-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 18px;
+  background: transparent;
+  border: 1px solid transparent;
+  z-index: -1;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-link svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.nav-label {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.sidebar:hover .nav-label,
+.sidebar:focus-within .nav-label {
+  opacity: 1;
+  transition: opacity 0.3s ease 0.1s;
 }
 
 .nav-link:hover,
 .nav-link.is-active {
   color: var(--sidebar-active-icon);
-  background: var(--sidebar-active-bg);
-  border-color: var(--sidebar-active-ring);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
-.nav-link.is-active {
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-    0 0 0 4px rgba(255, 125, 77, 0.08);
+.nav-link:hover::before,
+.nav-link.is-active::before {
+  background: var(--sidebar-active-bg);
+  border-color: var(--sidebar-active-ring);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .nav-link:hover {

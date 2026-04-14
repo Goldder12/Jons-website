@@ -1,6 +1,36 @@
 import { getGroupById } from "../data/group_data.js";
+const navigationItems = [
+  { id: "home", label: "Home", icon: "home", href: "../html/index.html" },
+  { id: "students", label: "Students", icon: "users" },
+  { id: "groups", label: "Groups", icon: "book" },
+  { id: "dualigo", label: "Dualigo", icon: "user", href: "../html/dualigo.html" }
+];
 
+const navList = document.querySelector("#nav-list");
 const themeToggle = document.querySelector("#theme-toggle");
+
+function renderNavigation() {
+  if (!navList) return;
+  navList.innerHTML = navigationItems
+    .map(
+      (item) => `
+        <li>
+          <a
+            class="nav-link ${item.id === "groups" ? "is-active" : ""}"
+            href="${item.href ?? "#"}"
+            data-nav="${item.id}"
+            aria-label="${item.label}"
+            title="${item.label}"
+          >
+            <svg aria-hidden="true"><use href="#icon-${item.icon}"></use></svg>
+            <span class="nav-label">${item.label}</span>
+          </a>
+        </li>
+      `
+    )
+    .join("");
+}
+
 const params = new URLSearchParams(window.location.search);
 const groupId = params.get("id");
 const group = getGroupById(groupId);
@@ -404,3 +434,4 @@ if (!group) {
 } else {
   renderGroupDetails(group);
 }
+renderNavigation();
