@@ -39,6 +39,15 @@ function redirectTo(url) {
   window.location.href = url;
 }
 
+function normalizeTargetPage(redirectTo, fallbackPage) {
+  if (typeof redirectTo !== "string" || !redirectTo.trim()) {
+    return fallbackPage;
+  }
+
+  const normalized = redirectTo.replace(/\\/g, "/").split("/").filter(Boolean).pop();
+  return normalized || fallbackPage;
+}
+
 function getSession() {
   try {
     return JSON.parse(localStorage.getItem(authStorageKey) || "null");
@@ -51,12 +60,13 @@ function ensureStudentSession() {
   const session = getSession();
 
   if (!session?.isAuthenticated) {
-    redirectTo("../html/login.html");
+    redirectTo("../login.html");
     return null;
   }
 
   if (session.role !== "student") {
-    redirectTo(session.redirectTo || "../html/index.html");
+    const targetPage = normalizeTargetPage(session.redirectTo, "index.html");
+    redirectTo(`../html/${targetPage}`);
     return null;
   }
 

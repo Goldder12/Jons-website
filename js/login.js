@@ -7,8 +7,18 @@ const loginError = document.querySelector("#login-error");
 
 const supportedCredentials = [adminCredentials, studentCredentials];
 
-function redirectToDashboard(redirectTo = "../html/index.html") {
-  window.location.href = redirectTo;
+function normalizeTargetPage(redirectTo, fallbackPage) {
+  if (typeof redirectTo !== "string" || !redirectTo.trim()) {
+    return fallbackPage;
+  }
+
+  const normalized = redirectTo.replace(/\\/g, "/").split("/").filter(Boolean).pop();
+  return normalized || fallbackPage;
+}
+
+function redirectToDashboard(redirectTo = "index.html") {
+  const targetPage = normalizeTargetPage(redirectTo, "index.html");
+  window.location.href = `./html/${targetPage}`;
 }
 
 function setSession(user) {

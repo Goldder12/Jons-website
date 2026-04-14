@@ -4,9 +4,26 @@
  * Implements Chart.js configuration and dynamic interactions.
  */
 import { groupsData, getGroupById } from "../data/group_data.js";
+import { authStorageKey } from "../data/login_data.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const THEME_STORAGE_KEY = 'skillset-theme';
+    const logoutButton = document.getElementById('logout-button');
+
+    function redirectToLogin() {
+        window.location.href = '../login.html';
+    }
+
+    function setupLogout() {
+        if (!logoutButton) {
+            return;
+        }
+
+        logoutButton.addEventListener('click', function() {
+            localStorage.removeItem(authStorageKey);
+            redirectToLogin();
+        });
+    }
 
     function applyTheme(theme) {
         document.body.classList.toggle('dark-mode', theme === 'dark');
@@ -33,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     setupTheme();
+    setupLogout();
 
     // 1. Initialize Performance Chart using Chart.js
     const ctx = document.getElementById('performanceChart').getContext('2d');

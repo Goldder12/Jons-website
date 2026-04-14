@@ -361,6 +361,30 @@ body.dark-mode .btn-nav-hover:hover {
   border-color: rgba(255, 255, 255, 0.55);
 }
 
+.logout-btn {
+  background: linear-gradient(135deg, #ff9954, #ff6f4b);
+  border: 1px solid rgba(255, 132, 80, 0.24);
+  color: #fff;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(255, 111, 75, 0.22);
+}
+
+.logout-btn:hover {
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(255, 111, 75, 0.26);
+}
+
+.logout-btn:focus-visible {
+  color: #fff;
+  box-shadow:
+    0 0 0 0.2rem rgba(255, 153, 84, 0.2),
+    0 14px 28px rgba(255, 111, 75, 0.26);
+}
+
 .hero-theme-toggle:hover {
   background: rgba(255, 148, 84, 0.12);
   color: var(--sidebar-active-icon);
@@ -371,6 +395,11 @@ body.dark-mode .hero-theme-toggle {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 173, 95, 0.18);
   color: #fff;
+}
+
+body.dark-mode .logout-btn {
+  border-color: rgba(255, 173, 95, 0.12);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
 }
 
 .profile-avatar {
