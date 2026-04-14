@@ -84,14 +84,10 @@
           </label>
 
           <div class="topbar-actions">
-            <button class="live-pill" type="button">Live</button>
             <button class="icon-btn" type="button" aria-label="Notifications">
               <svg>
                 <use href="#icon-bell"></use>
               </svg>
-            </button>
-            <button class="avatar-btn" type="button" aria-label="Profile">
-              <span>JS</span>
             </button>
           </div>
         </header>
@@ -214,9 +210,21 @@
             <section class="catalog-section">
               <div class="section-heading">
                 <h2>Groups</h2>
-                <button type="button">View all</button>
+                <div class="section-heading-actions">
+                  <div class="group-carousel-controls" aria-label="Groups carousel controls">
+                    <button class="group-carousel-button" id="groups-prev-button" type="button" aria-label="Previous groups">
+                      &larr;
+                    </button>
+                    <button class="group-carousel-button" id="groups-next-button" type="button" aria-label="Next groups">
+                      &rarr;
+                    </button>
+                  </div>
+                  <button type="button">View all</button>
+                </div>
               </div>
-              <div class="book-grid" id="groups-grid"></div>
+              <div class="book-grid-viewport">
+                <div class="book-grid" id="groups-grid"></div>
+              </div>
             </section>
           </div>
 
