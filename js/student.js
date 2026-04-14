@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ticks: {
                         color: '#8b92a5',
                         font: {
-                            family: "'Outfit', sans-serif",
+                            family: 'Candara, "Trebuchet MS", sans-serif',
                             size: 13
                         }
                     }
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             return value + '%';
                         },
                         font: {
-                            family: "'Outfit', sans-serif",
+                            family: 'Candara, "Trebuchet MS", sans-serif',
                             size: 13
                         }
                     }

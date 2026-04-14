@@ -28,7 +28,7 @@ body {
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
+  font-family: Candara, "Trebuchet MS", sans-serif;
   color: var(--text-main);
   background:
     radial-gradient(circle at 10% 10%, rgba(145, 234, 255, 0.3), transparent 20%),

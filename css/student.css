@@ -82,7 +82,7 @@ body.dark-mode {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Outfit', sans-serif;
+  font-family: Candara, "Trebuchet MS", sans-serif;
 }
 
 body {
@@ -555,4 +555,16 @@ body.dark-mode .form-control {
 }
 body.dark-mode .form-control::placeholder {
   color: rgba(255,255,255,0.3);
+}
+
+/* Progress Section Feedback Box */
+.feedback-box {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--glass-border);
+}
+body.dark-mode .feedback-box {
+  background: rgba(0, 0, 0, 0.2);
+}
+.teacher-feedback {
+  background: var(--card-bg);
 }

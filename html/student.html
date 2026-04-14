@@ -6,11 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Student Dashboard</title>
 
-    <!-- Google Fonts: Outfit -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <!-- Bootstrap 5 CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -61,10 +56,10 @@
                 <div class="header-spacer"></div>
 
                 <div class="nav-pills-custom glass-card px-2 py-2 rounded-pill d-none d-md-flex">
-                    <button class="btn btn-dark rounded-pill px-4">Dashboard</button>
-                    <button class="btn text-muted fw-medium rounded-pill px-4 btn-nav-hover">Speaking</button>
-                    <button class="btn text-muted fw-medium rounded-pill px-4 btn-nav-hover">Progress</button>
-                    <button class="btn text-muted fw-medium rounded-pill px-4 btn-nav-hover">Courses</button>
+                    <button class="btn btn-dark rounded-pill px-4 tab-btn" data-target="section-dashboard">Dashboard</button>
+                    <button class="btn text-muted fw-medium rounded-pill px-4 btn-nav-hover tab-btn" data-target="section-speaking">Speaking</button>
+                    <button class="btn text-muted fw-medium rounded-pill px-4 btn-nav-hover tab-btn" data-target="section-progress">Progress</button>
+                    <button class="btn text-muted fw-medium rounded-pill px-4 btn-nav-hover tab-btn" data-target="section-courses">Courses</button>
                 </div>
 
                 <div class="user-actions d-flex align-items-center gap-3">
@@ -81,9 +76,10 @@
                 </div>
             </header>
 
-            <h1 class="page-title mb-4 ms-2">Dashboard</h1>
+            <h1 class="page-title mb-4 ms-2" id="main-page-title">Dashboard</h1>
 
-            <div class="container-fluid p-0">
+            <!-- Dashboard Section -->
+            <div class="container-fluid p-0 tab-content-section" id="section-dashboard">
                 <div class="row g-4 m-0 w-100">
 
                     <!-- Left Column: Courses -->
@@ -205,12 +201,12 @@
                                 <div class="d-flex gap-2">
                                     <select
                                         class="form-select border-light bg-light rounded-pill rounded-select text-muted px-3 shadow-none">
-                                        <option>Weekly</option>
-                                        <option>Monthly</option>
-                                        <option>Yearly</option>
+                                        <option class="mx-5">Weekly</option>
+                                        <option class="mx-5">Monthly</option>
+                                        <option class="mx-5">Yearly</option>
                                     </select>
                                     <button class="btn glass-btn rounded-circle"><i
-                                            class="bi bi-arrows-angle-expand"></i></button>
+                                            class="bi bi-arrows-angle-expand mx-2"></i></button>
                                 </div>
                             </div>
 
@@ -334,74 +330,224 @@
                                     <div class="friends-list d-flex flex-column gap-3">
                                         <!-- Friend 1 -->
                                         <div class="friend-item d-flex align-items-center">
-                                            <img src="https://i.pravatar.cc/150?img=5" alt="Anna Morgan"
-                                                class="rounded-circle avatar-md me-3">
+                                            <div class="rounded-circle avatar-md me-3 d-flex align-items-center justify-content-center text-white fw-bold fs-5 shadow-sm" style="background: linear-gradient(135deg, #67d7ff, #7f7bff);">AK</div>
                                             <div class="flex-grow-1">
-                                                <h6 class="mb-0 text-dark fw-semibold">Anna Morgan</h6>
+                                                <h6 class="mb-0 text-dark fw-semibold">Aziza Karimova</h6>
                                                 <div class="text-muted small d-flex gap-2 align-items-center">
-                                                    <span><i class="bi bi-shield-check"></i> 25</span>
-                                                    <span><i class="bi bi-clock-history"></i> 832h</span>
-                                                    <span><i class="bi bi-award"></i> 48</span>
+                                                    <span><i class="bi bi-book"></i> IELTS 7.0 Track</span>
+                                                    <span><i class="bi bi-award"></i> #1</span>
                                                 </div>
                                             </div>
-                                            <div class="fw-bold fs-5 text-dark ms-2">10,568</div>
+                                            <div class="fw-bold fs-5 text-dark ms-2">98 pts</div>
                                         </div>
 
                                         <!-- Friend 2 -->
                                         <div class="friend-item d-flex align-items-center">
-                                            <img src="https://i.pravatar.cc/150?img=11" alt="Jake Thompson"
-                                                class="rounded-circle avatar-md me-3">
+                                            <div class="rounded-circle avatar-md me-3 d-flex align-items-center justify-content-center text-white fw-bold fs-5 shadow-sm" style="background: linear-gradient(135deg, #ff9f85, #ff6aac);">MA</div>
                                             <div class="flex-grow-1">
-                                                <h6 class="mb-0 text-dark fw-semibold">Jake Thompson</h6>
+                                                <h6 class="mb-0 text-dark fw-semibold">Muhammad Ali</h6>
                                                 <div class="text-muted small d-flex gap-2 align-items-center">
-                                                    <span><i class="bi bi-shield-check"></i> 23</span>
-                                                    <span><i class="bi bi-clock-history"></i> 778h</span>
-                                                    <span><i class="bi bi-award"></i> 39</span>
+                                                    <span><i class="bi bi-book"></i> Advanced Speaking</span>
+                                                    <span><i class="bi bi-award"></i> #2</span>
                                                 </div>
                                             </div>
-                                            <div class="fw-bold fs-5 text-dark ms-2">10,234</div>
+                                            <div class="fw-bold fs-5 text-dark ms-2">94 pts</div>
                                         </div>
 
                                         <!-- Friend 3 -->
                                         <div class="friend-item d-flex align-items-center">
-                                            <img src="https://i.pravatar.cc/150?img=9" alt="Sofia Bennett"
-                                                class="rounded-circle avatar-md me-3">
+                                            <div class="rounded-circle avatar-md me-3 d-flex align-items-center justify-content-center text-white fw-bold fs-5 shadow-sm" style="background: linear-gradient(135deg, #7ce5bf, #63b1ff);">LA</div>
                                             <div class="flex-grow-1">
-                                                <h6 class="mb-0 text-dark fw-semibold">Sofia Bennett</h6>
+                                                <h6 class="mb-0 text-dark fw-semibold">Lina Ahmed</h6>
                                                 <div class="text-muted small d-flex gap-2 align-items-center">
-                                                    <span><i class="bi bi-shield-check"></i> 20</span>
-                                                    <span><i class="bi bi-clock-history"></i> 742h</span>
-                                                    <span><i class="bi bi-award"></i> 33</span>
+                                                    <span><i class="bi bi-book"></i> General English</span>
+                                                    <span><i class="bi bi-award"></i> #3</span>
                                                 </div>
                                             </div>
-                                            <div class="fw-bold fs-5 text-dark ms-2">9,892</div>
+                                            <div class="fw-bold fs-5 text-dark ms-2">91 pts</div>
                                         </div>
 
                                         <!-- Friend 4 -->
                                         <div class="friend-item d-flex align-items-center">
-                                            <img src="https://i.pravatar.cc/150?img=20" alt="Emily Carter"
-                                                class="rounded-circle avatar-md me-3 border border-2 border-danger-subtle p-0"
-                                                style="padding: 1px;">
+                                            <div class="rounded-circle avatar-md me-3 d-flex align-items-center justify-content-center text-white fw-bold fs-5 shadow-sm" style="background: linear-gradient(135deg, #ffd57d, #ff8a70);">SX</div>
                                             <div class="flex-grow-1">
-                                                <h6 class="mb-0 text-dark fw-semibold">Emily Carter</h6>
+                                                <h6 class="mb-0 text-dark fw-semibold">Sardor Xasanov</h6>
                                                 <div class="text-muted small d-flex gap-2 align-items-center">
-                                                    <span class="text-danger"><i class="bi bi-shield-check"></i>
-                                                        17</span>
-                                                    <span class="text-danger"><i class="bi bi-clock-history"></i>
-                                                        643h</span>
-                                                    <span class="text-danger"><i class="bi bi-award"></i> 28</span>
+                                                    <span><i class="bi bi-book"></i> Grammar Focus</span>
+                                                    <span><i class="bi bi-award"></i> #4</span>
                                                 </div>
                                             </div>
-                                            <div class="fw-bold fs-5 text-dark ms-2">9,322</div>
+                                            <div class="fw-bold fs-5 text-dark ms-2">89 pts</div>
+                                        </div>
+
+                                        <!-- Friend 5 -->
+                                        <div class="friend-item d-flex align-items-center">
+                                            <div class="rounded-circle avatar-md me-3 d-flex align-items-center justify-content-center text-white fw-bold fs-5 shadow-sm" style="background: linear-gradient(135deg, #c7a0ff, #ff9cc4);">MN</div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0 text-dark fw-semibold">Malika Noor</h6>
+                                                <div class="text-muted small d-flex gap-2 align-items-center">
+                                                    <span><i class="bi bi-book"></i> Speaking Booster</span>
+                                                    <span><i class="bi bi-award"></i> #5</span>
+                                                </div>
+                                            </div>
+                                            <div class="fw-bold fs-5 text-dark ms-2">87 pts</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
+                </div>
+            </div>
+
+            <!-- Progress Section -->
+            <div class="container-fluid p-0 tab-content-section d-none" id="section-progress">
+                <div class="row g-4 m-0 w-100">
+                    <div class="col-12">
+                        <div class="glass-card card-wrapper h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div>
+                                    <h4 class="mb-1 text-dark fw-semibold">My Progress & Feedback</h4>
+                                    <p class="text-muted small mb-0">See your results from the chosen courses and what your teachers write about you.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row g-4">
+                                <!-- Progress Card 1 -->
+                                <div class="col-md-6">
+                                    <div class="feedback-box p-4 rounded-4 h-100 d-flex flex-column">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h5 class="fw-semibold text-dark mb-0">IELTS 7.0 Track</h5>
+                                            <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 border border-success border-opacity-25 fs-6">98% Score</span>
+                                        </div>
+                                        
+                                        <div class="progress hw-progress mb-4" style="height: 8px;">
+                                            <div class="progress-bar bg-success" style="width: 98%"></div>
+                                        </div>
+                                        
+                                        <div class="teacher-feedback glass-card mt-auto p-4 rounded-4 shadow-sm">
+                                            <div class="d-flex align-items-center gap-3 mb-3 border-bottom border-light pb-3">
+                                                <div class="rounded-circle avatar-small bg-primary bg-opacity-25 text-primary d-flex align-items-center justify-content-center fw-bold">JM</div>
+                                                <div>
+                                                    <h6 class="mb-0 text-dark fw-semibold">Mr. John</h6>
+                                                    <span class="text-muted small">Course Teacher</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <i class="bi bi-quote fs-4 text-primary opacity-50"></i>
+                                                <p class="text-dark opacity-75 mb-0 small fst-italic">"Otabek is an outstanding student. His vocabulary is expanding rapidly and he speaks with great confidence. Keep practicing writing tasks!"</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Progress Card 2 -->
+                                <div class="col-md-6">
+                                    <div class="feedback-box p-4 rounded-4 h-100 d-flex flex-column">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h5 class="fw-semibold text-dark mb-0">Speak with Confidence</h5>
+                                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 border border-primary border-opacity-25 fs-6">85% Score</span>
+                                        </div>
+                                        
+                                        <div class="progress hw-progress mb-4" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 85%"></div>
+                                        </div>
+                                        
+                                        <div class="teacher-feedback glass-card mt-auto p-4 rounded-4 shadow-sm">
+                                            <div class="d-flex align-items-center gap-3 mb-3 border-bottom border-light pb-3">
+                                                <img src="https://i.pravatar.cc/150?img=32" alt="Teacher" class="rounded-circle avatar-small">
+                                                <div>
+                                                    <h6 class="mb-0 text-dark fw-semibold">Ms. Sarah</h6>
+                                                    <span class="text-muted small">Speaking Tutor</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <i class="bi bi-quote fs-4 text-primary opacity-50"></i>
+                                                <p class="text-dark opacity-75 mb-0 small fst-italic">"Excellent participation in group discussions. Try to focus slightly more on your intonation to sound more natural when reading."</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Courses Section -->
+            <div class="container-fluid p-0 tab-content-section d-none" id="section-courses">
+                <h4 class="mb-4 text-dark fw-semibold">My Courses</h4>
+                <div class="row g-4 m-0 w-100" id="student-courses-grid">
+                    <!-- Populated by student.js -->
+                </div>
+            </div>
+
+            <!-- Single Course Detailed View Section -->
+            <div class="container-fluid p-0 tab-content-section d-none" id="section-course-details">
+                <div class="row m-0 w-100">
+                    <div class="col-12">
+                        <button class="btn btn-sm btn-outline-dark rounded-pill mb-4 px-3" id="btn-back-courses">
+                            <i class="bi bi-arrow-left me-2"></i> Back to Courses
+                        </button>
+                        
+                        <div class="glass-card card-wrapper">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="mb-0 text-dark fw-semibold" id="detail-course-title">Course Title</h4>
+                                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 fs-6">Active</span>
+                            </div>
+                            
+                            <p class="text-muted mb-4" id="detail-course-desc">Course description will appear here.</p>
+                            
+                            <div class="row g-3 mb-5">
+                                <div class="col-md-3">
+                                    <div class="p-3 rounded-4 bg-light bg-opacity-50 border border-light">
+                                        <p class="text-muted small mb-1">Teacher</p>
+                                        <h6 class="mb-0 fw-semibold" id="detail-course-teacher">Name</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="p-3 rounded-4 bg-light bg-opacity-50 border border-light">
+                                        <p class="text-muted small mb-1">Level</p>
+                                        <h6 class="mb-0 fw-semibold" id="detail-course-level">Level</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="p-3 rounded-4 bg-light bg-opacity-50 border border-light">
+                                        <p class="text-muted small mb-1">Next Lesson</p>
+                                        <h6 class="mb-0 fw-semibold" id="detail-course-schedule">Schedule</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="p-3 rounded-4 bg-light bg-opacity-50 border border-light">
+                                        <p class="text-muted small mb-1">Duration</p>
+                                        <h6 class="mb-0 fw-semibold" id="detail-course-duration">90 min</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h5 class="fw-semibold text-dark mb-3">Grading System & Tasks</h5>
+                            <div class="p-4 rounded-4 bg-info bg-opacity-10 border border-info border-opacity-25 mb-4">
+                                <div class="d-flex align-items-center gap-3 mb-2">
+                                    <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;"><i class="bi bi-check"></i></div>
+                                    <h6 class="mb-0 fw-semibold">+3 points</h6>
+                                    <span class="text-muted small ms-2">For every correct answer</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;"><i class="bi bi-x"></i></div>
+                                    <h6 class="mb-0 fw-semibold">-1 point</h6>
+                                    <span class="text-muted small ms-2">For every incorrect answer</span>
+                                </div>
+                            </div>
+                            
+                            <h5 class="fw-semibold text-dark mb-3">Recent Tasks</h5>
+                            <ul class="list-group list-group-flush bg-transparent gap-2" id="detail-course-tasks">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
         </main>
     </div>
