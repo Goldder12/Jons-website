@@ -1,17 +1,15 @@
 export const adminCredentials = {
   username: "admin",
-  password: "johns123",
   role: "admin",
   redirectTo: "index.html"
 };
 
 export const studentCredentials = {
-  username: "student1",
-  password: "student123",
+  username: "john_doe",
   role: "student",
-  displayName: "Amina Yusuf",
-  groupId: "beginner-english",
+  displayName: "John Doe",
+  groupId: "ielts-morning",
   redirectTo: "student.html"
 };
 
-export const authStorageKey = "johns-admin-session";
+export const authStorageKey = "currentUser";

@@ -25,7 +25,7 @@ const adminChip = document.querySelector("#admin-chip");
 const logoutButton = document.querySelector("#logout-button");
 
 function redirectToLogin() {
-  window.location.href = "../home.html";
+  window.location.href = "../html/index.html";
 }
 
 function getAdminSession() {
@@ -44,8 +44,13 @@ function setupAdminSession() {
     return false;
   }
 
+  if (adminSession.role !== "admin") {
+    window.location.href = "../html/student.html";
+    return false;
+  }
+
   if (adminChip) {
-    adminChip.textContent = `${adminSession.username} | admin`;
+    adminChip.textContent = `${adminSession.displayName ?? adminSession.username} | admin`;
   }
 
   logoutButton?.addEventListener("click", () => {
