@@ -1,4 +1,12 @@
 :root {
+  --bg-color:
+    radial-gradient(circle at 10% 10%, rgba(145, 234, 255, 0.3), transparent 20%),
+    radial-gradient(circle at 90% 18%, rgba(255, 164, 197, 0.22), transparent 18%),
+    linear-gradient(135deg, #faf5ff 0%, #f7eef9 48%, #fff4ec 100%);
+  --text-color: #261f4f;
+  --card-bg: rgba(255, 255, 255, 0.88);
+  --border-color: rgba(141, 120, 189, 0.16);
+  --icon-color: #261f4f;
   --panel: rgba(255, 255, 255, 0.88);
   --panel-strong: rgba(255, 255, 255, 0.96);
   --line: rgba(141, 120, 189, 0.16);
@@ -30,14 +38,19 @@ body {
 
 body {
   font-family: Candara, "Trebuchet MS", sans-serif;
-  color: var(--text-main);
-  background:
-    radial-gradient(circle at 10% 10%, rgba(145, 234, 255, 0.3), transparent 20%),
-    radial-gradient(circle at 90% 18%, rgba(255, 164, 197, 0.22), transparent 18%),
-    linear-gradient(135deg, #faf5ff 0%, #f7eef9 48%, #fff4ec 100%);
+  color: var(--text-color);
+  background: var(--bg-color);
 }
 
-body.dark-theme {
+body.dark-mode {
+  --bg-color:
+    radial-gradient(circle at 12% 16%, rgba(82, 120, 255, 0.18), transparent 22%),
+    radial-gradient(circle at 88% 18%, rgba(56, 198, 183, 0.12), transparent 20%),
+    linear-gradient(135deg, #07111e 0%, #0a1424 48%, #101a2c 100%);
+  --text-color: #edf3ff;
+  --card-bg: rgba(13, 19, 32, 0.88);
+  --border-color: rgba(148, 170, 224, 0.14);
+  --icon-color: #edf3ff;
   --panel: rgba(13, 19, 32, 0.88);
   --panel-strong: rgba(18, 26, 42, 0.96);
   --line: rgba(148, 170, 224, 0.14);
@@ -51,10 +64,6 @@ body.dark-theme {
     linear-gradient(135deg, #16141f, #1f1a28 48%, #1d2438 100%);
   --hero-text: #ffffff;
   --hero-soft: rgba(255, 241, 228, 0.76);
-  background:
-    radial-gradient(circle at 12% 16%, rgba(82, 120, 255, 0.18), transparent 22%),
-    radial-gradient(circle at 88% 18%, rgba(56, 198, 183, 0.12), transparent 20%),
-    linear-gradient(135deg, #07111e 0%, #0a1424 48%, #101a2c 100%);
 }
 
 button,
@@ -120,14 +129,14 @@ button {
   width: 42px;
   height: 42px;
   border-radius: 16px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--border-color);
   background: var(--panel-strong);
-  color: var(--text-main);
+  color: var(--icon-color);
 }
 
 .card {
   border: 1px solid rgba(255, 255, 255, 0.55);
-  background: var(--panel);
+  background: var(--card-bg);
   backdrop-filter: blur(18px);
   box-shadow: var(--shadow);
   border-radius: 22px;

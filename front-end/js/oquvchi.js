@@ -1,12 +1,15 @@
 import { groupsData } from "../data/group_data.js";
+import { initSidebar } from "./sidebar.js";
 
 const navigationItems = [
   { id: "home", label: "Home", icon: "home", href: "../html/index.html" },
   { id: "students", label: "Students", icon: "users", href: "../html/oquvchi.html" },
-  { id: "dualigo", label: "Dualigo", icon: "book", href: "../html/dualigo.html" }
+  { id: "library", label: "Library", icon: "book", href: "../html/library.html" }
 ];
 
 const navList = document.querySelector("#nav-list");
+const topNav = document.querySelector("#top-nav");
+const bottomNav = document.querySelector("#bottom-nav");
 const themeToggle = document.querySelector("#theme-toggle");
 const studentList = document.querySelector("#student-list");
 const studentsCount = document.querySelector("#students-count");
@@ -16,17 +19,11 @@ const studentLimitSelect = document.querySelector("#student-limit-select");
 const studentLimitTrigger = document.querySelector("#student-limit-trigger");
 const studentLimitValue = document.querySelector("#student-limit-value");
 const studentLimitMenu = document.querySelector("#student-limit-menu");
+const THEME_STORAGE_KEY = "theme";
 
 let selectedLimit = "15";
 
-const avatarGradients = [
-  "linear-gradient(135deg, #67d7ff, #7f7bff)",
-  "linear-gradient(135deg, #ff9f85, #ff6aac)",
-  "linear-gradient(135deg, #7ce5bf, #63b1ff)",
-  "linear-gradient(135deg, #ffd57d, #ff8a70)",
-  "linear-gradient(135deg, #8ec5ff, #c79cff)",
-  "linear-gradient(135deg, #89f7d2, #4d9dff)"
-];
+const avatarThemesCount = 6;
 
 function syncThemeToggle(theme) {
   if (!themeToggle) {
@@ -40,32 +37,35 @@ function syncThemeToggle(theme) {
 }
 
 function applyTheme(theme) {
-  document.body.classList.toggle("dark-theme", theme === "dark");
+  document.body.classList.toggle("dark-mode", theme === "dark");
   syncThemeToggle(theme);
 }
 
 function setupThemeToggle() {
-  const savedTheme = localStorage.getItem("skillset-theme");
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || localStorage.getItem("skillset-theme");
   const initialTheme = savedTheme === "dark" ? "dark" : "light";
   applyTheme(initialTheme);
+
+  window.addEventListener("storage", (event) => {
+    if (event.key === THEME_STORAGE_KEY || event.key === "skillset-theme") {
+      applyTheme(event.newValue === "dark" ? "dark" : "light");
+    }
+  });
 
   if (!themeToggle) {
     return;
   }
 
   themeToggle.addEventListener("click", () => {
-    const nextTheme = document.body.classList.contains("dark-theme") ? "light" : "dark";
+    const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
+    localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
     localStorage.setItem("skillset-theme", nextTheme);
     applyTheme(nextTheme);
   });
 }
 
 function renderNavigation() {
-  if (!navList) {
-    return;
-  }
-
-  navList.innerHTML = navigationItems
+  const sidebarMarkup = navigationItems
     .map(
       (item) => `
         <li>
@@ -83,6 +83,39 @@ function renderNavigation() {
       `
     )
     .join("");
+
+  const compactMarkup = navigationItems
+    .map(
+      (item) => `
+        <a
+          class="nav-item ${item.id === "students" ? "is-active active" : ""}"
+          href="${item.href ?? "#"}"
+          data-nav="${item.id}"
+          aria-label="${item.label}"
+          title="${item.label}"
+        >
+          <svg aria-hidden="true"><use href="#icon-${item.icon}"></use></svg>
+          <span>${item.label}</span>
+        </a>
+      `
+    )
+    .join("");
+
+  if (!navList && !topNav && !bottomNav) {
+    return;
+  }
+
+  if (navList) {
+    navList.innerHTML = sidebarMarkup;
+  }
+
+  if (topNav) {
+    topNav.innerHTML = compactMarkup;
+  }
+
+  if (bottomNav) {
+    bottomNav.innerHTML = compactMarkup;
+  }
 }
 
 function initialsFromName(name) {
@@ -117,7 +150,7 @@ function createStudentData() {
     .map((student, index) => ({
       ...student,
       rank: index + 1,
-      avatar: avatarGradients[index % avatarGradients.length]
+      themeIndex: (index % avatarThemesCount) + 1
     }));
 }
 
@@ -155,8 +188,8 @@ function createSummaryCards() {
 
 function createStudentCard(student) {
   return `
-    <a class="student-card" href="../html/student_rank.html?id=${student.id}">
-      <div class="student-avatar" style="background:${student.avatar}">
+    <a class="student-card" href="../html/student_rank.html?id=${student.id}" data-theme="${student.themeIndex}" data-score="${student.scoreValue}">
+      <div class="student-avatar">
         ${initialsFromName(student.name)}
       </div>
 
@@ -172,7 +205,7 @@ function createStudentCard(student) {
       <div class="student-progress">
         <strong>${student.score}</strong>
         <div class="progress-track" aria-hidden="true">
-          <div class="progress-bar" style="width: ${student.scoreValue}%; background:${student.avatar};"></div>
+          <div class="progress-bar"></div>
         </div>
         <p>${student.status}</p>
       </div>
@@ -280,3 +313,4 @@ renderStudents(studentsData);
 setupSearch();
 setupLimitSelect();
 setupThemeToggle();
+initSidebar();

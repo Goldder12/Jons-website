@@ -6,227 +6,6 @@
   <title>Johns Platform</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/index.css">
-  <style>
-    .auth-screen {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .auth-shell {
-      width: min(100%, 1080px);
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .auth-card,
-    .auth-showcase {
-      border: 1px solid rgba(255, 255, 255, 0.55);
-      border-radius: 32px;
-      background: rgba(255, 255, 255, 0.82);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 28px 70px rgba(176, 144, 216, 0.2);
-    }
-
-    .auth-showcase {
-      padding: 36px;
-      background:
-        radial-gradient(circle at top left, rgba(255, 197, 220, 0.82), transparent 24%),
-        radial-gradient(circle at 80% 20%, rgba(201, 186, 255, 0.75), transparent 22%),
-        linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(248, 241, 255, 0.92));
-      color: #2d214f;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 28px;
-    }
-
-    .auth-brand {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .auth-brand img {
-      width: 72px;
-      height: 72px;
-      border-radius: 22px;
-      object-fit: cover;
-      background: #fff;
-      padding: 6px;
-      box-shadow: 0 14px 32px rgba(78, 55, 120, 0.12);
-    }
-
-    .auth-eyebrow {
-      margin: 0 0 6px;
-      color: #8a6fd1;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .auth-showcase h1 {
-      margin: 0;
-      font-size: clamp(2rem, 3vw, 3rem);
-      line-height: 1.05;
-    }
-
-    .auth-showcase p {
-      margin: 0;
-      color: #6f658d;
-      line-height: 1.6;
-    }
-
-    .auth-feature-list {
-      display: grid;
-      gap: 14px;
-    }
-
-    .auth-feature {
-      padding: 16px 18px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.58);
-      border: 1px solid rgba(148, 128, 196, 0.12);
-    }
-
-    .auth-feature strong {
-      display: block;
-      margin-bottom: 6px;
-      color: #2d214f;
-    }
-
-    .auth-card {
-      padding: 28px;
-    }
-
-    .auth-toggle {
-      display: inline-flex;
-      padding: 6px;
-      border-radius: 999px;
-      background: rgba(111, 108, 255, 0.08);
-      gap: 6px;
-    }
-
-    .auth-toggle-btn {
-      border: 0;
-      border-radius: 999px;
-      padding: 12px 22px;
-      background: transparent;
-      color: #7a7096;
-      font-weight: 700;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-    }
-
-    .auth-toggle-btn.is-active {
-      background: linear-gradient(135deg, #ff9954, #ff6f4b);
-      color: #fff;
-      box-shadow: 0 12px 24px rgba(255, 111, 75, 0.18);
-    }
-
-    .auth-form-panel {
-      margin-top: 26px;
-    }
-
-    .auth-form-panel h2 {
-      margin: 0 0 8px;
-      color: #2d214f;
-      font-size: 1.8rem;
-    }
-
-    .auth-form-panel p {
-      margin: 0;
-      color: #7a7096;
-    }
-
-    .auth-form {
-      margin-top: 24px;
-    }
-
-    .auth-form .form-label {
-      color: #6c6289;
-      font-size: 0.84rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .auth-form .form-control {
-      min-height: 50px;
-      border-radius: 16px;
-      border: 1px solid rgba(148, 128, 196, 0.14);
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: none;
-      color: #251f4f;
-      font-weight: 700;
-      padding-inline: 16px;
-    }
-
-    .auth-form .form-control:focus {
-      border-color: rgba(111, 108, 255, 0.38);
-      box-shadow: 0 0 0 0.2rem rgba(111, 108, 255, 0.1);
-    }
-
-    .auth-submit {
-      width: 100%;
-      min-height: 52px;
-      border: 0;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #ff9954, #ff6f4b);
-      color: #fff;
-      font-weight: 700;
-      box-shadow: 0 16px 28px rgba(255, 111, 75, 0.18);
-    }
-
-    .auth-submit:hover {
-      transform: translateY(-1px);
-    }
-
-    .auth-feedback {
-      min-height: 24px;
-      margin-top: 12px;
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-
-    .auth-feedback.is-error {
-      color: #d14773;
-    }
-
-    .auth-feedback.is-success {
-      color: #2c8d73;
-    }
-
-    @media (max-width: 991.98px) {
-      .auth-shell {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 575.98px) {
-      .auth-screen {
-        padding: 16px;
-      }
-
-      .auth-card,
-      .auth-showcase {
-        padding: 22px;
-        border-radius: 24px;
-      }
-
-      .auth-toggle {
-        width: 100%;
-      }
-
-      .auth-toggle-btn {
-        flex: 1 1 50%;
-      }
-    }
-  </style>
 </head>
 <body>
   <section class="auth-screen" id="auth-screen">
@@ -376,7 +155,9 @@
   <div class="page-shell d-none" id="admin-shell">
     <main class="dashboard">
       <section class="content card">
-        <aside class="sidebar" aria-label="Sidebar navigation">
+        <div class="sidebar-overlay" data-sidebar-overlay></div>
+
+        <aside class="sidebar" id="app-sidebar" data-sidebar aria-label="Sidebar navigation">
           <div class="sidebar-top">
             <span class="brand-icon" aria-hidden="true">
               <img class="brand-image" src="../img/photo_2023-03-10_05-57-29.jpg" alt="John's logo">
@@ -388,8 +169,21 @@
           </nav>
         </aside>
 
+        <nav class="top-nav card-lite" id="top-nav" aria-label="Tablet navigation"></nav>
+
         <header class="topbar">
           <div class="topbar-actions">
+            <button
+              class="icon-btn sidebar-toggle"
+              id="sidebar-toggle"
+              type="button"
+              aria-label="Open sidebar"
+              aria-controls="app-sidebar"
+              aria-expanded="false"
+              data-sidebar-toggle
+            >
+              <svg aria-hidden="true"><use href="#icon-menu"></use></svg>
+            </button>
             <div class="admin-chip" id="admin-chip">Admin</div>
             <button class="logout-btn" id="logout-button" type="button" aria-label="Logout" title="Logout">
               <svg aria-hidden="true"><use href="#icon-logout"></use></svg>
@@ -549,6 +343,8 @@
       </section>
     </main>
   </div>
+
+  <nav class="bottom-nav" id="bottom-nav" aria-label="Mobile navigation"></nav>
 
   <script type="module" src="../js/login.js"></script>
 </body>

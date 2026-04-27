@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johns Admin Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/admin-library.css">
+</head>
+
+<body>
+    <main class="admin-library-page">
+        <div class="container-fluid admin-library-container">
+            <header class="admin-library-header">
+                <div>
+                    <p class="admin-library-eyebrow">Johns Education Center</p>
+                    <h1 class="admin-library-title">Library Admin Panel</h1>
+                    <p class="admin-library-subtitle">Upload, edit, delete, and manage PDF books for students.</p>
+                </div>
+
+                <div class="admin-library-header__actions">
+                    <a class="btn btn-outline-light admin-nav-btn" href="./index.html">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a class="btn btn-outline-light admin-nav-btn" href="./library.html">
+                        <i class="bi bi-book"></i>
+                        <span>Student Library</span>
+                    </a>
+                    <button class="btn admin-theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+                        <i class="bi bi-moon"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="alert d-none admin-feedback" id="admin-library-feedback" role="alert"></div>
+
+            <section class="admin-panel-card">
+                <div class="admin-panel-card__head">
+                    <div>
+                        <p class="admin-section-label">Create book</p>
+                        <h2>Add a new PDF book</h2>
+                    </div>
+                </div>
+
+                <form class="admin-book-form" id="create-book-form" enctype="multipart/form-data" novalidate>
+                    <div class="row g-3">
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label" for="create-title">Title</label>
+                            <input class="form-control admin-control" id="create-title" name="title" type="text" maxlength="120" required>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label" for="create-level">Level</label>
+                            <select class="form-select admin-control" id="create-level" name="level" required>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate" selected>Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="create-description">Description</label>
+                            <textarea class="form-control admin-control admin-control--textarea" id="create-description" name="description" rows="4" maxlength="320" required></textarea>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label" for="create-pdf">PDF file</label>
+                            <input class="form-control admin-control" id="create-pdf" name="pdf" type="file" accept="application/pdf" required>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label" for="create-cover">Cover image</label>
+                            <input class="form-control admin-control" id="create-cover" name="cover" type="file" accept="image/png,image/jpeg,image/webp" required>
+                        </div>
+                    </div>
+
+                    <div class="admin-form-actions">
+                        <button class="btn btn-light" type="reset">Reset</button>
+                        <button class="btn admin-primary-btn" id="create-submit" type="submit">
+                            <i class="bi bi-cloud-arrow-up"></i>
+                            <span>Upload Book</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="admin-panel-card">
+                <div class="admin-panel-card__head">
+                    <div>
+                        <p class="admin-section-label">Book database</p>
+                        <h2>All library books</h2>
+                    </div>
+                    <span class="book-count-pill" id="admin-book-count">0 books</span>
+                </div>
+
+                <div class="admin-table-wrap">
+                    <table class="table admin-books-table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Book</th>
+                                <th scope="col">Level</th>
+                                <th scope="col">PDF</th>
+                                <th scope="col" class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-books-table-body"></tbody>
+                    </table>
+                </div>
+
+                <div class="admin-empty-state d-none" id="admin-empty-state">
+                    <i class="bi bi-journal-x"></i>
+                    <p>No books available yet.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="editBookModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content admin-edit-modal">
+                <div class="modal-header border-0">
+                    <div>
+                        <p class="admin-section-label mb-1">Update book</p>
+                        <h5 class="modal-title" id="editBookModalTitle">Edit book details</h5>
+                    </div>
+                    <button type="button" class="btn-close admin-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form id="edit-book-form" enctype="multipart/form-data" novalidate>
+                    <div class="modal-body pt-0">
+                        <input id="edit-book-id" name="id" type="hidden">
+
+                        <div class="row g-3">
+                            <div class="col-12 col-lg-6">
+                                <label class="form-label" for="edit-title">Title</label>
+                                <input class="form-control admin-control" id="edit-title" name="title" type="text" maxlength="120" required>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label class="form-label" for="edit-level">Level</label>
+                                <select class="form-select admin-control" id="edit-level" name="level" required>
+                                    <option value="Beginner">Beginner</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="edit-description">Description</label>
+                                <textarea class="form-control admin-control admin-control--textarea" id="edit-description" name="description" rows="4" maxlength="320" required></textarea>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label class="form-label" for="edit-pdf">Replace PDF</label>
+                                <input class="form-control admin-control" id="edit-pdf" name="pdf" type="file" accept="application/pdf">
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label class="form-label" for="edit-cover">Replace cover</label>
+                                <input class="form-control admin-control" id="edit-cover" name="cover" type="file" accept="image/png,image/jpeg,image/webp">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                        <button class="btn admin-primary-btn" id="edit-submit" type="submit">
+                            <i class="bi bi-save2"></i>
+                            <span>Save Changes</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../js/admin-library.js"></script>
+</body>
+
+</html>

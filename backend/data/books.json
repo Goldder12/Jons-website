@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "title": "English Grammar in Use",
+    "level": "Intermediate",
+    "description": "Build stronger grammar skills with clear explanations and practical exercises.",
+    "file": "/uploads/books/english-grammar-in-use.pdf",
+    "cover": "/uploads/covers/english-grammar-in-use.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Basic English Vocabulary",
+    "level": "Beginner",
+    "description": "Learn essential words and phrases for confident everyday communication.",
+    "file": "/uploads/books/basic-english-vocabulary.pdf",
+    "cover": "/uploads/covers/basic-english-vocabulary.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Advanced Reading Skills",
+    "level": "Advanced",
+    "description": "Improve reading fluency with structured passages and comprehension practice.",
+    "file": "/uploads/books/advanced-reading-skills.pdf",
+    "cover": "/uploads/covers/advanced-reading-skills.jpg"
+  },
+  {
+    "id": 4,
+    "title": "IELTS Writing Essentials",
+    "level": "Intermediate",
+    "description": "Develop IELTS writing skills with focused guidance on structure and vocabulary.",
+    "file": "/uploads/books/ielts-writing-essentials.pdf",
+    "cover": "/uploads/covers/ielts-writing-essentials.jpg"
+  }
+]

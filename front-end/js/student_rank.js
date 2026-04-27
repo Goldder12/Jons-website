@@ -4,6 +4,7 @@ const themeToggle = document.querySelector("#theme-toggle");
 const params = new URLSearchParams(window.location.search);
 const studentId = params.get("id");
 const student = getStudentById(studentId);
+const THEME_STORAGE_KEY = "theme";
 
 if ("scrollRestoration" in window.history) {
   window.history.scrollRestoration = "manual";
@@ -21,21 +22,28 @@ function syncThemeToggle(theme) {
 }
 
 function applyTheme(theme) {
-  document.body.classList.toggle("dark-theme", theme === "dark");
+  document.body.classList.toggle("dark-mode", theme === "dark");
   syncThemeToggle(theme);
 }
 
 function setupThemeToggle() {
-  const savedTheme = localStorage.getItem("skillset-theme");
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || localStorage.getItem("skillset-theme");
   const initialTheme = savedTheme === "dark" ? "dark" : "light";
   applyTheme(initialTheme);
+
+  window.addEventListener("storage", (event) => {
+    if (event.key === THEME_STORAGE_KEY || event.key === "skillset-theme") {
+      applyTheme(event.newValue === "dark" ? "dark" : "light");
+    }
+  });
 
   if (!themeToggle) {
     return;
   }
 
   themeToggle.addEventListener("click", () => {
-    const nextTheme = document.body.classList.contains("dark-theme") ? "light" : "dark";
+    const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
+    localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
     localStorage.setItem("skillset-theme", nextTheme);
     applyTheme(nextTheme);
   });

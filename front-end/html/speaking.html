@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johns Speaking Practice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/speaking.css">
+</head>
+
+<body>
+    <main class="speaking-page">
+        <div class="container-fluid speaking-container">
+            <header class="speaking-header">
+                <div>
+                    <p class="speaking-eyebrow">Johns AI Speaking Lab</p>
+                    <h1>IELTS & CEFR Speaking Practice</h1>
+                    <p class="speaking-subtitle">Record your answer or upload audio to receive transcript-based AI feedback and an IELTS-style score.</p>
+                </div>
+
+                <div class="speaking-header__actions">
+                    <a class="btn speaking-link-btn" href="./student.html">
+                        <i class="bi bi-house-door"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a class="btn speaking-link-btn" href="./library.html">
+                        <i class="bi bi-book"></i>
+                        <span>Library</span>
+                    </a>
+                    <button class="btn theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+                        <i class="bi bi-moon"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="alert d-none speaking-feedback" id="speaking-feedback" role="alert"></div>
+
+            <section class="speaking-grid">
+                <article class="speaking-card speaking-task-card">
+                    <div class="speaking-card__head">
+                        <div>
+                            <p class="speaking-section-label">Speaking task</p>
+                            <h2>Choose a question</h2>
+                        </div>
+                        <span class="question-level" id="question-level">IELTS</span>
+                    </div>
+
+                    <label class="form-label" for="question-select">Question</label>
+                    <select class="form-select speaking-control" id="question-select"></select>
+
+                    <div class="question-preview" id="question-preview">
+                        Select a question to begin speaking practice.
+                    </div>
+                </article>
+
+                <article class="speaking-card recording-card">
+                    <div class="speaking-card__head">
+                        <div>
+                            <p class="speaking-section-label">Microphone</p>
+                            <h2>Record your answer</h2>
+                        </div>
+                        <span class="recording-status" id="recording-status">Ready</span>
+                    </div>
+
+                    <div class="recording-controls">
+                        <button class="btn record-btn" id="start-recording" type="button">
+                            <i class="bi bi-mic"></i>
+                            <span>Start Recording</span>
+                        </button>
+                        <button class="btn stop-btn" id="stop-recording" type="button" disabled>
+                            <i class="bi bi-stop-circle"></i>
+                            <span>Stop</span>
+                        </button>
+                    </div>
+
+                    <audio class="audio-preview d-none" id="recorded-audio" controls></audio>
+
+                    <label class="form-label mt-3" for="live-transcript">Live transcript</label>
+                    <textarea class="form-control speaking-control speaking-textarea" id="live-transcript" placeholder="Your transcript will appear here when browser speech recognition is available. You can edit it before submitting."></textarea>
+
+                    <button class="btn submit-speaking-btn" id="submit-recording" type="button" disabled>
+                        <i class="bi bi-stars"></i>
+                        <span>Analyze Recording</span>
+                    </button>
+                </article>
+            </section>
+
+            <section class="speaking-card upload-card">
+                <div class="speaking-card__head">
+                    <div>
+                        <p class="speaking-section-label">Audio upload</p>
+                        <h2>Upload an MP3, WAV, WEBM, OGG, or M4A file</h2>
+                    </div>
+                </div>
+
+                <form class="upload-form" id="upload-form" enctype="multipart/form-data" novalidate>
+                    <div class="row g-3">
+                        <div class="col-12 col-lg-5">
+                            <label class="form-label" for="audio-upload">Audio file</label>
+                            <input class="form-control speaking-control" id="audio-upload" name="audio" type="file" accept=".mp3,.wav,.webm,.ogg,.m4a,audio/*" required>
+                        </div>
+                        <div class="col-12 col-lg-7">
+                            <label class="form-label" for="manual-transcript">Optional transcript</label>
+                            <input class="form-control speaking-control" id="manual-transcript" name="transcript" type="text" placeholder="Paste transcript here to skip server-side STT">
+                        </div>
+                    </div>
+
+                    <button class="btn submit-speaking-btn" id="submit-upload" type="submit">
+                        <i class="bi bi-cloud-arrow-up"></i>
+                        <span>Analyze Upload</span>
+                    </button>
+                </form>
+            </section>
+
+            <section class="speaking-card admin-question-card d-none" id="admin-question-card">
+                <div class="speaking-card__head">
+                    <div>
+                        <p class="speaking-section-label">Admin</p>
+                        <h2>Add speaking questions</h2>
+                    </div>
+                </div>
+
+                <form id="question-form" class="question-form" novalidate>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-3">
+                            <label class="form-label" for="new-question-level">Level</label>
+                            <select class="form-select speaking-control" id="new-question-level" name="level" required>
+                                <option value="A2">A2</option>
+                                <option value="B1">B1</option>
+                                <option value="B2">B2</option>
+                                <option value="IELTS" selected>IELTS</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <label class="form-label" for="new-question-text">Question</label>
+                            <input class="form-control speaking-control" id="new-question-text" name="question" type="text" maxlength="260" required>
+                        </div>
+                    </div>
+                    <button class="btn submit-speaking-btn" id="submit-question" type="submit">
+                        <i class="bi bi-plus-circle"></i>
+                        <span>Add Question</span>
+                    </button>
+                </form>
+            </section>
+
+            <section class="result-panel d-none" id="result-panel">
+                <div class="score-card">
+                    <span>IELTS Band</span>
+                    <strong id="score-value">0.0</strong>
+                </div>
+
+                <div class="result-content">
+                    <article class="result-block result-block--transcript">
+                        <p class="speaking-section-label">Transcript</p>
+                        <p id="result-transcript"></p>
+                    </article>
+
+                    <div class="result-grid">
+                        <article class="result-block">
+                            <h3>Fluency & Coherence</h3>
+                            <p id="result-fluency"></p>
+                        </article>
+                        <article class="result-block">
+                            <h3>Vocabulary</h3>
+                            <p id="result-vocabulary"></p>
+                        </article>
+                        <article class="result-block">
+                            <h3>Grammar</h3>
+                            <p id="result-grammar"></p>
+                        </article>
+                        <article class="result-block">
+                            <h3>Pronunciation</h3>
+                            <p id="result-pronunciation"></p>
+                        </article>
+                    </div>
+
+                    <div class="result-grid">
+                        <article class="result-block">
+                            <h3>Mistakes</h3>
+                            <ul id="result-mistakes"></ul>
+                        </article>
+                        <article class="result-block">
+                            <h3>Improvement Tips</h3>
+                            <ul id="result-suggestions"></ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../js/speaking.js"></script>
+</body>
+
+</html>

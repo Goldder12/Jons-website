@@ -1,9 +1,10 @@
 import { groupsData, getGroupById } from "../data/group_data.js";
 import { authStorageKey } from "../data/login_data.js";
+import { initResponsiveNav } from "./responsive-nav.js";
 import { findUserById, updateUser } from "../data/users_data.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    const THEME_STORAGE_KEY = "skillset-theme";
+    const THEME_STORAGE_KEY = "theme";
     const logoutButton = document.getElementById("logout-button");
     const profileModalElement = document.getElementById("studentProfileModal");
     const profileTrigger = document.getElementById("open-profile-modal");
@@ -25,6 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!student) {
         return;
     }
+
+    let performanceChart = null;
 
     function getCurrentUser() {
         try {
@@ -83,10 +86,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function applyTheme(theme) {
         document.body.classList.toggle("dark-mode", theme === "dark");
+        updatePerformanceChartTheme();
+    }
+
+    function updatePerformanceChartTheme() {
+        if (!performanceChart) {
+            return;
+        }
+
+        const styles = window.getComputedStyle(document.body);
+        const tickColor = styles.getPropertyValue("--text-soft").trim() || "#8b92a5";
+        const gridColor = styles.getPropertyValue("--line").trim() || "rgba(0,0,0,0.04)";
+        const tooltipBackground = document.body.classList.contains("dark-mode") ? "#111827" : "#1e2025";
+
+        performanceChart.options.plugins.tooltip.backgroundColor = tooltipBackground;
+        performanceChart.options.scales.x.ticks.color = tickColor;
+        performanceChart.options.scales.y.ticks.color = tickColor;
+        performanceChart.options.scales.y.grid.color = gridColor;
+        performanceChart.update();
     }
 
     function setupTheme() {
-        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || localStorage.getItem("skillset-theme");
         applyTheme(savedTheme === "dark" ? "dark" : "light");
 
         const themeToggleBtn = document.getElementById("theme-toggle");
@@ -94,12 +115,13 @@ document.addEventListener("DOMContentLoaded", () => {
             themeToggleBtn.addEventListener("click", () => {
                 const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
                 localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+                localStorage.setItem("skillset-theme", nextTheme);
                 applyTheme(nextTheme);
             });
         }
 
         window.addEventListener("storage", (event) => {
-            if (event.key === THEME_STORAGE_KEY) {
+            if (event.key === THEME_STORAGE_KEY || event.key === "skillset-theme") {
                 applyTheme(event.newValue === "dark" ? "dark" : "light");
             }
         });
@@ -365,6 +387,14 @@ document.addEventListener("DOMContentLoaded", () => {
             resetPasswordForm();
             passwordCollapse?.hide();
             renderStudent(student);
+
+            const params = new URLSearchParams(window.location.search);
+            if (params.get("panel") === "profile") {
+                params.delete("panel");
+                const nextUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ""}`;
+                window.history.replaceState({}, "", nextUrl);
+                initResponsiveNav({ profileTriggerSelector: "#open-profile-modal" });
+            }
         });
 
         profileTrigger.addEventListener("click", () => {
@@ -388,6 +418,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupTheme();
     setupLogout();
     setupProfileModal();
+    initResponsiveNav({ profileTriggerSelector: "#open-profile-modal" });
 
     const chartCanvas = document.getElementById("performanceChart");
     if (chartCanvas) {
@@ -402,7 +433,7 @@ document.addEventListener("DOMContentLoaded", () => {
             pinkGradient.addColorStop(0, "rgba(255, 123, 165, 0.4)");
             pinkGradient.addColorStop(1, "rgba(255, 123, 165, 0.0)");
 
-            new Chart(ctx, {
+            performanceChart = new Chart(ctx, {
                 type: "line",
                 data: {
                     labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -506,6 +537,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
+            updatePerformanceChartTheme();
         }
     }
 
@@ -523,12 +555,12 @@ document.addEventListener("DOMContentLoaded", () => {
     navButtons.forEach((button) => {
         button.addEventListener("click", function () {
             navButtons.forEach((btn) => {
-                btn.classList.remove("btn-dark");
-                btn.classList.add("text-muted", "btn-nav-hover");
+                btn.classList.remove("active");
+                btn.setAttribute("aria-selected", "false");
             });
 
-            this.classList.remove("text-muted", "btn-nav-hover");
-            this.classList.add("btn-dark");
+            this.classList.add("active");
+            this.setAttribute("aria-selected", "true");
 
             const targetId = tabTargetMap[this.id];
             sections.forEach((section) => {
@@ -609,11 +641,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             navButtons.forEach((button) => {
                 if (button.id === "tab-courses") {
-                    button.classList.add("btn-dark");
-                    button.classList.remove("text-muted", "btn-nav-hover");
+                    button.classList.add("active");
+                    button.setAttribute("aria-selected", "true");
                 } else {
-                    button.classList.remove("btn-dark");
-                    button.classList.add("text-muted", "btn-nav-hover");
+                    button.classList.remove("active");
+                    button.setAttribute("aria-selected", "false");
                 }
             });
         });

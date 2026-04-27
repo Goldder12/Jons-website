@@ -45,7 +45,9 @@
 
   <div class="page-shell">
     <main class="dashboard card">
-      <aside class="sidebar" aria-label="Sidebar navigation">
+      <div class="sidebar-overlay" data-sidebar-overlay></div>
+
+      <aside class="sidebar" id="app-sidebar" data-sidebar aria-label="Sidebar navigation">
         <div class="sidebar-top">
           <span class="brand-icon" aria-hidden="true">
             <img class="brand-image" src="../img/photo_2023-03-10_05-57-29.jpg" alt="John's logo">
@@ -58,8 +60,21 @@
       </aside>
 
       <section class="page-main">
+        <nav class="top-nav card-lite" id="top-nav" aria-label="Tablet navigation"></nav>
+
         <header class="page-topbar">
           <div>
+            <button
+              class="theme-toggle sidebar-toggle"
+              id="sidebar-toggle"
+              type="button"
+              aria-label="Open sidebar"
+              aria-controls="app-sidebar"
+              aria-expanded="false"
+              data-sidebar-toggle
+            >
+              <svg><use href="#icon-menu"></use></svg>
+            </button>
             <p class="eyebrow">Johns English Center</p>
             <h1>O'quvchilar paneli</h1>
             <p class="page-description">Birinchi ochilganda barcha o'quvchilar ro'yxati shu yerda ko'rinadi.</p>
@@ -135,6 +150,8 @@
       </section>
     </main>
   </div>
+
+  <nav class="bottom-nav" id="bottom-nav" aria-label="Mobile navigation"></nav>
 
   <script type="module" src="../js/oquvchi.js"></script>
 </body>

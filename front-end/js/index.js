@@ -1,21 +1,24 @@
 import { groupsData } from "../data/group_data.js";
 import { authStorageKey } from "../data/login_data.js";
+import { initSidebar } from "./sidebar.js";
 
 const navigationItems = [
   { id: "home", label: "Home", icon: "home", href: "../html/index.html" },
   { id: "students", label: "Students", icon: "users", href: "../html/oquvchi.html" },
-  { id: "dualigo", label: "Dualigo", icon: "book", href: "../html/dualigo.html" }
+  { id: "library", label: "Library", icon: "book", href: "../html/library.html" }
 ];
 
 const studentRanking = [
-  { name: "Aziza Karimova", level: "IELTS 7.0 Track", score: "98 pts", rank: "#1", color: "linear-gradient(135deg, #67d7ff, #7f7bff)" },
-  { name: "Muhammad Ali", level: "Advanced Speaking", score: "94 pts", rank: "#2", color: "linear-gradient(135deg, #ff9f85, #ff6aac)" },
-  { name: "Lina Ahmed", level: "General English", score: "91 pts", rank: "#3", color: "linear-gradient(135deg, #7ce5bf, #63b1ff)" },
-  { name: "Sardor Xasanov", level: "Grammar Focus", score: "89 pts", rank: "#4", color: "linear-gradient(135deg, #ffd57d, #ff8a70)" },
-  { name: "Malika Noor", level: "Speaking Booster", score: "87 pts", rank: "#5", color: "linear-gradient(135deg, #c7a0ff, #ff9cc4)" }
+  { name: "Aziza Karimova", level: "IELTS 7.0 Track", score: "98 pts", rank: "#1" },
+  { name: "Muhammad Ali", level: "Advanced Speaking", score: "94 pts", rank: "#2" },
+  { name: "Lina Ahmed", level: "General English", score: "91 pts", rank: "#3" },
+  { name: "Sardor Xasanov", level: "Grammar Focus", score: "89 pts", rank: "#4" },
+  { name: "Malika Noor", level: "Speaking Booster", score: "87 pts", rank: "#5" }
 ];
 
 const navList = document.querySelector("#nav-list");
+const topNav = document.querySelector("#top-nav");
+const bottomNav = document.querySelector("#bottom-nav");
 const groupsGrid = document.querySelector("#groups-grid");
 const rankingList = document.querySelector("#ranking-list");
 const themeToggle = document.querySelector("#theme-toggle");
@@ -23,6 +26,7 @@ const groupsPrevButton = document.querySelector("#groups-prev-button");
 const groupsNextButton = document.querySelector("#groups-next-button");
 const adminChip = document.querySelector("#admin-chip");
 const logoutButton = document.querySelector("#logout-button");
+const THEME_STORAGE_KEY = "theme";
 
 function redirectToLogin() {
   window.location.href = "../html/index.html";
@@ -73,21 +77,28 @@ function syncThemeToggle(theme) {
 }
 
 function applyTheme(theme) {
-  document.body.classList.toggle("dark-theme", theme === "dark");
+  document.body.classList.toggle("dark-mode", theme === "dark");
   syncThemeToggle(theme);
 }
 
 function setupThemeToggle() {
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || localStorage.getItem("skillset-theme");
+  const initialTheme = savedTheme === "dark" ? "dark" : "light";
+  applyTheme(initialTheme);
+
+  window.addEventListener("storage", (event) => {
+    if (event.key === THEME_STORAGE_KEY || event.key === "skillset-theme") {
+      applyTheme(event.newValue === "dark" ? "dark" : "light");
+    }
+  });
+
   if (!themeToggle) {
     return;
   }
 
-  const savedTheme = localStorage.getItem("skillset-theme");
-  const initialTheme = savedTheme === "dark" ? "dark" : "light";
-  applyTheme(initialTheme);
-
   themeToggle.addEventListener("click", () => {
-    const nextTheme = document.body.classList.contains("dark-theme") ? "light" : "dark";
+    const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
+    localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
     localStorage.setItem("skillset-theme", nextTheme);
     applyTheme(nextTheme);
   });
@@ -98,11 +109,12 @@ function renderNavigation() {
   const activeNavByPage = {
     "": "home",
     "index.html": "home",
-    "dualigo.html": "dualigo"
+    "oquvchi.html": "students",
+    "library.html": "library"
   };
   const activeNavId = activeNavByPage[currentPage] ?? "home";
 
-  navList.innerHTML = navigationItems
+  const sidebarMarkup = navigationItems
     .map(
       (item) => `
         <li>
@@ -120,6 +132,35 @@ function renderNavigation() {
       `
     )
     .join("");
+
+  const compactMarkup = navigationItems
+    .map(
+      (item) => `
+        <a
+          class="nav-item ${item.id === activeNavId ? "is-active active" : ""}"
+          href="${item.href ?? "#"}"
+          data-nav="${item.id}"
+          aria-label="${item.label}"
+          title="${item.label}"
+        >
+          <svg aria-hidden="true"><use href="#icon-${item.icon}"></use></svg>
+          <span>${item.label}</span>
+        </a>
+      `
+    )
+    .join("");
+
+  if (navList) {
+    navList.innerHTML = sidebarMarkup;
+  }
+
+  if (topNav) {
+    topNav.innerHTML = compactMarkup;
+  }
+
+  if (bottomNav) {
+    bottomNav.innerHTML = compactMarkup;
+  }
 }
 
 function createShapes(scene) {
@@ -148,7 +189,7 @@ function renderGroups(groups, target) {
           <div
             class="book-thumb"
             data-scene="${group.scene}"
-            style="--card-a:${group.colors[0]}; --card-b:${group.colors[1]};"
+            data-group-theme="${group.id}"
           >
             ${createShapes(group.scene)}
             <span class="book-badge">
@@ -232,9 +273,9 @@ function initialsFromName(name) {
 function renderRanking() {
   rankingList.innerHTML = studentRanking
     .map(
-      (item) => `
+      (item, index) => `
         <article class="ranking-item">
-          <div class="ranking-avatar" style="background:${item.color}">
+          <div class="ranking-avatar" data-rank-theme="${(index % 5) + 1}">
             ${initialsFromName(item.name)}
           </div>
           <div>
@@ -257,4 +298,5 @@ if (setupAdminSession()) {
   renderRanking();
   setupGroupCarousel();
   setupThemeToggle();
+  initSidebar();
 }

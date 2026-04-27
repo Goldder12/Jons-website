@@ -18,8 +18,24 @@ const registerForm = document.getElementById("register-form");
 const loginFeedback = document.getElementById("login-feedback");
 const registerFeedback = document.getElementById("register-feedback");
 const loginEmailInput = document.getElementById("login-email");
+const THEME_STORAGE_KEY = "theme";
 
 let dashboardBootPromise = null;
+
+function applyTheme(theme) {
+  document.body.classList.toggle("dark-mode", theme === "dark");
+}
+
+function setupTheme() {
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || localStorage.getItem("skillset-theme");
+  applyTheme(savedTheme === "dark" ? "dark" : "light");
+
+  window.addEventListener("storage", (event) => {
+    if (event.key === THEME_STORAGE_KEY || event.key === "skillset-theme") {
+      applyTheme(event.newValue === "dark" ? "dark" : "light");
+    }
+  });
+}
 
 function getCurrentUser() {
   try {
@@ -198,4 +214,5 @@ function setupAuthInteractions() {
 }
 
 setupAuthInteractions();
+setupTheme();
 handleInitialRoute();

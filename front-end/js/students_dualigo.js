@@ -1,6 +1,7 @@
 import { authStorageKey, studentCredentials } from "../data/login_data.js";
 import { dualigoPromptsData } from "../data/dualigo_prompts_data.js";
 import { getGroupById } from "../data/group_data.js";
+import { initResponsiveNav } from "./responsive-nav.js";
 
 const PROMPT_STORAGE_KEY = "dualigo-group-prompts";
 const ROUND_TIME = 30;
@@ -24,6 +25,8 @@ const checkAnswerButton = document.querySelector("#check-answer");
 const startRoundButton = document.querySelector("#start-round");
 const restartRoundButton = document.querySelector("#restart-round");
 const challengeTitle = document.querySelector("#challenge-title");
+const themeToggle = document.querySelector("#theme-toggle");
+const THEME_STORAGE_KEY = "theme";
 
 let prompts = [];
 let currentPromptIndex = 0;
@@ -106,13 +109,30 @@ function getStoredPrompts() {
 
 function syncThemeToggle(theme) {
   document.body.classList.toggle("dark-mode", theme === "dark");
+
+  if (!themeToggle) {
+    return;
+  }
+
+  const isDark = theme === "dark";
+  themeToggle.setAttribute("aria-pressed", String(isDark));
+  themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+  themeToggle.setAttribute("title", isDark ? "Light mode" : "Dark mode");
 }
 
 function setupTheme() {
-  const savedTheme = localStorage.getItem("skillset-theme");
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || localStorage.getItem("skillset-theme");
   syncThemeToggle(savedTheme === "dark" ? "dark" : "light");
+
+  themeToggle?.addEventListener("click", () => {
+    const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
+    localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+    localStorage.setItem("skillset-theme", nextTheme);
+    syncThemeToggle(nextTheme);
+  });
+
   window.addEventListener("storage", (event) => {
-    if (event.key === "skillset-theme") {
+    if (event.key === THEME_STORAGE_KEY || event.key === "skillset-theme") {
       syncThemeToggle(event.newValue === "dark" ? "dark" : "light");
     }
   });
@@ -409,6 +429,7 @@ function init() {
   }
 
   setupTheme();
+  initResponsiveNav();
   setupActions();
 
   const group = getGroupById(student.groupId);
