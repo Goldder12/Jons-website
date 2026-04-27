@@ -16,7 +16,7 @@
               x
             </button>
           </div>
-
+<!-- // -- Admin profile icon and name, with status --------- -->
           <div class="admin-profile-card">
             <div class="profile-avatar">
               <span>JA</span>
@@ -27,7 +27,7 @@
               <span>Education Administrator</span>
             </div>
           </div>
-
+<!-- // -- Saidbar --------- -->
           <nav class="sidebar-nav">
             <a href="#" class="nav-link active" data-section="dashboard">
               <span class="nav-icon">⌂</span>
@@ -46,7 +46,7 @@
               <span class="nav-label">Students</span>
             </a>
           </nav>
-
+<!-- // -- Log out --------- -->
           <div class="sidebar-bottom">
             <a href="../auth/login.html" class="logout-link">
               <span class="nav-icon">↩</span>
@@ -56,7 +56,7 @@
         </aside>
 
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
+<!-- // -- Top bar --------- -->
         <div class="main-wrapper">
           <header class="topbar">
             <div class="topbar-left">
@@ -72,7 +72,11 @@
             <div class="topbar-right">
               <button class="topbar-icon" type="button" aria-label="Messages">✉</button>
               <button class="topbar-icon" type="button" aria-label="Notifications">⚑</button>
-              <button class="topbar-icon accent" type="button" aria-label="Insights">◔</button>
+              <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+                <span class="theme-toggle-ring">
+                  <span class="theme-toggle-core"></span>
+                </span>
+              </button>
 
               <div class="topbar-user">
                 <div class="mini-avatar">JA</div>
@@ -308,7 +312,7 @@
         </div>
       </div>
     </div>
-
+<!-- // -- Add course modal --------- -->
     <div class="modal-overlay" id="productModalOverlay">
       <div class="modal" id="productModal">
         <div class="modal-header">
@@ -362,7 +366,7 @@
         </form>
       </div>
     </div>
-
+<!-- // -- Delete course modal --------- -->
     <div class="modal-overlay" id="deleteModalOverlay">
       <div class="modal modal-sm" id="deleteModal">
         <div class="modal-header">

@@ -1,100 +1,100 @@
 const sectionLabels = {
   dashboard: "Dashboard",
-  courses: "My Courses",
-  schedule: "Schedule",
   results: "Results",
 };
 
-const upcomingLessons = [
+const videoLessons = [
   {
-    course: "Frontend Bootcamp",
-    mentor: "Aziza Karim",
-    date: "28 Apr 2026",
-    time: "10:00 AM",
-    status: "Active",
+    title: "React Components Basics",
+    teacher: "Aziza Karim",
+    note: "Frontend Bootcamp, 28 daqiqalik video dars",
+    link: "https://www.youtube.com/watch?v=SqcY0GlETPk",
   },
   {
-    course: "English Speaking",
-    mentor: "David Brown",
-    date: "29 Apr 2026",
-    time: "2:00 PM",
-    status: "Pending",
+    title: "JavaScript DOM Practice",
+    teacher: "Aziza Karim",
+    note: "Uyga vazifaga tayyorlovchi amaliy dars",
+    link: "https://www.youtube.com/watch?v=5fb2aPlgoys",
   },
   {
-    course: "UI Design Basics",
-    mentor: "Nodira Usmon",
-    date: "30 Apr 2026",
-    time: "11:30 AM",
-    status: "Review",
+    title: "English Speaking Shadowing",
+    teacher: "David Brown",
+    note: "Speaking uchun talaffuz va repetition mashqi",
+    link: "https://www.youtube.com/watch?v=n4NVPg2kHv4",
   },
   {
-    course: "React Workshop",
-    mentor: "Javohir Aliyev",
-    date: "02 May 2026",
-    time: "9:30 AM",
-    status: "Active",
-  },
-];
-
-const courseRows = [
-  {
-    course: "Frontend Bootcamp",
-    category: "Programming",
-    mentor: "Aziza Karim",
-    progress: "78%",
-    status: "Active",
+    title: "UI Layout Principles",
+    teacher: "Nodira Usmon",
+    note: "Dizayn joylashuvi va spacing bo‘yicha video",
+    link: "https://www.youtube.com/watch?v=HThA0kF7GQo",
   },
   {
-    course: "English Speaking",
-    category: "Language",
-    mentor: "David Brown",
-    progress: "64%",
-    status: "Pending",
+    title: "Flexbox and Grid Review",
+    teacher: "Javohir Aliyev",
+    note: "Responsive sahifa uchun takrorlash darsi",
+    link: "https://www.youtube.com/watch?v=3YW65K6LcIA",
   },
   {
-    course: "UI Design Basics",
-    category: "Design",
-    mentor: "Nodira Usmon",
-    progress: "88%",
-    status: "Completed",
-  },
-  {
-    course: "React Workshop",
-    category: "Programming",
-    mentor: "Javohir Aliyev",
-    progress: "52%",
-    status: "Review",
+    title: "Homework Walkthrough",
+    teacher: "Aziza Karim",
+    note: "Oxirgi vazifalarni qanday bajarish bo‘yicha ko‘rsatma",
+    link: "https://www.youtube.com/watch?v=1PnVor36_40",
   },
 ];
 
-const scheduleRows = [
+const assignmentRows = [
   {
-    day: "Monday",
-    course: "Frontend Bootcamp",
-    time: "10:00 - 12:00",
-    room: "Room 204",
-    attendance: "Active",
+    title: "React landing page",
+    detail: "Hero, cards va responsive footer tayyorlash",
+    deadline: "Deadline: 30 Apr",
+    type: "Frontend",
   },
   {
-    day: "Tuesday",
-    course: "English Speaking",
-    time: "14:00 - 15:30",
-    room: "Room 105",
-    attendance: "Pending",
+    title: "Vocabulary notebook",
+    detail: "25 ta yangi so‘z va 10 ta gap yozish",
+    deadline: "Deadline: 29 Apr",
+    type: "English",
   },
   {
-    day: "Thursday",
-    course: "UI Design Basics",
-    time: "11:30 - 13:00",
-    room: "Lab 02",
-    attendance: "Active",
+    title: "DOM mini task",
+    detail: "3 ta button va modal interaction yasash",
+    deadline: "Deadline: 1 May",
+    type: "JavaScript",
   },
   {
-    day: "Saturday",
-    course: "React Workshop",
-    time: "09:30 - 11:00",
-    room: "Room 302",
-    attendance: "Review",
+    title: "UI critique sheet",
+    detail: "2 ta saytni UX bo‘yicha tahlil qilish",
+    deadline: "Deadline: 2 May",
+    type: "Design",
+  },
+  {
+    title: "Reading summary",
+    detail: "Article dan 1 betlik summary topshirish",
+    deadline: "Deadline: 3 May",
+    type: "Homework",
+  },
+];
+
+const backlogRows = [
+  {
+    title: "Navbar responsive fix",
+    detail: "Mobil holatda menu joylashuvi xato bo‘lib qolgan",
+    status: "Chala bajarilgan",
+  },
+  {
+    title: "Essay correction",
+    detail: "Grammar xatolari tuzatilishi kerak",
+    status: "Xato bajarilgan",
+  },
+  {
+    title: "Flexbox homework",
+    detail: "Cards orasidagi spacing noto‘g‘ri",
+    status: "Qayta topshirish",
+  },
+  {
+    title: "JS condition task",
+    detail: "Logic qismi to‘liq ishlamayapti",
+    status: "Chala bajarilgan",
   },
 ];
 
@@ -136,6 +136,26 @@ const sidebar = document.getElementById("sidebar");
 const sidebarOverlay = document.getElementById("sidebarOverlay");
 const sidebarToggle = document.getElementById("sidebarToggle");
 const sidebarClose = document.getElementById("sidebarClose");
+const metricCards = document.querySelectorAll(".metric-action");
+const backlogList = document.getElementById("backlog-list");
+const toggleBacklogBtn = document.getElementById("toggleBacklogBtn");
+const themeToggle = document.getElementById("themeToggle");
+const THEME_KEY = "edu-dashboard-theme";
+
+let backlogExpanded = false;
+
+function applyTheme(theme) {
+  const isDark = theme === "dark";
+  document.body.classList.toggle("dark-mode", isDark);
+  themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+  themeToggle.setAttribute("title", isDark ? "Light mode" : "Dark mode");
+}
+
+function toggleTheme() {
+  const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
+  localStorage.setItem(THEME_KEY, nextTheme);
+  applyTheme(nextTheme);
+}
 
 function createStatusBadge(status) {
   return `<span class="status-badge ${(status || "").toLowerCase()}">${status || "-"}</span>`;
@@ -152,6 +172,79 @@ function renderRows(targetId, rows, columns) {
         </tr>`,
     )
     .join("");
+}
+
+function renderVideoLessons() {
+  const container = document.getElementById("video-lessons-list");
+
+  container.innerHTML = videoLessons
+    .map(
+      (lesson) => `
+        <div class="lesson-item">
+          <div class="lesson-item-copy">
+            <strong>${lesson.title}</strong>
+            <span>${lesson.teacher}</span>
+            <span>${lesson.note}</span>
+          </div>
+          <a class="lesson-link" href="${lesson.link}" target="_blank" rel="noreferrer">Video darsni ochish</a>
+        </div>`,
+    )
+    .join("");
+}
+
+function renderAssignments() {
+  const container = document.getElementById("assignment-list");
+
+  container.innerHTML = assignmentRows
+    .map(
+      (task) => `
+        <div class="task-item">
+          <div class="task-item-copy">
+            <strong>${task.title}</strong>
+            <span>${task.detail}</span>
+            <div class="task-meta">
+              <span class="task-tag">${task.type}</span>
+              <span>${task.deadline}</span>
+            </div>
+          </div>
+          <a class="task-link" href="#assignment-list">Vazifaga o‘tish</a>
+        </div>`,
+    )
+    .join("");
+}
+
+function renderBacklog() {
+  backlogList.innerHTML = backlogRows
+    .map(
+      (task) => `
+        <div class="task-item">
+          <div class="task-item-copy">
+            <strong>${task.title}</strong>
+            <span>${task.detail}</span>
+          </div>
+          <span class="task-tag">${task.status}</span>
+        </div>`,
+    )
+    .join("");
+}
+
+function setBacklogExpanded(expanded) {
+  backlogExpanded = expanded;
+  backlogList.classList.toggle("collapsed", !expanded);
+  toggleBacklogBtn.textContent = expanded ? "Yopish" : "Hammasini ko‘rish";
+}
+
+function scrollToPanel(id, expandBacklog = false) {
+  const target = document.getElementById(id);
+  if (!target) {
+    return;
+  }
+
+  if (expandBacklog) {
+    setBacklogExpanded(true);
+  }
+
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function closeSidebar() {
@@ -192,33 +285,28 @@ navLinks.forEach((link) => {
   });
 });
 
+metricCards.forEach((card) => {
+  card.addEventListener("click", () => {
+    const target = card.dataset.target;
+    const shouldExpandBacklog = card.dataset.expandBacklog === "true";
+    scrollToPanel(target, shouldExpandBacklog);
+  });
+});
+
+toggleBacklogBtn.addEventListener("click", () => {
+  setBacklogExpanded(!backlogExpanded);
+});
+
 sidebarToggle.addEventListener("click", openSidebar);
 sidebarClose.addEventListener("click", closeSidebar);
 sidebarOverlay.addEventListener("click", closeSidebar);
+themeToggle.addEventListener("click", toggleTheme);
 
-renderRows("upcoming-lessons-tbody", upcomingLessons, [
-  (row) => row.course,
-  (row) => row.mentor,
-  (row) => row.date,
-  (row) => row.time,
-  (row) => createStatusBadge(row.status),
-]);
-
-renderRows("courses-tbody", courseRows, [
-  (row) => row.course,
-  (row) => row.category,
-  (row) => row.mentor,
-  (row) => row.progress,
-  (row) => createStatusBadge(row.status),
-]);
-
-renderRows("schedule-tbody", scheduleRows, [
-  (row) => row.day,
-  (row) => row.course,
-  (row) => row.time,
-  (row) => row.room,
-  (row) => createStatusBadge(row.attendance),
-]);
+renderVideoLessons();
+renderAssignments();
+renderBacklog();
+setBacklogExpanded(false);
+applyTheme(localStorage.getItem(THEME_KEY) || "light");
 
 renderRows("results-tbody", resultRows, [
   (row) => row.subject,

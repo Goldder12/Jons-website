@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5501";
+const BASE_URL = "http://localhost:5500";
 
 const sectionLabels = {
   dashboard: "Dashboard",
@@ -115,6 +115,21 @@ const sidebar = document.getElementById("sidebar");
 const sidebarOverlay = document.getElementById("sidebarOverlay");
 const sidebarToggle = document.getElementById("sidebarToggle");
 const sidebarClose = document.getElementById("sidebarClose");
+const themeToggle = document.getElementById("themeToggle");
+const THEME_KEY = "edu-dashboard-theme";
+
+function applyTheme(theme) {
+  const isDark = theme === "dark";
+  document.body.classList.toggle("dark-mode", isDark);
+  themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+  themeToggle.setAttribute("title", isDark ? "Light mode" : "Dark mode");
+}
+
+function toggleTheme() {
+  const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
+  localStorage.setItem(THEME_KEY, nextTheme);
+  applyTheme(nextTheme);
+}
 
 function createStatusBadge(status) {
   const normalized = (status || "").toLowerCase();
@@ -225,6 +240,7 @@ navLinks.forEach((link) => {
 sidebarToggle.addEventListener("click", openSidebar);
 sidebarClose.addEventListener("click", closeSidebar);
 sidebarOverlay.addEventListener("click", closeSidebar);
+themeToggle.addEventListener("click", toggleTheme);
 
 function renderProducts(products) {
   const tbody = document.getElementById("products-tbody");
@@ -515,6 +531,7 @@ renderDashboardActivity();
 renderEnrollments();
 renderStudents();
 setDashboardStats();
+applyTheme(localStorage.getItem(THEME_KEY) || "light");
 showSection("dashboard");
 
 window.openEditModal = openEditModal;

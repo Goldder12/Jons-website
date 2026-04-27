@@ -62,7 +62,7 @@ async function register() {
       return;
     }
 
-    const response = await fetch("http://localhost:3002/api/auth/register", {
+    const response = await fetch("http://localhost:5500/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -78,6 +78,7 @@ async function register() {
       emailInput.value = "";
       usernameInput.value = "";
       alert(data.message);
+      window.location.href = "../admin/index.html";
     }
   } catch (error) {
     console.error("Network error:", error);
@@ -92,7 +93,7 @@ async function login() {
       return;
     }
 
-    const response = await fetch("http://localhost:3002/api/auth/login", {
+    const response = await fetch("http://localhost:5500/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

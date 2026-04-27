@@ -33,14 +33,6 @@
               <span class="nav-icon">⌂</span>
               <span class="nav-label">Dashboard</span>
             </a>
-            <a href="#" class="nav-link" data-section="courses">
-              <span class="nav-icon">▣</span>
-              <span class="nav-label">My Courses</span>
-            </a>
-            <a href="#" class="nav-link" data-section="schedule">
-              <span class="nav-icon">◫</span>
-              <span class="nav-label">Schedule</span>
-            </a>
             <a href="#" class="nav-link" data-section="results">
               <span class="nav-icon">◔</span>
               <span class="nav-label">Results</span>
@@ -72,7 +64,11 @@
             <div class="topbar-right">
               <button class="topbar-icon" type="button" aria-label="Messages">✉</button>
               <button class="topbar-icon" type="button" aria-label="Notifications">⚑</button>
-              <button class="topbar-icon accent" type="button" aria-label="Support">◌</button>
+              <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+                <span class="theme-toggle-ring">
+                  <span class="theme-toggle-core"></span>
+                </span>
+              </button>
 
               <div class="topbar-user">
                 <div class="mini-avatar">ST</div>
@@ -92,175 +88,78 @@
                   <h1 class="page-title" id="headerTitle">Dashboard</h1>
                 </div>
                 <p class="section-note">
-                  Follow your courses, assignments, and weekly class progress from one student dashboard.
+                  Video darslar, ustoz bergan vazifalar va qolib ketgan topshiriqlarni bir joyda kuzatib boring.
                 </p>
               </div>
 
               <div class="stats-grid">
-                <article class="metric-card pumpkin">
-                  <div class="metric-icon">▣</div>
+                <article class="metric-card pumpkin metric-action" data-target="video-lessons-panel">
+                  <div class="metric-icon">▶</div>
                   <div class="metric-copy">
-                    <span class="metric-label">Active Courses</span>
-                    <strong class="metric-value" id="stat-courses">4</strong>
-                    <span class="metric-foot">2 courses nearing completion</span>
+                    <span class="metric-label">Video Darslar</span>
+                    <strong class="metric-value" id="stat-video-count">6</strong>
+                    <span class="metric-foot">Bosilganda video darslar ro‘yxatiga o‘tadi</span>
                   </div>
                 </article>
 
-                <article class="metric-card terracotta">
-                  <div class="metric-icon">◔</div>
+                <article class="metric-card terracotta metric-action" data-target="assignments-panel">
+                  <div class="metric-icon">✓</div>
                   <div class="metric-copy">
-                    <span class="metric-label">Average Score</span>
-                    <strong class="metric-value" id="stat-score">89%</strong>
-                    <span class="metric-foot">Up by 6% since last month</span>
+                    <span class="metric-label">Yangi Vazifalar</span>
+                    <strong class="metric-value" id="stat-assignment-count">5</strong>
+                    <span class="metric-foot">Essay draft, React page, vocabulary va boshqalar</span>
                   </div>
                 </article>
 
-                <article class="metric-card coral">
-                  <div class="metric-icon">◫</div>
+                <article class="metric-card coral metric-action" data-target="backlog-panel" data-expand-backlog="true">
+                  <div class="metric-icon">!</div>
                   <div class="metric-copy">
-                    <span class="metric-label">Pending Tasks</span>
-                    <strong class="metric-value" id="stat-tasks">7</strong>
-                    <span class="metric-foot">3 deadlines this week</span>
+                    <span class="metric-label">Qolib Ketgan Vazifalar</span>
+                    <strong class="metric-value" id="stat-backlog-count">4</strong>
+                    <span class="metric-foot">Chala yoki xato bajarilgan ishlarni ko‘rsatadi</span>
                   </div>
                 </article>
               </div>
 
               <div class="dashboard-grid">
-                <article class="panel panel-wide">
+                <article class="panel panel-wide" id="video-lessons-panel">
                   <div class="panel-header">
                     <div>
-                      <h2 class="panel-title">Upcoming Lessons</h2>
-                      <p class="panel-subtitle">Your nearest live classes and mentor sessions</p>
+                      <h2 class="panel-title">Ustoz Tomonidan Berilgan Video Darslar</h2>
+                      <p class="panel-subtitle">Har bir link ustiga bosib video darsni ochishingiz mumkin</p>
                     </div>
-                    <span class="panel-chip">This week</span>
+                    <span class="panel-chip">6 lessons</span>
                   </div>
 
-                  <div class="table-wrapper">
-                    <table class="data-table">
-                      <thead>
-                        <tr>
-                          <th>Course</th>
-                          <th>Mentor</th>
-                          <th>Date</th>
-                          <th>Time</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody id="upcoming-lessons-tbody"></tbody>
-                    </table>
-                  </div>
+                  <div class="lesson-list" id="video-lessons-list"></div>
                 </article>
 
-                <aside class="panel panel-side">
+                <aside class="panel panel-side" id="assignments-panel">
                   <div class="panel-header">
                     <div>
-                      <h2 class="panel-title">Progress</h2>
-                      <p class="panel-subtitle">Your academic performance</p>
+                      <h2 class="panel-title">Yangi Vazifalar</h2>
+                      <p class="panel-subtitle">Ustoz yuklagan topshiriqlar va ularning soni</p>
                     </div>
                   </div>
 
-                  <div class="progress-list">
-                    <div class="progress-item">
-                      <div class="progress-label-row">
-                        <span>Frontend Bootcamp</span>
-                        <strong>78%</strong>
-                      </div>
-                      <div class="progress-bar"><span style="width: 78%"></span></div>
-                    </div>
+                  <div class="task-list" id="assignment-list"></div>
 
-                    <div class="progress-item">
-                      <div class="progress-label-row">
-                        <span>English Speaking</span>
-                        <strong>64%</strong>
-                      </div>
-                      <div class="progress-bar"><span style="width: 64%"></span></div>
-                    </div>
-
-                    <div class="progress-item">
-                      <div class="progress-label-row">
-                        <span>UI Design Basics</span>
-                        <strong>88%</strong>
-                      </div>
-                      <div class="progress-bar"><span style="width: 88%"></span></div>
-                    </div>
-                  </div>
-
-                  <div class="insight-card">
-                    <span class="insight-badge">Reminder</span>
-                    <h3>Finish your React mini project</h3>
-                    <p>
-                      Upload your mini project before Friday to keep your course completion rate on track.
-                    </p>
-                  </div>
+                  <a class="panel-link" href="#assignment-list">Barcha vazifalarni ko‘rish</a>
                 </aside>
               </div>
-            </section>
 
-            <section class="section" id="section-courses">
-              <div class="section-intro compact">
-                <div>
-                  <p class="eyebrow">Learning plan</p>
-                  <h2 class="page-title">My Courses</h2>
-                </div>
-                <p class="section-note">Track enrolled subjects and remaining progress.</p>
-              </div>
-
-              <div class="panel">
+              <div class="panel panel-backlog" id="backlog-panel">
                 <div class="panel-header">
                   <div>
-                    <h2 class="panel-title">Enrolled Courses</h2>
-                    <p class="panel-subtitle">Your current learning roadmap</p>
+                    <h2 class="panel-title">Oldingi Darslardan Qolgan Vazifalar</h2>
+                    <p class="panel-subtitle">Chala yoki xato bajarilgan topshiriqlarning qisqa ro‘yxati</p>
                   </div>
+                  <button class="panel-chip panel-chip-button" id="toggleBacklogBtn" type="button">
+                    Hammasini ko‘rish
+                  </button>
                 </div>
 
-                <div class="table-wrapper">
-                  <table class="data-table">
-                    <thead>
-                      <tr>
-                        <th>Course Name</th>
-                        <th>Category</th>
-                        <th>Mentor</th>
-                        <th>Progress</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody id="courses-tbody"></tbody>
-                  </table>
-                </div>
-              </div>
-            </section>
-
-            <section class="section" id="section-schedule">
-              <div class="section-intro compact">
-                <div>
-                  <p class="eyebrow">Weekly plan</p>
-                  <h2 class="page-title">Schedule</h2>
-                </div>
-                <p class="section-note">Check your class time, room, and attendance status.</p>
-              </div>
-
-              <div class="panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Class Schedule</h2>
-                    <p class="panel-subtitle">Organized timetable for this week</p>
-                  </div>
-                </div>
-
-                <div class="table-wrapper">
-                  <table class="data-table">
-                    <thead>
-                      <tr>
-                        <th>Day</th>
-                        <th>Course</th>
-                        <th>Time</th>
-                        <th>Room</th>
-                        <th>Attendance</th>
-                      </tr>
-                    </thead>
-                    <tbody id="schedule-tbody"></tbody>
-                  </table>
-                </div>
+                <div class="task-list backlog-list collapsed" id="backlog-list"></div>
               </div>
             </section>
 
