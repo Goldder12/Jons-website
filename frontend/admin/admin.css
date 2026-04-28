@@ -44,7 +44,8 @@ a {
 
 button,
 input,
-textarea {
+textarea,
+select {
   font: inherit;
 }
 
@@ -676,6 +677,8 @@ textarea {
 }
 
 .btn {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -727,6 +730,25 @@ textarea {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.btn-shine::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -30%;
+  width: 18px;
+  height: 140%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0));
+  transform: translateX(-180%) rotate(18deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn-shine:hover::before {
+  opacity: 1;
+  transition: transform 0.4s ease, opacity 0.2s ease;
+  transform: translateX(680%) rotate(18deg);
 }
 
 .modal-overlay {
@@ -809,7 +831,8 @@ textarea {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
   width: 100%;
   border: 1px solid #e3e7f5;
   border-radius: 14px;
@@ -821,13 +844,15 @@ textarea {
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
   border-color: #d17b45;
   box-shadow: 0 0 0 4px rgba(209, 123, 69, 0.12);
 }
 
 .form-group input.invalid,
-.form-group textarea.invalid {
+.form-group textarea.invalid,
+.form-group select.invalid {
   border-color: #ef6878;
   box-shadow: 0 0 0 4px rgba(239, 104, 120, 0.1);
 }
@@ -873,10 +898,173 @@ textarea {
   padding: 10px 24px 24px;
 }
 
+.library-header {
+  margin-bottom: 16px;
+}
+
+.library-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.library-search {
+  flex: 1;
+  min-width: 240px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  background: #fffdfa;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.library-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: var(--text);
+  background: transparent;
+}
+
+.library-select {
+  min-width: 170px;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.book-card {
+  overflow: hidden;
+  padding: 0;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 32px rgba(136, 96, 73, 0.16);
+}
+
+.book-card-cover {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: #fff7f1;
+  border-bottom: 1px solid var(--border);
+}
+
+.book-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+}
+
+.book-card-copy {
+  display: grid;
+  gap: 6px;
+}
+
+.book-card-copy h3 {
+  font-size: 1rem;
+  color: var(--title);
+}
+
+.book-card-copy p {
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.book-card-meta,
+.book-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.book-card-actions {
+  margin-top: auto;
+}
+
+.book-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #fff0e5;
+  color: #bc6747;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.book-price {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #d97b41 0%, #c95a52 100%);
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.book-action {
+  min-height: 36px;
+}
+
+.book-empty {
+  grid-column: 1 / -1;
+  padding: 28px 18px;
+  border: 1px dashed #e4c9bc;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  color: var(--muted);
+  background: #fff8f4;
+}
+
+.book-preview-wrap {
+  border: 1px dashed #e4c9bc;
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  background: #fff8f4;
+}
+
+.book-file-hint {
+  margin-top: -8px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.book-image-preview {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  margin: 0 auto;
+  border-radius: var(--radius-md);
+  background: #fffdfa;
+}
+
 @media (max-width: 1200px) {
   .stats-grid,
   .dashboard-grid {
     grid-template-columns: 1fr;
+  }
+
+  .book-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -928,6 +1116,11 @@ textarea {
   .topbar-user {
     margin-left: auto;
   }
+
+  .library-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 @media (max-width: 640px) {
@@ -969,6 +1162,14 @@ textarea {
   .actions-cell {
     flex-wrap: wrap;
   }
+
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .library-search {
+    min-width: 0;
+  }
 }
 
 body.dark-mode {
@@ -1002,7 +1203,12 @@ body.dark-mode .insight-card,
 body.dark-mode .btn-ghost,
 body.dark-mode .btn-edit,
 body.dark-mode .form-group input,
-body.dark-mode .form-group textarea {
+body.dark-mode .form-group textarea,
+body.dark-mode .form-group select,
+body.dark-mode .library-search,
+body.dark-mode .book-preview-wrap,
+body.dark-mode .book-empty,
+body.dark-mode .book-card-cover {
   background: #2a1f1b;
   border-color: #4a352f;
   color: #f4e4dc;
@@ -1016,7 +1222,8 @@ body.dark-mode .delete-message,
 body.dark-mode .modal-title,
 body.dark-mode .form-group label,
 body.dark-mode .data-table td,
-body.dark-mode .progress-label-row strong {
+body.dark-mode .progress-label-row strong,
+body.dark-mode .book-card-copy h3 {
   color: #f4e4dc;
 }
 
@@ -1027,7 +1234,10 @@ body.dark-mode .panel-subtitle,
 body.dark-mode .section-note,
 body.dark-mode .delete-sub,
 body.dark-mode .data-table th,
-body.dark-mode .stat-label {
+body.dark-mode .stat-label,
+body.dark-mode .book-card-copy p,
+body.dark-mode .book-empty,
+body.dark-mode .book-file-hint {
   color: #c9afa4;
 }
 
@@ -1063,7 +1273,8 @@ body.dark-mode .progress-bar {
 
 body.dark-mode .panel-chip,
 body.dark-mode .task-tag,
-body.dark-mode .insight-badge {
+body.dark-mode .insight-badge,
+body.dark-mode .book-badge {
   background: #3a2a24;
   color: #f2bb94;
 }
