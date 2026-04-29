@@ -117,6 +117,7 @@ const sidebarOverlay = document.getElementById("sidebarOverlay");
 const sidebarToggle = document.getElementById("sidebarToggle");
 const sidebarClose = document.getElementById("sidebarClose");
 const themeToggle = document.getElementById("themeToggle");
+const toastContainer = document.getElementById("toast-container");
 const THEME_KEY = "edu-dashboard-theme";
 
 function applyTheme(theme) {
@@ -135,6 +136,66 @@ function toggleTheme() {
 function createStatusBadge(status) {
   const normalized = (status || "").toLowerCase();
   return `<span class="status-badge ${normalized}">${status || "-"}</span>`;
+}
+
+function showToast(message, type = "success") {
+  if (!toastContainer) {
+    return;
+  }
+
+  const toast = document.createElement("div");
+  const icon = document.createElement("span");
+  const text = document.createElement("span");
+
+  const icons = {
+    success: "✔",
+    error: "✖",
+    info: "ℹ",
+  };
+
+  toast.className = `toast ${type}`;
+  icon.className = "toast-icon";
+  text.className = "toast-message";
+  icon.textContent = icons[type] || icons.info;
+  text.textContent = message;
+
+  toast.append(icon, text);
+  toastContainer.appendChild(toast);
+
+  const timers = {
+    hide: null,
+    remove: null,
+  };
+
+  const startHideTimer = () => {
+    timers.hide = window.setTimeout(() => {
+      toast.classList.remove("show");
+      timers.remove = window.setTimeout(() => toast.remove(), 400);
+    }, 3000);
+  };
+
+  const clearHideTimer = () => {
+    if (timers.hide) {
+      window.clearTimeout(timers.hide);
+      timers.hide = null;
+    }
+
+    if (timers.remove) {
+      window.clearTimeout(timers.remove);
+      timers.remove = null;
+    }
+  };
+
+  window.setTimeout(() => {
+    toast.classList.add("show");
+    startHideTimer();
+  }, 10);
+
+  toast.addEventListener("mouseenter", clearHideTimer);
+  toast.addEventListener("mouseleave", () => {
+    clearHideTimer();
+    startHideTimer();
+  });
 }
 
 function renderDashboardActivity() {
@@ -504,7 +565,7 @@ async function onCreateProduct(data) {
   });
 
   const value = await response.json();
-  alert(value.message);
+  showToast(value.message || "Course created successfully!", "success");
 }
 
 async function onUpdateProduct(id, data) {
@@ -517,7 +578,7 @@ async function onUpdateProduct(id, data) {
   });
 
   const value = await response.json();
-  alert(value.message);
+  showToast(value.message || "Course updated successfully!", "success");
 }
 
 async function onDeleteProduct(id) {
@@ -529,7 +590,7 @@ async function onDeleteProduct(id) {
   });
 
   const value = await response.json();
-  alert(value.message);
+  showToast(value.message || "Course deleted successfully!", "info");
 }
 
 const DEFAULT_BOOK_IMAGE = "default-book.png";
@@ -554,6 +615,7 @@ const addBookBtn = document.getElementById("addBookBtn");
 const bookSearchInput = document.getElementById("bookSearchInput");
 const bookLevelFilter = document.getElementById("bookLevelFilter");
 const bookModalOverlay = document.getElementById("bookModalOverlay");
+const bookModal = document.getElementById("bookModal");
 const bookForm = document.getElementById("bookForm");
 const bookModalTitle = document.getElementById("bookModalTitle");
 const bookModalSubmit = document.getElementById("bookModalSubmit");
@@ -717,11 +779,13 @@ function openCreateBookModal() {
   bookModalTitle.textContent = "Add Book";
   bookModalSubmit.textContent = "Create Book";
   clearBookFormState();
-  bookModalOverlay.classList.add("open");
+  bookModal.style.display = "block";
+  document.getElementById("bookModalOverlay").classList.add("open");
 }
 
 function closeBookModal() {
   bookModalOverlay.classList.remove("open");
+  bookModal.style.display = "none";
   clearBookFormState();
 }
 
@@ -746,6 +810,7 @@ function openEditBookModal(trigger) {
 
   bookPdfHint.textContent = `Current PDF: ${getPdfFileName(currentBookPdfValue)}`;
   updateBookPreview(resolveBookImage(currentBookImageValue));
+  bookModal.style.display = "block";
   bookModalOverlay.classList.add("open");
 }
 
@@ -840,7 +905,7 @@ async function onCreateBook(data) {
     throw new Error(value.message || "Failed to create book.");
   }
 
-  alert(value.message);
+  showToast(value.message || "Book created successfully!", "success");
 }
 
 async function onUpdateBook(id, data) {
@@ -854,7 +919,7 @@ async function onUpdateBook(id, data) {
     throw new Error(value.message || "Failed to update book.");
   }
 
-  alert(value.message);
+  showToast(value.message || "Book updated successfully!", "success");
 }
 
 async function onDeleteBook(id) {
@@ -867,10 +932,13 @@ async function onDeleteBook(id) {
     throw new Error(value.message || "Failed to delete book.");
   }
 
-  alert(value.message);
+  showToast(value.message || "Book deleted successfully!", "info");
 }
 
-addBookBtn?.addEventListener("click", openCreateBookModal);
+addBookBtn?.addEventListener("click", () => {
+    console.log("clicked");
+    openCreateBookModal();
+  });
 
 bookSearchInput?.addEventListener("input", loadBooks);
 bookLevelFilter?.addEventListener("change", loadBooks);
@@ -946,7 +1014,7 @@ bookForm?.addEventListener("submit", async (event) => {
     closeBookModal();
     await loadBooks();
   } catch (error) {
-    alert(error.message);
+    showToast(error.message || "Something went wrong while saving the book.", "error");
   } finally {
     bookModalSubmit.disabled = false;
     bookModalSubmit.textContent = id ? "Save Changes" : "Create Book";
@@ -974,7 +1042,7 @@ deleteBookModalConfirm?.addEventListener("click", async () => {
     closeDeleteBookModal();
     await loadBooks();
   } catch (error) {
-    alert(error.message);
+    showToast(error.message || "Something went wrong while deleting the book.", "error");
   } finally {
     deleteBookModalConfirm.disabled = false;
     deleteBookModalConfirm.textContent = "Yes, Delete";

@@ -1,514 +1,522 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="admin.css" />
-  </head>
-  <body>
-    <div class="page-shell">
-      <div class="page-frame">
-        <aside class="sidebar" id="sidebar">
-          <div class="sidebar-top">
-            <div class="sidebar-title">Dashboard Admin</div>
-            <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close menu">
-              x
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+  <div class="page-shell">
+    <div class="page-frame">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+          <div class="sidebar-title">Dashboard Admin</div>
+          <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close menu">
+            x
+          </button>
+        </div>
+        <!-- // -- Admin profile icon and name, with status --------- -->
+        <div class="admin-profile-card">
+          <div class="profile-avatar">
+            <span>JA</span>
+            <i class="profile-status"></i>
+          </div>
+          <div class="profile-copy">
+            <strong>John Academy</strong>
+            <span>Education Administrator</span>
+          </div>
+        </div>
+        <!-- // -- Saidbar --------- -->
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-link active" data-section="dashboard">
+            <span class="nav-icon">⌂</span>
+            <span class="nav-label">Dashboard</span>
+          </a>
+          <a href="#" class="nav-link" data-section="orders">
+            <span class="nav-icon">◫</span>
+            <span class="nav-label">Enrollments</span>
+          </a>
+          <a href="#" class="nav-link" data-section="products">
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Courses</span>
+          </a>
+          <a href="#" class="nav-link" data-section="users">
+            <span class="nav-icon">◌</span>
+            <span class="nav-label">Students</span>
+          </a>
+          <a href="#" class="nav-link" data-section="library">
+            <span class="nav-icon">📚</span>
+            <span class="nav-label">Library</span>
+          </a>
+        </nav>
+        <!-- // -- Log out --------- -->
+        <div class="sidebar-bottom">
+          <a href="../auth/login.html" class="logout-link">
+            <span class="nav-icon">↩</span>
+            <span class="nav-label">Logout</span>
+          </a>
+        </div>
+      </aside>
+
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+      <!-- // -- Top bar --------- -->
+      <div class="main-wrapper">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Open menu">
+              ≡
             </button>
-          </div>
-<!-- // -- Admin profile icon and name, with status --------- -->
-          <div class="admin-profile-card">
-            <div class="profile-avatar">
-              <span>JA</span>
-              <i class="profile-status"></i>
-            </div>
-            <div class="profile-copy">
-              <strong>John Academy</strong>
-              <span>Education Administrator</span>
+            <div class="search-box">
+              <span class="search-icon">⌕</span>
+              <input type="text" placeholder="Search courses, students, mentors..." />
             </div>
           </div>
-<!-- // -- Saidbar --------- -->
-          <nav class="sidebar-nav">
-            <a href="#" class="nav-link active" data-section="dashboard">
-              <span class="nav-icon">⌂</span>
-              <span class="nav-label">Dashboard</span>
-            </a>
-            <a href="#" class="nav-link" data-section="orders">
-              <span class="nav-icon">◫</span>
-              <span class="nav-label">Enrollments</span>
-            </a>
-            <a href="#" class="nav-link" data-section="products">
-              <span class="nav-icon">▣</span>
-              <span class="nav-label">Courses</span>
-            </a>
-            <a href="#" class="nav-link" data-section="users">
-              <span class="nav-icon">◌</span>
-              <span class="nav-label">Students</span>
-            </a>
-            <a href="#" class="nav-link" data-section="library">
-              <span class="nav-icon">📚</span>
-              <span class="nav-label">Library</span>
-            </a>
-          </nav>
-<!-- // -- Log out --------- -->
-          <div class="sidebar-bottom">
-            <a href="../auth/login.html" class="logout-link">
-              <span class="nav-icon">↩</span>
-              <span class="nav-label">Logout</span>
-            </a>
+
+          <div class="topbar-right">
+            <button class="topbar-icon" type="button" aria-label="Messages">✉</button>
+            <button class="topbar-icon" type="button" aria-label="Notifications">⚑</button>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode"
+              title="Toggle dark mode">
+              <span class="theme-toggle-ring">
+                <span class="theme-toggle-core"></span>
+              </span>
+            </button>
+
+            <div class="topbar-user">
+              <div class="mini-avatar">JA</div>
+              <div class="topbar-user-copy">
+                <strong>Success Academy</strong>
+                <span>Lead Admin</span>
+              </div>
+            </div>
           </div>
-        </aside>
+        </header>
 
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
-<!-- // -- Top bar --------- -->
-        <div class="main-wrapper">
-          <header class="topbar">
-            <div class="topbar-left">
-              <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Open menu">
-                ≡
-              </button>
-              <div class="search-box">
-                <span class="search-icon">⌕</span>
-                <input type="text" placeholder="Search courses, students, mentors..." />
+        <main class="main-content">
+          <section class="section active" id="section-dashboard">
+            <div class="section-intro">
+              <div>
+                <p class="eyebrow">Admin overview</p>
+                <h1 class="page-title" id="headerTitle">Dashboard</h1>
               </div>
+              <p class="section-note">
+                Your education platform performance, course activity, and student engagement in one place.
+              </p>
             </div>
 
-            <div class="topbar-right">
-              <button class="topbar-icon" type="button" aria-label="Messages">✉</button>
-              <button class="topbar-icon" type="button" aria-label="Notifications">⚑</button>
-              <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
-                <span class="theme-toggle-ring">
-                  <span class="theme-toggle-core"></span>
-                </span>
-              </button>
-
-              <div class="topbar-user">
-                <div class="mini-avatar">JA</div>
-                <div class="topbar-user-copy">
-                  <strong>Success Academy</strong>
-                  <span>Lead Admin</span>
+            <div class="stats-grid">
+              <article class="metric-card purple">
+                <div class="metric-icon">⌘</div>
+                <div class="metric-copy">
+                  <span class="metric-label">Active Courses</span>
+                  <strong class="metric-value" id="stat-products">24</strong>
+                  <span class="metric-foot">Increased by 18% this month</span>
                 </div>
-              </div>
+              </article>
+
+              <article class="metric-card blue">
+                <div class="metric-icon">◔</div>
+                <div class="metric-copy">
+                  <span class="metric-label">Total Revenue</span>
+                  <strong class="metric-value" id="stat-revenue">$52,000</strong>
+                  <span class="metric-foot">Course sales and subscriptions</span>
+                </div>
+              </article>
+
+              <article class="metric-card peach">
+                <div class="metric-icon">✦</div>
+                <div class="metric-copy">
+                  <span class="metric-label">New Visitors</span>
+                  <strong class="metric-value" id="stat-orders">2,860</strong>
+                  <span class="metric-foot">Traffic increased by 30%</span>
+                </div>
+              </article>
             </div>
-          </header>
 
-          <main class="main-content">
-            <section class="section active" id="section-dashboard">
-              <div class="section-intro">
-                <div>
-                  <p class="eyebrow">Admin overview</p>
-                  <h1 class="page-title" id="headerTitle">Dashboard</h1>
-                </div>
-                <p class="section-note">
-                  Your education platform performance, course activity, and student engagement in one place.
-                </p>
-              </div>
-
-              <div class="stats-grid">
-                <article class="metric-card purple">
-                  <div class="metric-icon">⌘</div>
-                  <div class="metric-copy">
-                    <span class="metric-label">Active Courses</span>
-                    <strong class="metric-value" id="stat-products">24</strong>
-                    <span class="metric-foot">Increased by 18% this month</span>
-                  </div>
-                </article>
-
-                <article class="metric-card blue">
-                  <div class="metric-icon">◔</div>
-                  <div class="metric-copy">
-                    <span class="metric-label">Total Revenue</span>
-                    <strong class="metric-value" id="stat-revenue">$52,000</strong>
-                    <span class="metric-foot">Course sales and subscriptions</span>
-                  </div>
-                </article>
-
-                <article class="metric-card peach">
-                  <div class="metric-icon">✦</div>
-                  <div class="metric-copy">
-                    <span class="metric-label">New Visitors</span>
-                    <strong class="metric-value" id="stat-orders">2,860</strong>
-                    <span class="metric-foot">Traffic increased by 30%</span>
-                  </div>
-                </article>
-              </div>
-
-              <div class="dashboard-grid">
-                <article class="panel panel-wide">
-                  <div class="panel-header">
-                    <div>
-                      <h2 class="panel-title">Instructor Activity</h2>
-                      <p class="panel-subtitle">Latest team and academic operations snapshot</p>
-                    </div>
-                    <span class="panel-chip">Today</span>
-                  </div>
-
-                  <div class="table-wrapper">
-                    <table class="data-table dashboard-table">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Role</th>
-                          <th>Joined</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody id="dashboard-activity-tbody"></tbody>
-                    </table>
-                  </div>
-                </article>
-
-                <aside class="panel panel-side">
-                  <div class="panel-header">
-                    <div>
-                      <h2 class="panel-title">Quick Progress</h2>
-                      <p class="panel-subtitle">Monthly education goals</p>
-                    </div>
-                  </div>
-
-                  <div class="progress-list">
-                    <div class="progress-item">
-                      <div class="progress-label-row">
-                        <span>Student Retention</span>
-                        <strong>82%</strong>
-                      </div>
-                      <div class="progress-bar"><span style="width: 82%"></span></div>
-                    </div>
-
-                    <div class="progress-item">
-                      <div class="progress-label-row">
-                        <span>Course Completion</span>
-                        <strong>68%</strong>
-                      </div>
-                      <div class="progress-bar"><span style="width: 68%"></span></div>
-                    </div>
-
-                    <div class="progress-item">
-                      <div class="progress-label-row">
-                        <span>Mentor Response</span>
-                        <strong>91%</strong>
-                      </div>
-                      <div class="progress-bar"><span style="width: 91%"></span></div>
-                    </div>
-                  </div>
-
-                  <div class="insight-card">
-                    <span class="insight-badge">Tip</span>
-                    <h3>Launch a spring bootcamp campaign</h3>
-                    <p>
-                      Visitors are growing quickly. A highlighted cohort section can turn more traffic into enrollments.
-                    </p>
-                  </div>
-                </aside>
-              </div>
-            </section>
-
-            <section class="section" id="section-orders">
-              <div class="section-intro compact">
-                <div>
-                  <p class="eyebrow">Enrollment management</p>
-                  <h2 class="page-title">Enrollments</h2>
-                </div>
-                <p class="section-note">Track incoming applications and course registrations.</p>
-              </div>
-
-              <div class="panel">
+            <div class="dashboard-grid">
+              <article class="panel panel-wide">
                 <div class="panel-header">
                   <div>
-                    <h2 class="panel-title">Recent Enrollments</h2>
-                    <p class="panel-subtitle">Frontend demo view for future backend connection</p>
+                    <h2 class="panel-title">Instructor Activity</h2>
+                    <p class="panel-subtitle">Latest team and academic operations snapshot</p>
                   </div>
+                  <span class="panel-chip">Today</span>
                 </div>
 
                 <div class="table-wrapper">
-                  <table class="data-table">
+                  <table class="data-table dashboard-table">
                     <thead>
                       <tr>
-                        <th>Enrollment ID</th>
-                        <th>Student</th>
-                        <th>Program</th>
-                        <th>Fee</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                      </tr>
-                    </thead>
-                    <tbody id="orders-tbody"></tbody>
-                  </table>
-                </div>
-              </div>
-            </section>
-
-            <section class="section" id="section-products">
-              <div class="section-intro compact">
-                <div>
-                  <p class="eyebrow">Course catalog</p>
-                  <h2 class="page-title">Courses</h2>
-                </div>
-                <button class="btn btn-primary" id="addProductBtn" type="button">+ Add Course</button>
-              </div>
-
-              <div class="panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Course Inventory</h2>
-                    <p class="panel-subtitle">Live list wired for your future backend integration</p>
-                  </div>
-                </div>
-
-                <div class="table-wrapper">
-                  <table class="data-table">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Seats</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody id="products-tbody">
-                      <tr>
-                        <td colspan="6" class="empty-row">Loading courses...</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </section>
-
-            <section class="section" id="section-users">
-              <div class="section-intro compact">
-                <div>
-                  <p class="eyebrow">Student records</p>
-                  <h2 class="page-title">Students</h2>
-                </div>
-                <p class="section-note">Learner directory prepared for your backend data.</p>
-              </div>
-
-              <div class="panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Student Directory</h2>
-                    <p class="panel-subtitle">Current UI preview for education platform users</p>
-                  </div>
-                </div>
-
-                <div class="table-wrapper">
-                  <table class="data-table">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Program</th>
+                        <th>Role</th>
                         <th>Joined</th>
                         <th>Status</th>
                       </tr>
                     </thead>
-                    <tbody id="users-tbody"></tbody>
+                    <tbody id="dashboard-activity-tbody"></tbody>
                   </table>
                 </div>
-              </div>
-            </section>
-            <section class="section" id="section-library">
-              <div class="section-intro compact">
-                <div>
-                  <p class="eyebrow">Book catalog</p>
-                  <h2 class="page-title">Library</h2>
-                </div>
-                <button id="addBookBtn" class="btn btn-primary btn-shine" type="button">+ Add New Book</button>
-              </div>
+              </article>
 
-              <div class="panel">
-                <div class="panel-header library-header">
+              <aside class="panel panel-side">
+                <div class="panel-header">
                   <div>
-                    <h2 class="panel-title">Manage IELTS &amp; CEFR books</h2>
-                    <p class="panel-subtitle">Search, filter, upload PDFs, update, and delete book entries.</p>
+                    <h2 class="panel-title">Quick Progress</h2>
+                    <p class="panel-subtitle">Monthly education goals</p>
                   </div>
                 </div>
 
-                <div class="library-toolbar">
-                  <label class="library-search" for="bookSearchInput">
-                    <span class="search-icon">âŒ•</span>
-                    <input id="bookSearchInput" type="text" placeholder="Search by book title..." />
-                  </label>
+                <div class="progress-list">
+                  <div class="progress-item">
+                    <div class="progress-label-row">
+                      <span>Student Retention</span>
+                      <strong>82%</strong>
+                    </div>
+                    <div class="progress-bar"><span style="width: 82%"></span></div>
+                  </div>
 
-                  <select id="bookLevelFilter" class="library-select">
-                    <option value="All">All Levels</option>
-                    <option value="IELTS">IELTS</option>
-                    <option value="CEFR">CEFR</option>
-                  </select>
+                  <div class="progress-item">
+                    <div class="progress-label-row">
+                      <span>Course Completion</span>
+                      <strong>68%</strong>
+                    </div>
+                    <div class="progress-bar"><span style="width: 68%"></span></div>
+                  </div>
+
+                  <div class="progress-item">
+                    <div class="progress-label-row">
+                      <span>Mentor Response</span>
+                      <strong>91%</strong>
+                    </div>
+                    <div class="progress-bar"><span style="width: 91%"></span></div>
+                  </div>
                 </div>
 
-                <div id="book-grid" class="book-grid"></div>
+                <div class="insight-card">
+                  <span class="insight-badge">Tip</span>
+                  <h3>Launch a spring bootcamp campaign</h3>
+                  <p>
+                    Visitors are growing quickly. A highlighted cohort section can turn more traffic into enrollments.
+                  </p>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <section class="section" id="section-orders">
+            <div class="section-intro compact">
+              <div>
+                <p class="eyebrow">Enrollment management</p>
+                <h2 class="page-title">Enrollments</h2>
               </div>
-            </section>
-          </main>
-        </div>
+              <p class="section-note">Track incoming applications and course registrations.</p>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <div>
+                  <h2 class="panel-title">Recent Enrollments</h2>
+                  <p class="panel-subtitle">Frontend demo view for future backend connection</p>
+                </div>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Enrollment ID</th>
+                      <th>Student</th>
+                      <th>Program</th>
+                      <th>Fee</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="orders-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="section-products">
+            <div class="section-intro compact">
+              <div>
+                <p class="eyebrow">Course catalog</p>
+                <h2 class="page-title">Courses</h2>
+              </div>
+              <button class="btn btn-primary" id="addProductBtn" type="button">+ Add Course</button>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <div>
+                  <h2 class="panel-title">Course Inventory</h2>
+                  <p class="panel-subtitle">Live list wired for your future backend integration</p>
+                </div>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Category</th>
+                      <th>Price</th>
+                      <th>Seats</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="products-tbody">
+                    <tr>
+                      <td colspan="6" class="empty-row">Loading courses...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="section-users">
+            <div class="section-intro compact">
+              <div>
+                <p class="eyebrow">Student records</p>
+                <h2 class="page-title">Students</h2>
+              </div>
+              <p class="section-note">Learner directory prepared for your backend data.</p>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <div>
+                  <h2 class="panel-title">Student Directory</h2>
+                  <p class="panel-subtitle">Current UI preview for education platform users</p>
+                </div>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Program</th>
+                      <th>Joined</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="users-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+          <section class="section" id="section-library">
+            <div class="section-intro compact">
+              <div>
+                <p class="eyebrow">Book catalog</p>
+                <h2 class="page-title">Library</h2>
+              </div>
+              <button id="addBookBtn" class="btn btn-primary btn-shine" type="button">+ Add New Book</button>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header library-header">
+                <div>
+                  <h2 class="panel-title">Manage IELTS &amp; CEFR books</h2>
+                  <p class="panel-subtitle">Search, filter, upload PDFs, update, and delete book entries.</p>
+                </div>
+              </div>
+
+              <div class="library-toolbar">
+                <label class="library-search" for="bookSearchInput">
+                  <!-- <span class="search-icon">âŒ•</span> -->
+                  <input id="bookSearchInput" type="text" placeholder="Search by book title..." />
+                </label>
+
+                <select id="bookLevelFilter" class="library-select rounded-4 px-3">
+                  <option value="All">All Levels</option>
+                  <option value="IELTS">IELTS</option>
+                  <option value="CEFR">CEFR</option>
+                </select>
+              </div>
+
+              <div id="book-grid" class="book-grid"></div>
+            </div>
+          </section>
+        </main>
       </div>
     </div>
-<!-- // -- Add course modal --------- -->
-    <div class="modal-overlay" id="productModalOverlay">
-      <div class="modal" id="productModal">
-        <div class="modal-header">
-          <h3 class="modal-title" id="productModalTitle">Add Course</h3>
-          <button class="modal-close" id="productModalClose" type="button">&times;</button>
-        </div>
-        <form class="modal-form" id="productForm" novalidate>
-          <input type="hidden" id="productId" />
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="productName">Course Name <span class="required">*</span></label>
-              <input type="text" id="productName" placeholder="e.g. IELTS Intensive" required />
-              <span class="field-error" id="err-name"></span>
-            </div>
-            <div class="form-group">
-              <label for="productCategory">Category <span class="required">*</span></label>
-              <input type="text" id="productCategory" placeholder="e.g. Languages" required />
-              <span class="field-error" id="err-category"></span>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="productDescription">Description</label>
-            <textarea id="productDescription" rows="3" placeholder="Short course description..."></textarea>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="productPrice">Price ($) <span class="required">*</span></label>
-              <input type="number" id="productPrice" placeholder="0.00" min="0" step="0.01" required />
-              <span class="field-error" id="err-price"></span>
-            </div>
-            <div class="form-group">
-              <label for="productStock">Seats <span class="required">*</span></label>
-              <input type="number" id="productStock" placeholder="0" min="0" step="1" required />
-              <span class="field-error" id="err-stock"></span>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="productImageUrl">Cover Image URL</label>
-            <input type="url" id="productImageUrl" placeholder="https://example.com/course-cover.png" />
-            <span class="field-error" id="err-image_url"></span>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-ghost" id="productModalCancel">Cancel</button>
-            <button type="submit" class="btn btn-primary" id="productModalSubmit">Save Course</button>
-          </div>
-        </form>
+  </div>
+  <!-- // -- Add course modal --------- -->
+  <div class="modal-overlay" id="productModalOverlay">
+    <div class="modal" id="productModal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="productModalTitle">Add Course</h3>
+        <button class="modal-close" id="productModalClose" type="button">&times;</button>
       </div>
-    </div>
-<!-- // -- Delete course modal --------- -->
-    <div class="modal-overlay" id="deleteModalOverlay">
-      <div class="modal modal-sm" id="deleteModal">
-        <div class="modal-header">
-          <h3 class="modal-title">Delete Course</h3>
-          <button class="modal-close" id="deleteModalClose" type="button">&times;</button>
+      <form class="modal-form" id="productForm" novalidate>
+        <input type="hidden" id="productId" />
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="productName">Course Name <span class="required">*</span></label>
+            <input type="text" id="productName" placeholder="e.g. IELTS Intensive" required />
+            <span class="field-error" id="err-name"></span>
+          </div>
+          <div class="form-group">
+            <label for="productCategory">Category <span class="required">*</span></label>
+            <input type="text" id="productCategory" placeholder="e.g. Languages" required />
+            <span class="field-error" id="err-category"></span>
+          </div>
         </div>
-        <div class="modal-body">
-          <div class="delete-icon">⌦</div>
-          <p class="delete-message">
-            Are you sure you want to delete
-            <strong id="deleteProductName"></strong>?
-          </p>
-          <p class="delete-sub">This action cannot be undone.</p>
+
+        <div class="form-group">
+          <label for="productDescription">Description</label>
+          <textarea id="productDescription" rows="3" placeholder="Short course description..."></textarea>
         </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="productPrice">Price ($) <span class="required">*</span></label>
+            <input type="number" id="productPrice" placeholder="0.00" min="0" step="0.01" required />
+            <span class="field-error" id="err-price"></span>
+          </div>
+          <div class="form-group">
+            <label for="productStock">Seats <span class="required">*</span></label>
+            <input type="number" id="productStock" placeholder="0" min="0" step="1" required />
+            <span class="field-error" id="err-stock"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="productImageUrl">Cover Image URL</label>
+          <input type="url" id="productImageUrl" placeholder="https://example.com/course-cover.png" />
+          <span class="field-error" id="err-image_url"></span>
+        </div>
+
         <div class="modal-footer">
-          <button type="button" class="btn btn-ghost" id="deleteModalCancel">Cancel</button>
-          <button type="button" class="btn btn-danger-solid" id="deleteModalConfirm">Yes, Delete</button>
+          <button type="button" class="btn btn-ghost" id="productModalCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="productModalSubmit">Save Course</button>
         </div>
+      </form>
+    </div>
+  </div>
+  <!-- // -- Delete course modal --------- -->
+  <div class="modal-overlay" id="deleteModalOverlay">
+    <div class="modal modal-sm" id="deleteModal">
+      <div class="modal-header">
+        <h3 class="modal-title">Delete Course</h3>
+        <button class="modal-close" id="deleteModalClose" type="button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="delete-icon">⌦</div>
+        <p class="delete-message">
+          Are you sure you want to delete
+          <strong id="deleteProductName"></strong>?
+        </p>
+        <p class="delete-sub">This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" id="deleteModalCancel">Cancel</button>
+        <button type="button" class="btn btn-danger-solid" id="deleteModalConfirm">Yes, Delete</button>
       </div>
     </div>
+  </div>
 
-    <div class="modal-overlay" id="bookModalOverlay">
-      <div class="modal" id="bookModal">
-        <div class="modal-header">
-          <h3 class="modal-title" id="bookModalTitle">Add Book</h3>
-          <button class="modal-close" id="bookModalClose" type="button">&times;</button>
-        </div>
-        <form class="modal-form" id="bookForm" novalidate>
-          <input type="hidden" id="bookId" />
+  <div class="modal-overlay" id="bookModalOverlay">
+    <div class="modal" id="bookModal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="bookModalTitle">Add Book</h3>
+        <button class="modal-close" id="bookModalClose" type="button">&times;</button>
+      </div>
+      <form class="modal-form" id="bookForm" novalidate>
+        <input type="hidden" id="bookId" />
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="bookTitle">Title <span class="required">*</span></label>
-              <input type="text" id="bookTitle" placeholder="e.g. IELTS Cambridge 15" required />
-              <span class="field-error" id="book-err-title"></span>
-            </div>
-            <div class="form-group">
-              <label for="bookAuthor">Author <span class="required">*</span></label>
-              <input type="text" id="bookAuthor" placeholder="e.g. Cambridge" required />
-              <span class="field-error" id="book-err-author"></span>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="bookLevel">Level <span class="required">*</span></label>
-              <select id="bookLevel" required>
-                <option value="">Select level</option>
-                <option value="IELTS">IELTS</option>
-                <option value="CEFR A1">CEFR A1</option>
-                <option value="CEFR A2">CEFR A2</option>
-                <option value="CEFR B1">CEFR B1</option>
-                <option value="CEFR B2">CEFR B2</option>
-                <option value="CEFR C1">CEFR C1</option>
-              </select>
-              <span class="field-error" id="book-err-level"></span>
-            </div>
-            <div class="form-group">
-              <label for="bookPdf">PDF upload <span class="required">*</span></label>
-              <input type="file" id="bookPdf" accept="application/pdf" />
-              <span class="field-error" id="book-err-pdf"></span>
-            </div>
-          </div>
-
-          <p class="book-file-hint" id="bookPdfHint"></p>
-
+        <div class="form-row">
           <div class="form-group">
-            <label for="bookImage">Image upload</label>
-            <input type="file" id="bookImage" accept="image/*" />
-            <span class="field-error" id="book-err-image"></span>
+            <label for="bookTitle">Title <span class="required">*</span></label>
+            <input type="text" id="bookTitle" placeholder="e.g. IELTS Cambridge 15" required />
+            <span class="field-error" id="book-err-title"></span>
           </div>
-
-          <div class="book-preview-wrap">
-            <img id="bookImagePreview" class="book-image-preview" alt="Book preview" />
+          <div class="form-group">
+            <label for="bookAuthor">Author <span class="required">*</span></label>
+            <input type="text" id="bookAuthor" placeholder="e.g. Cambridge" required />
+            <span class="field-error" id="book-err-author"></span>
           </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-ghost" id="bookModalCancel">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-shine" id="bookModalSubmit">Save Book</button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="modal-overlay" id="deleteBookModalOverlay">
-      <div class="modal modal-sm" id="deleteBookModal">
-        <div class="modal-header">
-          <h3 class="modal-title">Delete Book</h3>
-          <button class="modal-close" id="deleteBookModalClose" type="button">&times;</button>
         </div>
-        <div class="modal-body">
-          <div class="delete-icon">âŒ¦</div>
-          <p class="delete-message">
-            Are you sure you want to delete
-            <strong id="deleteBookName"></strong>?
-          </p>
-          <p class="delete-sub">This action cannot be undone.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bookLevel">Level <span class="required">*</span></label>
+            <select id="bookLevel" required>
+              <option value="">Select level</option>
+              <option value="IELTS">IELTS</option>
+              <option value="CEFR A1">CEFR A1</option>
+              <option value="CEFR A2">CEFR A2</option>
+              <option value="CEFR B1">CEFR B1</option>
+              <option value="CEFR B2">CEFR B2</option>
+              <option value="CEFR C1">CEFR C1</option>
+            </select>
+            <span class="field-error" id="book-err-level"></span>
+          </div>
+          <div class="form-group">
+            <label for="bookPdf">PDF upload <span class="required">*</span></label>
+            <input type="file" id="bookPdf" accept="application/pdf" />
+            <span class="field-error" id="book-err-pdf"></span>
+          </div>
         </div>
+
+        <p class="book-file-hint" id="bookPdfHint"></p>
+
+        <div class="form-group">
+          <label for="bookImage">Image upload</label>
+          <input type="file" id="bookImage" accept="image/*" />
+          <span class="field-error" id="book-err-image"></span>
+        </div>
+
+        <div class="book-preview-wrap">
+          <img id="bookImagePreview" class="book-image-preview" alt="Book preview" />
+        </div>
+
         <div class="modal-footer">
-          <button type="button" class="btn btn-ghost" id="deleteBookModalCancel">Cancel</button>
-          <button type="button" class="btn btn-danger-solid btn-shine" id="deleteBookModalConfirm">Yes, Delete</button>
+          <button type="button" class="btn btn-ghost" id="bookModalCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-shine" id="bookModalSubmit">Save Book</button>
         </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="deleteBookModalOverlay">
+    <div class="modal modal-sm" id="deleteBookModal">
+      <div class="modal-header">
+        <h3 class="modal-title">Delete Book</h3>
+        <button class="modal-close" id="deleteBookModalClose" type="button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="delete-icon">âŒ¦</div>
+        <p class="delete-message">
+          Are you sure you want to delete
+          <strong id="deleteBookName"></strong>?
+        </p>
+        <p class="delete-sub">This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" id="deleteBookModalCancel">Cancel</button>
+        <button type="button" class="btn btn-danger-solid btn-shine" id="deleteBookModalConfirm">Yes, Delete</button>
       </div>
     </div>
+  </div>
 
-    <script src="admin.js"></script>
-  </body>
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="admin.js"></script>
+</body>
+
 </html>

@@ -2,6 +2,7 @@ const BASE_URL = "http://localhost:5500";
 
 const sectionLabels = {
   dashboard: "Dashboard",
+  assignments: "Assignments",
   results: "Results",
   library: "Library",
 };
@@ -45,36 +46,60 @@ const videoLessons = [
   },
 ];
 
-const assignmentRows = [
+const tasks = [
   {
-    title: "React landing page",
-    detail: "Hero, cards va responsive footer tayyorlash",
+    id: 1,
+    title: "Present Simple Quiz",
+    description: "Choose the correct tense form in 10 multiple-choice grammar questions.",
+    type: "grammar",
+    questions: 10,
     deadline: "Deadline: 30 Apr",
-    type: "Frontend",
+    progress: 100,
   },
   {
-    title: "Vocabulary notebook",
-    detail: "25 ta yangi so'z va 10 ta gap yozish",
-    deadline: "Deadline: 29 Apr",
-    type: "English",
-  },
-  {
-    title: "DOM mini task",
-    detail: "3 ta button va modal interaction yasash",
+    id: 2,
+    title: "Word Matching",
+    description: "Match new academic words with their meanings in a Duolingo-style exercise.",
+    type: "vocabulary",
+    questions: 12,
     deadline: "Deadline: 1 May",
-    type: "JavaScript",
+    progress: 100,
   },
   {
-    title: "UI critique sheet",
-    detail: "2 ta saytni UX bo'yicha tahlil qilish",
+    id: 3,
+    title: "Listening Section 1",
+    description: "Listen to the short conversation and answer the follow-up questions.",
+    type: "listening",
+    questions: 8,
     deadline: "Deadline: 2 May",
-    type: "Design",
+    progress: 100,
   },
   {
-    title: "Reading summary",
-    detail: "Article dan 1 betlik summary topshirish",
+    id: 4,
+    title: "Task 2 Essay Draft",
+    description: "Write a short opinion essay using the feedback from your last mock test.",
+    type: "writing",
+    questions: 1,
     deadline: "Deadline: 3 May",
-    type: "Homework",
+    progress: 45,
+  },
+  {
+    id: 5,
+    title: "Speaking Part 2",
+    description: "Record a two-minute answer and practice fluency around one cue-card topic.",
+    type: "speaking",
+    questions: 1,
+    deadline: "Deadline: 4 May",
+    progress: 100,
+  },
+  {
+    id: 6,
+    title: "Daily Reading Builder",
+    description: "Complete a short passage and identify main ideas, headings, and keywords.",
+    type: "vocabulary",
+    questions: 6,
+    deadline: "Deadline: 5 May",
+    progress: 0,
   },
 ];
 
@@ -101,34 +126,42 @@ const backlogRows = [
   },
 ];
 
-const resultRows = [
+const completedTasks = [
   {
-    subject: "Frontend Bootcamp",
-    assessment: "JavaScript Quiz",
-    score: "92/100",
-    feedback: "Strong logic and clean code",
+    taskId: 1,
+    title: "Present Simple Quiz",
+    type: "grammar",
+    skill: "writing",
+    score: 85,
+    feedback: "Good grammar usage",
     status: "Completed",
   },
   {
-    subject: "English Speaking",
-    assessment: "Vocabulary Test",
-    score: "84/100",
-    feedback: "Good pronunciation, expand word bank",
-    status: "Active",
-  },
-  {
-    subject: "UI Design Basics",
-    assessment: "Mobile Layout Task",
-    score: "95/100",
-    feedback: "Excellent visual balance",
+    taskId: 2,
+    title: "Word Matching",
+    type: "vocabulary",
+    skill: "reading",
+    score: 90,
+    feedback: "Strong vocabulary",
     status: "Completed",
   },
   {
-    subject: "React Workshop",
-    assessment: "Mini Project Review",
-    score: "Pending",
-    feedback: "Submission expected by Friday",
-    status: "Pending",
+    taskId: 3,
+    title: "Listening Section 1",
+    type: "listening",
+    skill: "listening",
+    score: 75,
+    feedback: "Good attention to key details",
+    status: "Completed",
+  },
+  {
+    taskId: 5,
+    title: "Speaking Part 2",
+    type: "speaking",
+    skill: "speaking",
+    score: 78,
+    feedback: "Fluency is improving steadily",
+    status: "Completed",
   },
 ];
 
@@ -143,6 +176,8 @@ const metricCards = document.querySelectorAll(".metric-action");
 const backlogList = document.getElementById("backlog-list");
 const toggleBacklogBtn = document.getElementById("toggleBacklogBtn");
 const themeToggle = document.getElementById("themeToggle");
+const goAssignmentsBtn = document.getElementById("goAssignmentsBtn");
+const tasksGrid = document.getElementById("tasks-grid");
 const libraryGrid = document.getElementById("library-grid");
 const librarySearch = document.getElementById("library-search");
 const libraryFilters = document.querySelectorAll("[data-library-filter]");
@@ -167,6 +202,16 @@ const DEFAULT_BOOK_PREVIEW = `data:image/svg+xml;charset=UTF-8,${encodeURICompon
 
 let backlogExpanded = false;
 let activeLibraryCategory = "All";
+let latestCompletedTaskId = null;
+const resultsState = {
+  normalizedTasks: [],
+  skillPercentages: {},
+  skillBands: {},
+  overallBand: null,
+  cefrLevel: "A2",
+  bestSkill: null,
+  weakSkill: null,
+};
 
 function applyTheme(theme) {
   const isDark = theme === "dark";
@@ -182,7 +227,11 @@ function toggleTheme() {
 }
 
 function createStatusBadge(status) {
-  return `<span class="status-badge ${(status || "").toLowerCase()}">${status || "-"}</span>`;
+  const normalized = String(status || "")
+    .toLowerCase()
+    .replace(/\s+/g, "-");
+
+  return `<span class="status-badge ${normalized}">${status || "-"}</span>`;
 }
 
 function escapeHtml(value) {
@@ -235,6 +284,392 @@ function renderRows(targetId, rows, columns) {
     .join("");
 }
 
+function mapTaskTypeToSkill(type) {
+  const skillMap = {
+    grammar: "writing",
+    vocabulary: "reading",
+    listening: "listening",
+    writing: "writing",
+    speaking: "speaking",
+  };
+
+  return skillMap[type] || "reading";
+}
+
+function formatLabel(value) {
+  const text = String(value || "");
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+function getTaskResult(taskId) {
+  return completedTasks.find((item) => Number(item.taskId) === Number(taskId)) || null;
+}
+
+function getTaskStatus(task) {
+  if (getTaskResult(task.id)) {
+    return "Completed";
+  }
+
+  if (Number(task.progress || 0) > 0) {
+    return "In Progress";
+  }
+
+  return "Pending";
+}
+
+function createTaskStatusBadge(status) {
+  const normalized = status.toLowerCase().replace(/\s+/g, "-");
+  return `<span class="status-badge ${normalized}">${status}</span>`;
+}
+
+function groupTasksBySkill(tasks = []) {
+  return tasks.reduce(
+    (groups, task) => {
+      const skill = String(task.skill || "").toLowerCase();
+
+      if (groups[skill]) {
+        groups[skill].push(task);
+      }
+
+      return groups;
+    },
+    {
+      reading: [],
+      listening: [],
+      writing: [],
+      speaking: [],
+    },
+  );
+}
+
+function getCEFRLevel(overall) {
+  if (overall === null) {
+    return "A2";
+  }
+
+  if (overall >= 8) {
+    return "C2";
+  }
+
+  if (overall >= 7) {
+    return "C1";
+  }
+
+  if (overall >= 5.5) {
+    return "B2";
+  }
+
+  if (overall >= 4) {
+    return "B1";
+  }
+
+  return "A2";
+}
+
+function createCEFRBadge(level) {
+  return `<span class="cefr-badge ${String(level || "").toLowerCase()}">${level}</span>`;
+}
+
+function getStrongestWeakestScores(scores) {
+  const entries = Object.entries(scores).filter(([, value]) => typeof value === "number" && !Number.isNaN(value));
+
+  if (!entries.length) {
+    return { bestSkill: null, weakSkill: null };
+  }
+
+  const sorted = [...entries].sort((a, b) => b[1] - a[1]);
+  return {
+    bestSkill: sorted[0],
+    weakSkill: sorted[sorted.length - 1],
+  };
+}
+
+function calculateSkillPercentages(items = []) {
+  const groupedTasks = groupTasksBySkill(items);
+
+  return Object.fromEntries(
+    Object.entries(groupedTasks).map(([skill, skillTasks]) => {
+      if (!skillTasks.length) {
+        return [skill, null];
+      }
+
+      const total = skillTasks.reduce((sum, task) => sum + Number(task.score || 0), 0);
+      return [skill, Number((total / skillTasks.length).toFixed(1))];
+    }),
+  );
+}
+
+function convertToBand(score) {
+  if (typeof score !== "number" || Number.isNaN(score)) {
+    return null;
+  }
+
+  return Number(((score / 100) * 9).toFixed(1));
+}
+
+function calculateOverallBand(skillPercentages) {
+  const skillBands = Object.values(skillPercentages)
+    .map((score) => convertToBand(score))
+    .filter((score) => typeof score === "number" && !Number.isNaN(score));
+
+  if (!skillBands.length) {
+    return null;
+  }
+
+  const total = skillBands.reduce((sum, score) => sum + score, 0);
+  return Number((total / skillBands.length).toFixed(2));
+}
+
+function getScoreClass(score) {
+  if (score >= 90) {
+    return "score-excellent";
+  }
+
+  if (score >= 75) {
+    return "score-good";
+  }
+
+  if (score >= 50) {
+    return "score-medium";
+  }
+
+  return "score-low";
+}
+
+function createPercentScore(score, isBest = false) {
+  const scoreText = typeof score === "number" ? `${score}%` : "-";
+  const scoreClass = typeof score === "number" ? getScoreClass(score) : "";
+  const progressWidth = typeof score === "number" ? `${Math.max(0, Math.min(score, 100))}%` : "0%";
+
+  return `
+    <div class="result-score ${isBest ? "top-skill" : ""}">
+      <div class="result-score-line ${scoreClass}">
+        <strong>${scoreText}</strong>
+      </div>
+      <div class="result-progress ${scoreClass}">
+        <span style="width: ${progressWidth}"></span>
+      </div>
+    </div>
+  `;
+}
+
+function getNormalizedCompletedTasks() {
+  return completedTasks.map((task, index) => ({
+    ...task,
+    __entryId: task.__entryId || `${task.taskId || "task"}-${index}`,
+    skill: String(task.skill || mapTaskTypeToSkill(task.type)).toLowerCase(),
+  }));
+}
+
+function recalculateResults() {
+  resultsState.normalizedTasks = getNormalizedCompletedTasks();
+  resultsState.skillPercentages = calculateSkillPercentages(resultsState.normalizedTasks);
+  resultsState.skillBands = Object.fromEntries(
+    Object.entries(resultsState.skillPercentages).map(([skill, score]) => [skill, convertToBand(score)]),
+  );
+  resultsState.overallBand = calculateOverallBand(resultsState.skillPercentages);
+  resultsState.cefrLevel = getCEFRLevel(resultsState.overallBand);
+}
+
+function updateBestAndWeak() {
+  const { bestSkill, weakSkill } = getStrongestWeakestScores(resultsState.skillPercentages);
+  resultsState.bestSkill = bestSkill;
+  resultsState.weakSkill = weakSkill;
+}
+
+function renderSummaryCards() {
+  const summary = document.getElementById("results-summary");
+  if (!summary) {
+    return;
+  }
+
+  const orderedSkills = ["reading", "listening", "writing", "speaking"];
+
+  summary.innerHTML = `
+    <div class="results-summary-grid">
+      ${orderedSkills
+        .map((skill) => {
+          const percentage = resultsState.skillPercentages[skill];
+          const band = resultsState.skillBands[skill];
+          const scoreClass = typeof percentage === "number" ? getScoreClass(percentage) : "";
+          const isBest = resultsState.bestSkill && resultsState.bestSkill[0] === skill;
+          const isWeak = resultsState.weakSkill && resultsState.weakSkill[0] === skill;
+
+          return `
+            <article class="result-summary-card ${scoreClass} ${isBest ? "best-card" : ""} ${isWeak ? "weak-card" : ""}">
+              <div class="result-summary-head">
+                <span>${formatLabel(skill)}</span>
+                ${isBest ? `<span class="task-tag">Best</span>` : isWeak ? `<span class="task-tag">Weak</span>` : ""}
+              </div>
+              <strong>${typeof percentage === "number" ? `${percentage}%` : "-"}</strong>
+              <span>${typeof band === "number" ? band.toFixed(1) : "-"} band</span>
+            </article>
+          `;
+        })
+        .join("")}
+      <article class="result-summary-card overall-card">
+        <div class="result-summary-head">
+          <span>Overall</span>
+          ${createCEFRBadge(resultsState.cefrLevel)}
+        </div>
+        <strong>${resultsState.overallBand !== null ? resultsState.overallBand.toFixed(2) : "-"}</strong>
+        <span>${completedTasks.length} completed tasks</span>
+      </article>
+    </div>
+  `;
+}
+
+function renderTaskTable() {
+  const tbody = document.getElementById("results-tbody");
+  if (!tbody) {
+    return;
+  }
+
+  const rows = [...resultsState.normalizedTasks].reverse();
+
+  tbody.innerHTML = rows
+    .map((task) => `
+      <tr class="${task.__entryId === latestCompletedTaskId ? "new-task" : ""}">
+        <td>
+          <span class="task-tag ${resultsState.bestSkill && resultsState.bestSkill[0] === task.skill ? "top-tag" : ""}">${formatLabel(task.skill)}</span>
+        </td>
+        <td>
+          <div class="result-task-copy">
+            <strong>${escapeHtml(task.title)}</strong>
+            <span>${formatLabel(task.type)}</span>
+          </div>
+        </td>
+        <td>${createPercentScore(Number(task.score || 0), resultsState.bestSkill && resultsState.bestSkill[0] === task.skill)}</td>
+        <td>${escapeHtml(task.feedback || "-")}</td>
+        <td>${createStatusBadge(task.status || "Completed")}</td>
+      </tr>
+    `)
+    .join("");
+}
+
+function renderTaskResults() {
+  recalculateResults();
+  updateBestAndWeak();
+  renderSummaryCards();
+  renderTaskTable();
+}
+
+function addCompletedTask(task) {
+  const completedTask = {
+    ...task,
+    __entryId: task.__entryId || `${task.taskId || "task"}-${Date.now()}`,
+  };
+
+  completedTasks.push(completedTask);
+  latestCompletedTaskId = completedTask.__entryId;
+
+  recalculateResults();
+  updateBestAndWeak();
+  renderSummaryCards();
+  renderTaskTable();
+  renderAssignments();
+  renderTasks();
+
+  const resultsSection = document.getElementById("section-results");
+  resultsSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  window.setTimeout(() => {
+    if (latestCompletedTaskId === completedTask.__entryId) {
+      latestCompletedTaskId = null;
+      renderTaskTable();
+    }
+  }, 1200);
+}
+
+function getTaskCompletionScore(task) {
+  const scoreMap = {
+    grammar: 85,
+    vocabulary: 90,
+    listening: 75,
+    writing: 78,
+    speaking: 82,
+  };
+
+  return scoreMap[task.type] ?? 80;
+}
+
+function getTaskCompletionFeedback(task, score) {
+  if (score >= 90) {
+    return `Excellent ${task.type} performance`;
+  }
+
+  if (score >= 75) {
+    return `Strong ${task.type} progress`;
+  }
+
+  if (score >= 50) {
+    return `Solid effort, keep improving ${task.type}`;
+  }
+
+  return `Needs more practice in ${task.type}`;
+}
+
+function buildCompletedTaskFromTask(task) {
+  const score = getTaskCompletionScore(task);
+
+  return {
+    taskId: task.id,
+    title: task.title,
+    type: task.type,
+    skill: mapTaskTypeToSkill(task.type),
+    score,
+    feedback: getTaskCompletionFeedback(task, score),
+    status: "Completed",
+  };
+}
+
+function renderTasks() {
+  if (!tasksGrid) {
+    return;
+  }
+
+  tasksGrid.innerHTML = tasks
+    .map((task) => {
+      const skill = mapTaskTypeToSkill(task.type);
+      const status = getTaskStatus(task);
+      const progress = Math.max(0, Math.min(Number(task.progress || 0), 100));
+      const buttonLabel = status === "Completed" ? "Review Task" : "Start Task";
+
+      return `
+        <article class="task-card">
+          <div class="task-card-top">
+            <div class="task-card-copy">
+              <h3>${escapeHtml(task.title)}</h3>
+              <p>${escapeHtml(task.description)}</p>
+            </div>
+            ${createTaskStatusBadge(status)}
+          </div>
+
+          <div class="task-card-meta">
+            <span class="task-tag">${formatLabel(task.type)}</span>
+            <span class="task-tag">${formatLabel(skill)}</span>
+            <span class="task-deadline">${escapeHtml(task.deadline)}</span>
+          </div>
+
+          <div class="task-progress">
+            <div class="task-progress-row">
+              <span>${task.questions ? `${task.questions} questions` : "Practice task"}</span>
+              <strong>${progress}%</strong>
+            </div>
+            <div class="result-progress">
+              <span style="width: ${progress}%"></span>
+            </div>
+          </div>
+
+          <button class="lesson-link task-card-button" type="button" data-task-id="${task.id}">
+            ${buttonLabel}
+          </button>
+        </article>
+      `;
+    })
+    .join("");
+}
+
 function renderVideoLessons() {
   const container = document.getElementById("video-lessons-list");
 
@@ -255,23 +690,29 @@ function renderVideoLessons() {
 
 function renderAssignments() {
   const container = document.getElementById("assignment-list");
+  const summaryTasks = tasks.slice(0, 3);
 
-  container.innerHTML = assignmentRows
+  container.innerHTML = summaryTasks
     .map(
       (task) => `
         <div class="task-item">
           <div class="task-item-copy">
             <strong>${task.title}</strong>
-            <span>${task.detail}</span>
+            <span>${task.description}</span>
             <div class="task-meta">
-              <span class="task-tag">${task.type}</span>
+              <span class="task-tag">${formatLabel(task.type)}</span>
               <span>${task.deadline}</span>
             </div>
           </div>
-          <a class="task-link" href="#assignment-list">Vazifaga o'tish</a>
+          <a class="task-link" href="#" data-open-section="assignments">Vazifaga o'tish</a>
         </div>`,
     )
     .join("");
+
+  document.getElementById("stat-assignment-count").textContent = String(tasks.length);
+  document.getElementById("stat-backlog-count").textContent = String(
+    tasks.filter((task) => getTaskStatus(task) !== "Completed").length,
+  );
 }
 
 function renderBacklog() {
@@ -445,6 +886,16 @@ navLinks.forEach((link) => {
   });
 });
 
+document.addEventListener("click", (event) => {
+  const trigger = event.target.closest("[data-open-section]");
+  if (!trigger) {
+    return;
+  }
+
+  event.preventDefault();
+  showSection(trigger.dataset.openSection);
+});
+
 metricCards.forEach((card) => {
   card.addEventListener("click", () => {
     const target = card.dataset.target;
@@ -461,6 +912,10 @@ sidebarToggle.addEventListener("click", openSidebar);
 sidebarClose.addEventListener("click", closeSidebar);
 sidebarOverlay.addEventListener("click", closeSidebar);
 themeToggle.addEventListener("click", toggleTheme);
+goAssignmentsBtn?.addEventListener("click", function (e) {
+  e.preventDefault();
+  showSection("assignments");
+});
 
 if (librarySearch) {
   librarySearch.addEventListener("input", loadBooks);
@@ -486,18 +941,31 @@ libraryGrid?.addEventListener("click", (event) => {
   window.open(`${BASE_URL}/${pdfPath}`, "_blank", "noopener");
 });
 
+tasksGrid?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-task-id]");
+  if (!button) {
+    return;
+  }
+
+  const task = tasks.find((item) => Number(item.id) === Number(button.dataset.taskId));
+  if (!task) {
+    return;
+  }
+
+  if (!getTaskResult(task.id)) {
+    task.progress = 100;
+    addCompletedTask(buildCompletedTaskFromTask(task));
+  }
+
+  showSection("results");
+});
+
 renderVideoLessons();
 renderAssignments();
 renderBacklog();
+renderTasks();
 setBacklogExpanded(false);
 applyTheme(localStorage.getItem(THEME_KEY) || "light");
-
-renderRows("results-tbody", resultRows, [
-  (row) => row.subject,
-  (row) => row.assessment,
-  (row) => row.score,
-  (row) => row.feedback,
-  (row) => createStatusBadge(row.status),
-]);
+renderTaskResults();
 
 showSection("dashboard");
