@@ -599,278 +599,6 @@ input {
   background: #f8e0ca;
 }
 
-.status-badge.in-progress {
-  color: #b06d2e;
-  background: #fff0d8;
-}
-
-.tasks-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.task-card {
-  display: grid;
-  gap: 16px;
-  padding: 18px;
-  border: 1px solid #f0ddd3;
-  border-radius: var(--radius-lg);
-  background: #fffaf6;
-  box-shadow: 0 12px 28px rgba(137, 94, 73, 0.08);
-  transition: transform var(--transition), box-shadow var(--transition);
-}
-
-.task-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 34px rgba(137, 94, 73, 0.14);
-}
-
-.task-card-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 14px;
-}
-
-.task-card-copy {
-  display: grid;
-  gap: 6px;
-}
-
-.task-card-copy h3 {
-  color: var(--title);
-  font-size: 1rem;
-}
-
-.task-card-copy p,
-.task-progress-row span,
-.task-deadline,
-.result-overall span {
-  color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.5;
-}
-
-.task-card-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.task-progress {
-  display: grid;
-  gap: 8px;
-}
-
-.task-progress-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.task-progress-row strong {
-  color: var(--title);
-  font-size: 0.85rem;
-}
-
-.task-card-button {
-  width: fit-content;
-}
-
-.results-summary {
-  margin-bottom: 18px;
-}
-
-.results-summary-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.result-summary-card {
-  display: grid;
-  gap: 8px;
-  padding: 16px;
-  border: 1px solid #f0ddd3;
-  border-radius: 16px;
-  background: #fffaf6;
-}
-
-.result-summary-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.result-summary-card strong,
-.result-task-copy strong,
-.result-score-line strong,
-.result-overall strong {
-  color: var(--title);
-}
-
-.result-summary-card span,
-.result-task-copy span,
-.result-overall span {
-  color: var(--muted);
-  font-size: 0.8rem;
-  line-height: 1.45;
-}
-
-.result-summary-card.is-best,
-.result-summary-card.best-card {
-  box-shadow: 0 14px 26px rgba(137, 94, 73, 0.14);
-}
-
-.result-summary-card.score-excellent.best-card,
-.result-summary-card.score-excellent.is-best {
-  border-color: rgba(107, 162, 109, 0.42);
-  background: #fff;
-}
-
-.result-summary-card.score-excellent.best-card .task-tag,
-.result-summary-card.score-excellent.is-best .task-tag {
-  background: #fff;
-  color: var(--sidebar-active);
-}
-
-.result-summary-card.is-weak,
-.result-summary-card.weak-card {
-  border-style: dashed;
-}
-
-.result-score {
-  display: grid;
-  gap: 8px;
-  min-width: 110px;
-}
-
-.result-score-line {
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-
-.result-score-line strong,
-.result-summary-card strong {
-  background: none;
-  padding: 0;
-  border-radius: 0;
-  font-weight: 600;
-}
-
-.result-score.top-skill .result-score-line strong,
-.result-overall strong,
-.top-tag {
-  color: var(--sidebar-active);
-  font-weight: 700;
-}
-
-.result-overall,
-.result-task-copy {
-  display: grid;
-  gap: 4px;
-}
-
-.result-progress {
-  width: 100%;
-  height: 7px;
-  border-radius: 999px;
-  overflow: hidden;
-  background: #f2e5de;
-}
-
-.result-progress span {
-  display: block;
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #d97b41 0%, #c95a52 100%);
-  transition: width 0.35s ease;
-  box-shadow: 0 6px 14px rgba(201, 90, 82, 0.18);
-}
-
-.result-progress.score-excellent span,
-.result-score-line.score-excellent strong,
-.result-summary-card.score-excellent strong {
-  color: var(--sidebar-active);
-  opacity: 1;
-}
-
-.result-progress.score-good span,
-.result-score-line.score-good strong,
-.result-summary-card.score-good strong {
-  color: var(--sidebar-active);
-  opacity: 0.92;
-}
-
-.result-progress.score-medium span,
-.result-score-line.score-medium strong,
-.result-summary-card.score-medium strong {
-  color: var(--sidebar-active);
-  opacity: 0.82;
-}
-
-.result-progress.score-low span,
-.result-score-line.score-low strong,
-.result-summary-card.score-low strong {
-  color: var(--sidebar-active);
-  opacity: 0.72;
-}
-
-.overall-card {
-  background: linear-gradient(135deg, #fff7f1 0%, #fff0ec 100%);
-}
-
-.new-task {
-  animation: fadeHighlight 1s ease;
-  background: rgba(255, 200, 100, 0.2);
-}
-
-@keyframes fadeHighlight {
-  0% {
-    background: rgba(255, 200, 100, 0.35);
-  }
-
-  100% {
-    background: rgba(255, 200, 100, 0.2);
-  }
-}
-
-.cefr-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 68px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.cefr-badge.a2,
-.cefr-badge.b1 {
-  color: #7d746f;
-  background: #ece7e2;
-}
-
-.cefr-badge.b2 {
-  color: #b06d2e;
-  background: #fff0d8;
-}
-
-.cefr-badge.c1 {
-  color: #527b53;
-  background: #e2f2df;
-}
-
-.cefr-badge.c2 {
-  color: #3f6b47;
-  background: #d6efda;
-}
-
 .progress-list {
   display: grid;
   gap: 18px;
@@ -921,6 +649,33 @@ input {
 .task-list {
   display: grid;
   gap: 14px;
+  overflow-y: auto;
+  padding-right: 8px;
+  scrollbar-gutter: stable;
+}
+
+.lesson-list {
+  max-height: calc((108px * 5) + (14px * 4));
+}
+
+.task-list {
+  max-height: calc((94px * 5) + (14px * 4));
+}
+
+.lesson-list::-webkit-scrollbar,
+.task-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.lesson-list::-webkit-scrollbar-thumb,
+.task-list::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(188, 103, 71, 0.35);
+}
+
+.lesson-list::-webkit-scrollbar-track,
+.task-list::-webkit-scrollbar-track {
+  background: rgba(240, 221, 211, 0.45);
 }
 
 .lesson-item,
@@ -933,6 +688,14 @@ input {
   border: 1px solid #f0ddd3;
   border-radius: 16px;
   background: #fffaf6;
+}
+
+.lesson-item {
+  min-height: 108px;
+}
+
+.task-item {
+  min-height: 94px;
 }
 
 .lesson-item-copy,
@@ -995,8 +758,14 @@ input {
   margin-top: 20px;
 }
 
-.backlog-list.collapsed .task-item:nth-child(n + 4) {
-  display: none;
+.backlog-list.collapsed {
+  max-height: calc((94px * 5) + (14px * 4));
+}
+
+.backlog-list:not(.collapsed) {
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
 }
 
 .insight-badge {
@@ -1190,13 +959,11 @@ input {
 }
 
 @media (max-width: 1200px) {
-  .results-summary-grid,
   .stats-grid,
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
 
-  .tasks-grid,
   .library-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1290,7 +1057,6 @@ input {
   }
 
   .library-grid,
-  .tasks-grid,
   .library-card-actions {
     grid-template-columns: 1fr;
   }
@@ -1327,8 +1093,6 @@ body.dark-mode .sidebar-toggle,
 body.dark-mode .topbar-icon,
 body.dark-mode .lesson-item,
 body.dark-mode .task-item,
-body.dark-mode .task-card,
-body.dark-mode .result-summary-card,
 body.dark-mode .panel-link,
 body.dark-mode .insight-card {
   background: #2a1f1b;
@@ -1343,12 +1107,7 @@ body.dark-mode .topbar-user-copy strong,
 body.dark-mode .data-table td,
 body.dark-mode .lesson-item-copy strong,
 body.dark-mode .task-item-copy strong,
-body.dark-mode .task-card-copy h3,
-body.dark-mode .library-card-copy h3,
-body.dark-mode .result-summary-card strong,
-body.dark-mode .result-task-copy strong,
-body.dark-mode .result-score-line strong,
-body.dark-mode .result-overall strong {
+body.dark-mode .library-card-copy h3 {
   color: #f4e4dc;
 }
 
@@ -1360,14 +1119,8 @@ body.dark-mode .section-note,
 body.dark-mode .data-table th,
 body.dark-mode .lesson-item-copy span,
 body.dark-mode .task-item-copy span,
-body.dark-mode .task-card-copy p,
 body.dark-mode .library-card-copy p,
-body.dark-mode .library-empty,
-body.dark-mode .result-summary-card span,
-body.dark-mode .result-task-copy span,
-body.dark-mode .result-overall span,
-body.dark-mode .task-progress-row span,
-body.dark-mode .task-deadline {
+body.dark-mode .library-empty {
   color: #c9afa4;
 }
 
@@ -1402,15 +1155,19 @@ body.dark-mode .panel-chip,
 body.dark-mode .panel-chip-button,
 body.dark-mode .insight-badge,
 body.dark-mode .library-badge,
-body.dark-mode .library-filter,
-body.dark-mode .cefr-badge.a2,
-body.dark-mode .cefr-badge.b1 {
+body.dark-mode .library-filter {
   background: #3a2a24;
   color: #f2bb94;
 }
 
-body.dark-mode .result-progress {
-  background: #3a2a24;
+body.dark-mode .lesson-list::-webkit-scrollbar-thumb,
+body.dark-mode .task-list::-webkit-scrollbar-thumb {
+  background: rgba(242, 187, 148, 0.45);
+}
+
+body.dark-mode .lesson-list::-webkit-scrollbar-track,
+body.dark-mode .task-list::-webkit-scrollbar-track {
+  background: rgba(74, 53, 47, 0.65);
 }
 
 body.dark-mode .library-filter {
