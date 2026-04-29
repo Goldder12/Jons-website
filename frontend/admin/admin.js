@@ -2,75 +2,45 @@ const BASE_URL = "http://localhost:5500";
 
 const sectionLabels = {
   dashboard: "Dashboard",
-  orders: "Enrollments",
-  products: "Courses",
   library: "Library",
   users: "Students",
 };
 
 const demoActivity = [
   {
-    name: "Cleoz Armagan",
-    email: "cleo.academy@gmail.com",
-    role: "Academic Lead",
-    joined: "5 Apr 2026",
-    status: "Active",
+    rank: 1,
+    name: "Madina Yusuf",
+    email: "madina.yusuf@gmail.com",
+    group: "C2",
+    score: 98,
   },
   {
-    name: "Akong Rinaf Ray",
-    email: "akong.rinaf@gmail.com",
-    role: "Mentor",
-    joined: "28 Mar 2026",
-    status: "Pending",
+    rank: 2,
+    name: "Jasur Eshonqulov",
+    email: "jasur.dev@gmail.com",
+    group: "C1",
+    score: 96,
   },
   {
-    name: "Abigail Abaryo",
-    email: "abigail.edu@gmail.com",
-    role: "Admin",
-    joined: "20 Mar 2026",
-    status: "Review",
+    rank: 3,
+    name: "Sitora Mamatova",
+    email: "sitora.math@gmail.com",
+    group: "B2",
+    score: 94,
   },
   {
-    name: "Chrisdila Myite",
-    email: "christila@gmail.com",
-    role: "Student Advisor",
-    joined: "3 Feb 2026",
-    status: "Active",
-  },
-];
-
-const demoEnrollments = [
-  {
-    id: "ENR-2041",
-    student: "Mahliyo Karimova",
-    program: "IELTS Intensive",
-    fee: "$320",
-    status: "Pending",
-    date: "24 Apr 2026",
+    rank: 4,
+    name: "Ulugbek Norov",
+    email: "ulugbek.ui@gmail.com",
+    group: "B1",
+    score: 92,
   },
   {
-    id: "ENR-2040",
-    student: "Bekzod Tursunov",
-    program: "Frontend Bootcamp",
-    fee: "$410",
-    status: "Active",
-    date: "23 Apr 2026",
-  },
-  {
-    id: "ENR-2038",
-    student: "Shahnoza Aliyeva",
-    program: "SAT Math Prep",
-    fee: "$290",
-    status: "Review",
-    date: "22 Apr 2026",
-  },
-  {
-    id: "ENR-2035",
-    student: "Azizbek Rahimov",
-    program: "Graphic Design",
-    fee: "$260",
-    status: "Active",
-    date: "20 Apr 2026",
+    rank: 5,
+    name: "Aziza Karimova",
+    email: "aziza.karimova@gmail.com",
+    group: "A2",
+    score: 90,
   },
 ];
 
@@ -144,29 +114,11 @@ function renderDashboardActivity() {
     .map(
       (item) => `
         <tr>
+          <td>${item.rank}</td>
           <td>${item.name}</td>
           <td>${item.email}</td>
-          <td>${item.role}</td>
-          <td>${item.joined}</td>
-          <td>${createStatusBadge(item.status)}</td>
-        </tr>`,
-    )
-    .join("");
-}
-
-function renderEnrollments() {
-  const tbody = document.getElementById("orders-tbody");
-
-  tbody.innerHTML = demoEnrollments
-    .map(
-      (item) => `
-        <tr>
-          <td>${item.id}</td>
-          <td>${item.student}</td>
-          <td>${item.program}</td>
-          <td>${item.fee}</td>
-          <td>${createStatusBadge(item.status)}</td>
-          <td>${item.date}</td>
+          <td>${item.group}</td>
+          <td>${item.score}</td>
         </tr>`,
     )
     .join("");
@@ -188,12 +140,6 @@ function renderStudents() {
         </tr>`,
     )
     .join("");
-}
-
-function setDashboardStats(courseCount = 24) {
-  document.getElementById("stat-products").textContent = courseCount;
-  document.getElementById("stat-orders").textContent = "2,860";
-  document.getElementById("stat-revenue").textContent = "$52,000";
 }
 
 function closeSidebar() {
@@ -224,10 +170,6 @@ function showSection(name) {
     headerTitle.textContent = sectionLabels[name] || "Dashboard";
   }
 
-  if (name === "products") {
-    loadProducts();
-  }
-
   if (name === "library") {
     loadBooks();
   }
@@ -247,115 +189,6 @@ sidebarClose.addEventListener("click", closeSidebar);
 sidebarOverlay.addEventListener("click", closeSidebar);
 themeToggle.addEventListener("click", toggleTheme);
 
-function renderProducts(products) {
-  const tbody = document.getElementById("products-tbody");
-
-  if (!Array.isArray(products) || !products.length) {
-    tbody.innerHTML = `<tr><td colspan="6" class="empty-row">No courses found yet.</td></tr>`;
-    setDashboardStats(0);
-    return;
-  }
-
-  tbody.innerHTML = products
-    .map(
-      (product) => `
-        <tr>
-          <td title="${product.id}">${product.id}</td>
-          <td>${product.name || "-"}</td>
-          <td>${product.category || "-"}</td>
-          <td>$${Number(product.price || 0).toFixed(2)}</td>
-          <td>${product.stock ?? "-"}</td>
-          <td class="actions-cell">
-            <button class="btn btn-edit" onclick="openEditModal('${product.id}')">Edit</button>
-            <button class="btn btn-danger" onclick="openDeleteModal('${product.id}', '${(product.name || "").replace(/'/g, "\\'")}')">Delete</button>
-          </td>
-        </tr>`,
-    )
-    .join("");
-
-  setDashboardStats(products.length);
-}
-
-async function loadProducts() {
-  const tbody = document.getElementById("products-tbody");
-  tbody.innerHTML = `<tr><td colspan="6" class="empty-row">Loading courses...</td></tr>`;
-
-  try {
-    const response = await fetch(`${BASE_URL}/api/products`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to load courses.");
-    }
-
-    const data = await response.json();
-    renderProducts(data.data || []);
-  } catch (error) {
-    tbody.innerHTML = `<tr><td colspan="6" class="empty-row">Course backend ulanmagan. Hozircha faqat dizayn tayyor.</td></tr>`;
-    setDashboardStats(24);
-  }
-}
-
-document
-  .getElementById("addProductBtn")
-  .addEventListener("click", openCreateModal);
-
-const productModalOverlay = document.getElementById("productModalOverlay");
-const productForm = document.getElementById("productForm");
-const productModalTitle = document.getElementById("productModalTitle");
-const productModalSubmit = document.getElementById("productModalSubmit");
-
-function openCreateModal() {
-  productModalTitle.textContent = "Add Course";
-  productModalSubmit.textContent = "Create Course";
-  productForm.reset();
-  clearFormErrors();
-  document.getElementById("productId").value = "";
-  productModalOverlay.classList.add("open");
-}
-
-async function openEditModal(id) {
-  productModalTitle.textContent = "Edit Course";
-  productModalSubmit.textContent = "Save Changes";
-  clearFormErrors();
-  document.getElementById("productId").value = id;
-
-  const response = await fetch(`${BASE_URL}/api/products/${id}`);
-  const data = await response.json();
-  const product = data.data;
-
-  document.getElementById("productName").value = product.name || "";
-  document.getElementById("productCategory").value = product.category || "";
-  document.getElementById("productDescription").value = product.description || "";
-  document.getElementById("productPrice").value = product.price ?? "";
-  document.getElementById("productStock").value = product.stock ?? "";
-  document.getElementById("productImageUrl").value = product.image_url || "";
-
-  productModalOverlay.classList.add("open");
-}
-
-function closeProductModal() {
-  productModalOverlay.classList.remove("open");
-  productForm.reset();
-  clearFormErrors();
-}
-
-document
-  .getElementById("productModalClose")
-  .addEventListener("click", closeProductModal);
-document
-  .getElementById("productModalCancel")
-  .addEventListener("click", closeProductModal);
-productModalOverlay.addEventListener("click", (event) => {
-  if (event.target === productModalOverlay) {
-    closeProductModal();
-  }
-});
-
 function clearFormErrors() {
   document.querySelectorAll(".field-error").forEach((el) => {
     el.textContent = "";
@@ -364,172 +197,6 @@ function clearFormErrors() {
   document.querySelectorAll(".modal-form input, .modal-form textarea, .modal-form select").forEach((el) => {
     el.classList.remove("invalid");
   });
-}
-
-function setFieldError(fieldId, errId, message) {
-  const input = document.getElementById(fieldId);
-  const err = document.getElementById(errId);
-
-  if (input) {
-    input.classList.add("invalid");
-  }
-
-  if (err) {
-    err.textContent = message;
-  }
-}
-
-function validateProductForm() {
-  clearFormErrors();
-  let valid = true;
-
-  const name = document.getElementById("productName").value.trim();
-  const category = document.getElementById("productCategory").value.trim();
-  const price = document.getElementById("productPrice").value;
-  const stock = document.getElementById("productStock").value;
-
-  if (!name) {
-    setFieldError("productName", "err-name", "Course name is required.");
-    valid = false;
-  }
-
-  if (!category) {
-    setFieldError("productCategory", "err-category", "Category is required.");
-    valid = false;
-  }
-
-  if (price === "" || Number.isNaN(Number(price)) || Number(price) < 0) {
-    setFieldError("productPrice", "err-price", "Enter a valid course price.");
-    valid = false;
-  }
-
-  if (stock === "" || Number.isNaN(Number(stock)) || Number(stock) < 0) {
-    setFieldError("productStock", "err-stock", "Enter a valid seat count.");
-    valid = false;
-  }
-
-  return valid;
-}
-
-productForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-
-  if (!validateProductForm()) {
-    return;
-  }
-
-  const id = document.getElementById("productId").value;
-
-  const formData = {
-    name: document.getElementById("productName").value.trim(),
-    category: document.getElementById("productCategory").value.trim(),
-    description: document.getElementById("productDescription").value.trim(),
-    price: Number(document.getElementById("productPrice").value),
-    stock: Number(document.getElementById("productStock").value),
-    image_url: document.getElementById("productImageUrl").value.trim(),
-  };
-
-  productModalSubmit.disabled = true;
-  productModalSubmit.textContent = "Saving...";
-
-  try {
-    if (id) {
-      await onUpdateProduct(id, formData);
-    } else {
-      await onCreateProduct(formData);
-    }
-
-    closeProductModal();
-    loadProducts();
-  } finally {
-    productModalSubmit.disabled = false;
-    productModalSubmit.textContent = id ? "Save Changes" : "Create Course";
-  }
-});
-
-const deleteModalOverlay = document.getElementById("deleteModalOverlay");
-let pendingDeleteId = null;
-
-function openDeleteModal(id, name) {
-  pendingDeleteId = id;
-  document.getElementById("deleteProductName").textContent = name || "this course";
-  deleteModalOverlay.classList.add("open");
-}
-
-function closeDeleteModal() {
-  deleteModalOverlay.classList.remove("open");
-  pendingDeleteId = null;
-}
-
-document
-  .getElementById("deleteModalClose")
-  .addEventListener("click", closeDeleteModal);
-document
-  .getElementById("deleteModalCancel")
-  .addEventListener("click", closeDeleteModal);
-deleteModalOverlay.addEventListener("click", (event) => {
-  if (event.target === deleteModalOverlay) {
-    closeDeleteModal();
-  }
-});
-
-document
-  .getElementById("deleteModalConfirm")
-  .addEventListener("click", async () => {
-    if (!pendingDeleteId) {
-      return;
-    }
-
-    const btn = document.getElementById("deleteModalConfirm");
-    btn.disabled = true;
-    btn.textContent = "Deleting...";
-
-    try {
-      await onDeleteProduct(pendingDeleteId);
-      closeDeleteModal();
-      loadProducts();
-    } finally {
-      btn.disabled = false;
-      btn.textContent = "Yes, Delete";
-    }
-  });
-
-async function onCreateProduct(data) {
-  const response = await fetch(`${BASE_URL}/api/products`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-  const value = await response.json();
-  alert(value.message);
-}
-
-async function onUpdateProduct(id, data) {
-  const response = await fetch(`${BASE_URL}/api/products/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-  const value = await response.json();
-  alert(value.message);
-}
-
-async function onDeleteProduct(id) {
-  const response = await fetch(`${BASE_URL}/api/products/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const value = await response.json();
-  alert(value.message);
 }
 
 const DEFAULT_BOOK_IMAGE = "default-book.png";
@@ -982,11 +649,6 @@ deleteBookModalConfirm?.addEventListener("click", async () => {
 });
 
 renderDashboardActivity();
-renderEnrollments();
 renderStudents();
-setDashboardStats();
 applyTheme(localStorage.getItem(THEME_KEY) || "light");
 showSection("dashboard");
-
-window.openEditModal = openEditModal;
-window.openDeleteModal = openDeleteModal;

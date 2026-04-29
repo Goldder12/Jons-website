@@ -30,30 +30,22 @@
 <!-- // -- Saidbar --------- -->
           <nav class="sidebar-nav">
             <a href="#" class="nav-link active" data-section="dashboard">
-              <span class="nav-icon">⌂</span>
+              <span class="nav-icon">&#8962;</span>
               <span class="nav-label">Dashboard</span>
             </a>
-            <a href="#" class="nav-link" data-section="orders">
-              <span class="nav-icon">◫</span>
-              <span class="nav-label">Enrollments</span>
-            </a>
-            <a href="#" class="nav-link" data-section="products">
-              <span class="nav-icon">▣</span>
-              <span class="nav-label">Courses</span>
-            </a>
             <a href="#" class="nav-link" data-section="users">
-              <span class="nav-icon">◌</span>
+              <span class="nav-icon">&#9676;</span>
               <span class="nav-label">Students</span>
             </a>
             <a href="#" class="nav-link" data-section="library">
-              <span class="nav-icon">📚</span>
+              <span class="nav-icon">&#128218;</span>
               <span class="nav-label">Library</span>
             </a>
           </nav>
 <!-- // -- Log out --------- -->
           <div class="sidebar-bottom">
             <a href="../auth/login.html" class="logout-link">
-              <span class="nav-icon">↩</span>
+              <span class="nav-icon">&#8617;</span>
               <span class="nav-label">Logout</span>
             </a>
           </div>
@@ -65,17 +57,17 @@
           <header class="topbar">
             <div class="topbar-left">
               <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Open menu">
-                ≡
+                &#8801;
               </button>
               <div class="search-box">
-                <span class="search-icon">⌕</span>
+                <span class="search-icon">&#8981;</span>
                 <input type="text" placeholder="Search courses, students, mentors..." />
               </div>
             </div>
 
             <div class="topbar-right">
-              <button class="topbar-icon" type="button" aria-label="Messages">✉</button>
-              <button class="topbar-icon" type="button" aria-label="Notifications">⚑</button>
+              <button class="topbar-icon" type="button" aria-label="Messages">&#9993;</button>
+              <button class="topbar-icon" type="button" aria-label="Notifications">&#9873;</button>
               <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
                 <span class="theme-toggle-ring">
                   <span class="theme-toggle-core"></span>
@@ -106,29 +98,56 @@
 
               <div class="stats-grid">
                 <article class="metric-card purple">
-                  <div class="metric-icon">⌘</div>
+                  <div class="metric-icon">A1</div>
                   <div class="metric-copy">
-                    <span class="metric-label">Active Courses</span>
-                    <strong class="metric-value" id="stat-products">24</strong>
-                    <span class="metric-foot">Increased by 18% this month</span>
+                    <span class="metric-label">CEFR Group</span>
+                    <strong class="metric-value">A1</strong>
+                    <span class="metric-foot">Beginner learners group</span>
                   </div>
                 </article>
 
                 <article class="metric-card blue">
-                  <div class="metric-icon">◔</div>
+                  <div class="metric-icon">A2</div>
                   <div class="metric-copy">
-                    <span class="metric-label">Total Revenue</span>
-                    <strong class="metric-value" id="stat-revenue">$52,000</strong>
-                    <span class="metric-foot">Course sales and subscriptions</span>
+                    <span class="metric-label">CEFR Group</span>
+                    <strong class="metric-value">A2</strong>
+                    <span class="metric-foot">Elementary progression group</span>
                   </div>
                 </article>
 
                 <article class="metric-card peach">
-                  <div class="metric-icon">✦</div>
+                  <div class="metric-icon">B1</div>
                   <div class="metric-copy">
-                    <span class="metric-label">New Visitors</span>
-                    <strong class="metric-value" id="stat-orders">2,860</strong>
-                    <span class="metric-foot">Traffic increased by 30%</span>
+                    <span class="metric-label">CEFR Group</span>
+                    <strong class="metric-value">B1</strong>
+                    <span class="metric-foot">Intermediate communication group</span>
+                  </div>
+                </article>
+
+                <article class="metric-card purple">
+                  <div class="metric-icon">B2</div>
+                  <div class="metric-copy">
+                    <span class="metric-label">CEFR Group</span>
+                    <strong class="metric-value">B2</strong>
+                    <span class="metric-foot">Upper-intermediate practice group</span>
+                  </div>
+                </article>
+
+                <article class="metric-card blue">
+                  <div class="metric-icon">C1</div>
+                  <div class="metric-copy">
+                    <span class="metric-label">CEFR Group</span>
+                    <strong class="metric-value">C1</strong>
+                    <span class="metric-foot">Advanced fluency group</span>
+                  </div>
+                </article>
+
+                <article class="metric-card peach">
+                  <div class="metric-icon">C2</div>
+                  <div class="metric-copy">
+                    <span class="metric-label">CEFR Group</span>
+                    <strong class="metric-value">C2</strong>
+                    <span class="metric-foot">Mastery and expert-level group</span>
                   </div>
                 </article>
               </div>
@@ -137,21 +156,21 @@
                 <article class="panel panel-wide">
                   <div class="panel-header">
                     <div>
-                      <h2 class="panel-title">Instructor Activity</h2>
-                      <p class="panel-subtitle">Latest team and academic operations snapshot</p>
+                      <h2 class="panel-title">Top 5 Students</h2>
+                      <p class="panel-subtitle">Eng yuqori ball olgan o'quvchilar ro'yxati</p>
                     </div>
-                    <span class="panel-chip">Today</span>
+                    <span class="panel-chip">Top 5</span>
                   </div>
 
                   <div class="table-wrapper">
                     <table class="data-table dashboard-table">
                       <thead>
                         <tr>
+                          <th>Rank</th>
                           <th>Name</th>
                           <th>Email</th>
-                          <th>Role</th>
-                          <th>Joined</th>
-                          <th>Status</th>
+                          <th>Group</th>
+                          <th>Score</th>
                         </tr>
                       </thead>
                       <tbody id="dashboard-activity-tbody"></tbody>
@@ -201,80 +220,6 @@
                     </p>
                   </div>
                 </aside>
-              </div>
-            </section>
-
-            <section class="section" id="section-orders">
-              <div class="section-intro compact">
-                <div>
-                  <p class="eyebrow">Enrollment management</p>
-                  <h2 class="page-title">Enrollments</h2>
-                </div>
-                <p class="section-note">Track incoming applications and course registrations.</p>
-              </div>
-
-              <div class="panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Recent Enrollments</h2>
-                    <p class="panel-subtitle">Frontend demo view for future backend connection</p>
-                  </div>
-                </div>
-
-                <div class="table-wrapper">
-                  <table class="data-table">
-                    <thead>
-                      <tr>
-                        <th>Enrollment ID</th>
-                        <th>Student</th>
-                        <th>Program</th>
-                        <th>Fee</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                      </tr>
-                    </thead>
-                    <tbody id="orders-tbody"></tbody>
-                  </table>
-                </div>
-              </div>
-            </section>
-
-            <section class="section" id="section-products">
-              <div class="section-intro compact">
-                <div>
-                  <p class="eyebrow">Course catalog</p>
-                  <h2 class="page-title">Courses</h2>
-                </div>
-                <button class="btn btn-primary" id="addProductBtn" type="button">+ Add Course</button>
-              </div>
-
-              <div class="panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Course Inventory</h2>
-                    <p class="panel-subtitle">Live list wired for your future backend integration</p>
-                  </div>
-                </div>
-
-                <div class="table-wrapper">
-                  <table class="data-table">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Seats</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody id="products-tbody">
-                      <tr>
-                        <td colspan="6" class="empty-row">Loading courses...</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </section>
 
@@ -331,7 +276,7 @@
 
                 <div class="library-toolbar">
                   <label class="library-search" for="bookSearchInput">
-                    <span class="search-icon">âŒ•</span>
+                    <span class="search-icon">&#8981;</span>
                     <input id="bookSearchInput" type="text" placeholder="Search by book title..." />
                   </label>
 
@@ -346,81 +291,6 @@
               </div>
             </section>
           </main>
-        </div>
-      </div>
-    </div>
-<!-- // -- Add course modal --------- -->
-    <div class="modal-overlay" id="productModalOverlay">
-      <div class="modal" id="productModal">
-        <div class="modal-header">
-          <h3 class="modal-title" id="productModalTitle">Add Course</h3>
-          <button class="modal-close" id="productModalClose" type="button">&times;</button>
-        </div>
-        <form class="modal-form" id="productForm" novalidate>
-          <input type="hidden" id="productId" />
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="productName">Course Name <span class="required">*</span></label>
-              <input type="text" id="productName" placeholder="e.g. IELTS Intensive" required />
-              <span class="field-error" id="err-name"></span>
-            </div>
-            <div class="form-group">
-              <label for="productCategory">Category <span class="required">*</span></label>
-              <input type="text" id="productCategory" placeholder="e.g. Languages" required />
-              <span class="field-error" id="err-category"></span>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="productDescription">Description</label>
-            <textarea id="productDescription" rows="3" placeholder="Short course description..."></textarea>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="productPrice">Price ($) <span class="required">*</span></label>
-              <input type="number" id="productPrice" placeholder="0.00" min="0" step="0.01" required />
-              <span class="field-error" id="err-price"></span>
-            </div>
-            <div class="form-group">
-              <label for="productStock">Seats <span class="required">*</span></label>
-              <input type="number" id="productStock" placeholder="0" min="0" step="1" required />
-              <span class="field-error" id="err-stock"></span>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="productImageUrl">Cover Image URL</label>
-            <input type="url" id="productImageUrl" placeholder="https://example.com/course-cover.png" />
-            <span class="field-error" id="err-image_url"></span>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-ghost" id="productModalCancel">Cancel</button>
-            <button type="submit" class="btn btn-primary" id="productModalSubmit">Save Course</button>
-          </div>
-        </form>
-      </div>
-    </div>
-<!-- // -- Delete course modal --------- -->
-    <div class="modal-overlay" id="deleteModalOverlay">
-      <div class="modal modal-sm" id="deleteModal">
-        <div class="modal-header">
-          <h3 class="modal-title">Delete Course</h3>
-          <button class="modal-close" id="deleteModalClose" type="button">&times;</button>
-        </div>
-        <div class="modal-body">
-          <div class="delete-icon">⌦</div>
-          <p class="delete-message">
-            Are you sure you want to delete
-            <strong id="deleteProductName"></strong>?
-          </p>
-          <p class="delete-sub">This action cannot be undone.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-ghost" id="deleteModalCancel">Cancel</button>
-          <button type="button" class="btn btn-danger-solid" id="deleteModalConfirm">Yes, Delete</button>
         </div>
       </div>
     </div>
@@ -495,7 +365,7 @@
           <button class="modal-close" id="deleteBookModalClose" type="button">&times;</button>
         </div>
         <div class="modal-body">
-          <div class="delete-icon">âŒ¦</div>
+          <div class="delete-icon">&#8998;</div>
           <p class="delete-message">
             Are you sure you want to delete
             <strong id="deleteBookName"></strong>?

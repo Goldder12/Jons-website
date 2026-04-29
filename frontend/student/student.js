@@ -390,14 +390,10 @@ function setBacklogExpanded(expanded) {
   toggleBacklogBtn.textContent = expanded ? "Yopish" : "Hammasini ko'rish";
 }
 
-function scrollToPanel(id, expandBacklog = false) {
+function scrollToPanel(id) {
   const target = document.getElementById(id);
   if (!target) {
     return;
-  }
-
-  if (expandBacklog) {
-    setBacklogExpanded(true);
   }
 
   target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -448,8 +444,7 @@ navLinks.forEach((link) => {
 metricCards.forEach((card) => {
   card.addEventListener("click", () => {
     const target = card.dataset.target;
-    const shouldExpandBacklog = card.dataset.expandBacklog === "true";
-    scrollToPanel(target, shouldExpandBacklog);
+    scrollToPanel(target);
   });
 });
 

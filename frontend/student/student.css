@@ -649,6 +649,33 @@ input {
 .task-list {
   display: grid;
   gap: 14px;
+  overflow-y: auto;
+  padding-right: 8px;
+  scrollbar-gutter: stable;
+}
+
+.lesson-list {
+  max-height: calc((108px * 5) + (14px * 4));
+}
+
+.task-list {
+  max-height: calc((94px * 5) + (14px * 4));
+}
+
+.lesson-list::-webkit-scrollbar,
+.task-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.lesson-list::-webkit-scrollbar-thumb,
+.task-list::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(188, 103, 71, 0.35);
+}
+
+.lesson-list::-webkit-scrollbar-track,
+.task-list::-webkit-scrollbar-track {
+  background: rgba(240, 221, 211, 0.45);
 }
 
 .lesson-item,
@@ -661,6 +688,14 @@ input {
   border: 1px solid #f0ddd3;
   border-radius: 16px;
   background: #fffaf6;
+}
+
+.lesson-item {
+  min-height: 108px;
+}
+
+.task-item {
+  min-height: 94px;
 }
 
 .lesson-item-copy,
@@ -723,8 +758,14 @@ input {
   margin-top: 20px;
 }
 
-.backlog-list.collapsed .task-item:nth-child(n + 4) {
-  display: none;
+.backlog-list.collapsed {
+  max-height: calc((94px * 5) + (14px * 4));
+}
+
+.backlog-list:not(.collapsed) {
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
 }
 
 .insight-badge {
@@ -1117,6 +1158,16 @@ body.dark-mode .library-badge,
 body.dark-mode .library-filter {
   background: #3a2a24;
   color: #f2bb94;
+}
+
+body.dark-mode .lesson-list::-webkit-scrollbar-thumb,
+body.dark-mode .task-list::-webkit-scrollbar-thumb {
+  background: rgba(242, 187, 148, 0.45);
+}
+
+body.dark-mode .lesson-list::-webkit-scrollbar-track,
+body.dark-mode .task-list::-webkit-scrollbar-track {
+  background: rgba(74, 53, 47, 0.65);
 }
 
 body.dark-mode .library-filter {
