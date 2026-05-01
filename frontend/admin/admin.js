@@ -6,78 +6,6 @@ const sectionLabels = {
   users: "Students",
 };
 
-const demoActivity = [
-  {
-    rank: 1,
-    name: "Madina Yusuf",
-    email: "madina.yusuf@gmail.com",
-    group: "C2",
-    score: 98,
-  },
-  {
-    rank: 2,
-    name: "Jasur Eshonqulov",
-    email: "jasur.dev@gmail.com",
-    group: "C1",
-    score: 96,
-  },
-  {
-    rank: 3,
-    name: "Sitora Mamatova",
-    email: "sitora.math@gmail.com",
-    group: "B2",
-    score: 94,
-  },
-  {
-    rank: 4,
-    name: "Ulugbek Norov",
-    email: "ulugbek.ui@gmail.com",
-    group: "B1",
-    score: 92,
-  },
-  {
-    rank: 5,
-    name: "Aziza Karimova",
-    email: "aziza.karimova@gmail.com",
-    group: "A2",
-    score: 90,
-  },
-];
-
-const demoStudents = [
-  {
-    id: "STD-1001",
-    name: "Madina Yusuf",
-    email: "madina.yusuf@gmail.com",
-    program: "English Foundation",
-    joined: "12 Apr 2026",
-    status: "Active",
-  },
-  {
-    id: "STD-1002",
-    name: "Jasur Eshonqulov",
-    email: "jasur.dev@gmail.com",
-    program: "Frontend Bootcamp",
-    joined: "09 Apr 2026",
-    status: "Pending",
-  },
-  {
-    id: "STD-1003",
-    name: "Sitora Mamatova",
-    email: "sitora.math@gmail.com",
-    program: "SAT Math Prep",
-    joined: "01 Apr 2026",
-    status: "Active",
-  },
-  {
-    id: "STD-1004",
-    name: "Ulugbek Norov",
-    email: "ulugbek.ui@gmail.com",
-    program: "UI UX Essentials",
-    joined: "28 Mar 2026",
-    status: "Offline",
-  },
-];
 
 const navLinks = document.querySelectorAll(".nav-link[data-section]");
 const sections = document.querySelectorAll(".section");
@@ -107,10 +35,12 @@ function createStatusBadge(status) {
   return `<span class="status-badge ${normalized}">${status || "-"}</span>`;
 }
 
-function renderDashboardActivity() {
+function renderDashboardActivity(activity) {
   const tbody = document.getElementById("dashboard-activity-tbody");
 
-  tbody.innerHTML = demoActivity
+  if (!activity){
+    tbody.innerHTML = `<tr><td colspan="5">No activity data available.</td></tr>`;
+  }else { tbody.innerHTML = activity
     .map(
       (item) => `
         <tr>
@@ -122,12 +52,17 @@ function renderDashboardActivity() {
         </tr>`,
     )
     .join("");
+  }
 }
 
-function renderStudents() {
+function renderStudents(students) {
+  
   const tbody = document.getElementById("users-tbody");
 
-  tbody.innerHTML = demoStudents
+  if (!students){
+    tbody.innerHTML = `<tr><td colspan="6">No students found.</td></tr>`;
+  }else {
+    tbody.innerHTML = students
     .map(
       (item) => `
         <tr>
@@ -140,6 +75,7 @@ function renderStudents() {
         </tr>`,
     )
     .join("");
+  } 
 }
 
 function closeSidebar() {
@@ -648,7 +584,24 @@ deleteBookModalConfirm?.addEventListener("click", async () => {
   }
 });
 
-renderDashboardActivity();
+loadData();
 renderStudents();
 applyTheme(localStorage.getItem(THEME_KEY) || "light");
 showSection("dashboard");
+
+async function loadData() {
+  const tbody = document.getElementById("dashboard-activity-tbody");
+  tbody.innerHTML = `<tr><td colspan="6" class="empty-row">Loading...</td></tr>`;
+
+  const response = await fetch(BASE_URL + "/api/admin/dashboard", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  renderDashboardActivity(data.data.activity);
+  renderStudents(data.data.students);
+}
