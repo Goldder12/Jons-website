@@ -16,6 +16,55 @@ const sidebarToggle = document.getElementById("sidebarToggle");
 const sidebarClose = document.getElementById("sidebarClose");
 const themeToggle = document.getElementById("themeToggle");
 const THEME_KEY = "profile-theme";
+const toastContainer = document.getElementById("toast-container");
+
+function removeToast(toast) {
+  toast.classList.remove("show");
+  setTimeout(() => toast.remove(), 300);
+}
+
+function showToast(message, type = "info") {
+  if (!toastContainer) {
+    return;
+  }
+
+  const icons = {
+    success: "&#10003;",
+    error: "&#10005;",
+    info: "&#9432;",
+  };
+
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `
+    <div class="toast-body">
+      <span class="toast-title">${icons[type] || icons.info} ${type.charAt(0).toUpperCase() + type.slice(1)}</span>
+      <span class="toast-message">${message}</span>
+    </div>
+    <button class="toast-close" type="button" aria-label="Close notification">&times;</button>
+    <span class="toast-progress"></span>
+  `;
+
+  toastContainer.appendChild(toast);
+  setTimeout(() => toast.classList.add("show"), 10);
+
+  const closeButton = toast.querySelector(".toast-close");
+  closeButton.onclick = () => removeToast(toast);
+
+  let autoRemove = setTimeout(() => removeToast(toast), 4000);
+
+  toast.addEventListener("mouseenter", () => {
+    clearTimeout(autoRemove);
+  });
+
+  toast.addEventListener("mouseleave", () => {
+    autoRemove = setTimeout(() => removeToast(toast), 4000);
+  });
+}
+
+window.alert = function (message) {
+  showToast(String(message ?? ""), "info");
+};
 
 // Theme Management
 function applyTheme(theme) {

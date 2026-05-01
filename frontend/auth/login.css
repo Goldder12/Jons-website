@@ -228,6 +228,111 @@ input[type="password"]:focus {
   background: rgba(255, 255, 255, 0.03);
 }
 
+#toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 9999;
+}
+
+.toast {
+  position: relative;
+  min-width: 260px;
+  max-width: 320px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(20, 20, 20, 0.9);
+  color: #fff;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  overflow: hidden;
+}
+
+.toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast.success {
+  border-left: 4px solid #d97b41;
+}
+
+.toast.error {
+  border-left: 4px solid #ef4444;
+}
+
+.toast.info {
+  border-left: 4px solid #c95a52;
+}
+
+.toast-body {
+  display: grid;
+  gap: 4px;
+  flex: 1;
+}
+
+.toast-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+.toast-message {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.toast button {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 16px;
+  cursor: pointer;
+  width: auto;
+  padding: 0;
+}
+
+.toast button:hover {
+  color: #fff;
+}
+
+.toast-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #d97b41, #c95a52);
+  transform-origin: left;
+  animation: toastProgress 4s linear forwards;
+}
+
+.toast:hover .toast-progress {
+  animation-play-state: paused;
+}
+
+@keyframes toastProgress {
+  from {
+    transform: scaleX(1);
+  }
+
+  to {
+    transform: scaleX(0);
+  }
+}
+
 .form-switching {
   animation: panelPulse 420ms ease;
 }
@@ -287,5 +392,16 @@ input[type="password"]:focus {
 
   .auth-hero {
     padding: 10px 4px 0;
+  }
+
+  #toast-container {
+    top: 14px;
+    right: 14px;
+    left: 14px;
+  }
+
+  .toast {
+    max-width: none;
+    min-width: 0;
   }
 }

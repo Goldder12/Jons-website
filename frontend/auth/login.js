@@ -7,6 +7,63 @@ const passwordInput = document.getElementById("password");
 const usernameField = document.getElementById("usernameField");
 const form = document.getElementById("form");
 const formDescription = document.getElementById("formDescription");
+const toastContainer = document.getElementById("toast-container");
+
+function removeToast(toast) {
+  toast.classList.remove("show");
+  setTimeout(() => toast.remove(), 400);
+}
+
+function showToast(message, type = "info") {
+  if (!toastContainer) {
+    return;
+  }
+
+  const icons = {
+    success: "&#10003;",
+    error: "&#10005;",
+    info: "&#9432;"
+  };
+
+  const titles = {
+    success: "Success",
+    error: "Error",
+    info: "Notice"
+  };
+
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+
+  toast.innerHTML = `
+    <div class="toast-body">
+      <span class="toast-title">${icons[type] || icons.info} ${titles[type] || titles.info}</span>
+      <span class="toast-message">${message}</span>
+    </div>
+    <button type="button" aria-label="Close notification">&times;</button>
+    <span class="toast-progress"></span>
+  `;
+
+  toastContainer.appendChild(toast);
+
+  setTimeout(() => toast.classList.add("show"), 10);
+
+  const closeButton = toast.querySelector("button");
+  closeButton.onclick = () => removeToast(toast);
+
+  let autoRemove = setTimeout(() => removeToast(toast), 4000);
+
+  toast.addEventListener("mouseenter", () => {
+    clearTimeout(autoRemove);
+  });
+
+  toast.addEventListener("mouseleave", () => {
+    autoRemove = setTimeout(() => removeToast(toast), 4000);
+  });
+}
+
+window.alert = function (message) {
+  showToast(String(message ?? ""), "info");
+};
 
 textSwitcherBtn.addEventListener("click", function () {
   if (heading.textContent === "Login") {
@@ -58,7 +115,7 @@ loginBtn.addEventListener("click", function () {
 async function register() {
   try {
     if (!usernameInput.value || !emailInput.value || !passwordInput.value) {
-      alert("All fields are required");
+      showToast("All fields are required", "error");
       return;
     }
 
@@ -72,24 +129,31 @@ async function register() {
       })
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      passwordInput.value = "";
-      emailInput.value = "";
-      usernameInput.value = "";
-      alert(data.message);
-      window.location.href = "../admin/index.html";
+    const data = await response.json();
+
+    if (!response.ok) {
+      showToast(data.message || "Registration failed", "error");
+      return;
     }
+
+    passwordInput.value = "";
+    emailInput.value = "";
+    usernameInput.value = "";
+    showToast(data.message || "Account created successfully!", "success");
+
+    setTimeout(() => {
+      window.location.href = "../admin/index.html";
+    }, 700);
   } catch (error) {
     console.error("Network error:", error);
-    alert("Server bilan bog'lanib bo'lmadi");
+    showToast("Server bilan bog'lanib bo'lmadi", "error");
   }
 }
 
 async function login() {
   try {
     if (!emailInput.value || !passwordInput.value) {
-      alert("All fields are required");
+      showToast("All fields are required", "error");
       return;
     }
 
@@ -102,18 +166,22 @@ async function login() {
       })
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      passwordInput.value = "";
-      emailInput.value = "";
-      alert(data.message);
+    const data = await response.json();
+
+    if (!response.ok) {
+      showToast(data.message || "Invalid email or password", "error");
+      return;
     }
+
+    passwordInput.value = "";
+    emailInput.value = "";
+    showToast(data.message || "Login successful!", "success");
   } catch (error) {
     console.error("Network error:", error);
-    alert("Server bilan bog'lanib bo'lmadi");
+    showToast("Server bilan bog'lanib bo'lmadi", "error");
   }
 }
 
 function statusAlerts(code) {
-  alert(code);
+  showToast(code, "info");
 }

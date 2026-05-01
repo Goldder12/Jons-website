@@ -7,6 +7,7 @@ const removableUploadPrefixes = [
     'uploads/listening-video/',
     'uploads/listening-content/',
 ];
+const validLevels = new Set(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']);
 
 function removeUploadedAsset(filePath) {
     if (!filePath || !removableUploadPrefixes.some((prefix) => filePath.startsWith(prefix))) {
@@ -127,6 +128,7 @@ export function getListeningTasks(req, res) {
 
 export function createListeningTask(req, res) {
     const title = req.body.title?.trim();
+    const level = req.body.level?.trim();
     const audioFile = req.files?.audio?.[0];
     const videoFile = req.files?.videoFile?.[0];
     const contentImage = req.files?.contentImage?.[0];
@@ -180,6 +182,7 @@ export function createListeningTask(req, res) {
 
     if (
         !title ||
+        !validLevels.has(level) ||
         !Array.isArray(normalizedSections) ||
         !normalizedSections.length ||
         !normalizedSections.every(isValidSection) ||
@@ -189,7 +192,7 @@ export function createListeningTask(req, res) {
         cleanupFiles(uploadedFiles);
         return res.status(400).json({
             message:
-                'Title, required audio, a valid section, and any selected optional video source are required.',
+                'Title, level, required audio, a valid section, and any selected optional video source are required.',
         });
     }
 
@@ -198,6 +201,7 @@ export function createListeningTask(req, res) {
             ? Math.max(...listeningTasks.map((task) => Number(task.id) || 0)) + 1
             : 1,
         title,
+        level,
         audio: `uploads/audio/${audioFile.filename}`,
         video: getVideoValue(videoType, videoFile, videoLink),
         content: contentHtml || normalizedSections[0]?.content || '',

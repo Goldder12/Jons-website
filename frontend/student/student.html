@@ -1,276 +1,554 @@
 <!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Student Dashboard</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="student.css" />
+    </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Student Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="student.css" />
-</head>
+    <body>
+        <div class="page-shell">
+            <div class="page-frame">
+                <aside class="sidebar" id="sidebar">
+                    <div class="sidebar-top">
+                        <div class="sidebar-title">Student Panel</div>
+                        <button
+                            class="sidebar-close"
+                            id="sidebarClose"
+                            type="button"
+                            aria-label="Close menu"
+                        >
+                            x
+                        </button>
+                    </div>
 
-<body>
-  <div class="page-shell">
-    <div class="page-frame">
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-top">
-          <div class="sidebar-title">Student Panel</div>
-          <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close menu">
-            x
-          </button>
-        </div>
+                    <div class="student-profile-card">
+                        <div class="profile-avatar">
+                            <span>ST</span>
+                            <i class="profile-status"></i>
+                        </div>
+                        <div class="profile-copy">
+                            <strong>Sarah Talibova</strong>
+                            <span>Frontend Bootcamp Student</span>
+                        </div>
+                    </div>
 
-        <div class="student-profile-card">
-          <div class="profile-avatar">
-            <span>ST</span>
-            <i class="profile-status"></i>
-          </div>
-          <div class="profile-copy">
-            <strong>Sarah Talibova</strong>
-            <span>Frontend Bootcamp Student</span>
-          </div>
-        </div>
+                    <nav class="sidebar-nav">
+                        <a href="#" class="nav-link active" data-section="dashboard">
+                            <span class="nav-icon">⌂</span>
+                            <span class="nav-label">Dashboard</span>
+                        </a>
+                        <a href="#" class="nav-link" data-section="results">
+                            <span class="nav-icon">◔</span>
+                            <span class="nav-label">Results</span>
+                        </a>
+                        <a href="#" class="nav-link" data-section="videos">
+                            <span class="nav-icon">&#9654;</span>
+                            <span class="nav-label">Video Lessons</span>
+                        </a>
+                        <a href="#" class="nav-link" data-section="listening">
+                            <span class="nav-icon">&#127911;</span>
+                            <span class="nav-label">Listening</span>
+                        </a>
+                        <a href="#" class="nav-link" data-section="library">
+                            <span class="nav-icon">📚</span>
+                            <span class="nav-label">Library</span>
+                        </a>
+                        <a href="#" class="nav-link" data-section="assignments">
+                            <span class="nav-icon">📚</span>
+                            <span class="nav-label">Assignments</span>
+                        </a>
+                    </nav>
 
-        <nav class="sidebar-nav">
-          <a href="#" class="nav-link active" data-section="dashboard">
-            <span class="nav-icon">⌂</span>
-            <span class="nav-label">Dashboard</span>
-          </a>
-          <a href="#" class="nav-link" data-section="results">
-            <span class="nav-icon">◔</span>
-            <span class="nav-label">Results</span>
-          </a>
-          <a href="#" class="nav-link" data-section="library">
-            <span class="nav-icon">📚</span>
-            <span class="nav-label">Library</span>
-          </a>
-          <a href="#" class="nav-link" data-section="assignments">
-            <span class="nav-icon">📚</span>
-            <span class="nav-label">Assignments</span>
-          </a>
-        </nav>
+                    <div class="sidebar-bottom">
+                        <a href="../auth/login.html" class="logout-link">
+                            <span class="nav-icon">↩</span>
+                            <span class="nav-label">Logout</span>
+                        </a>
+                    </div>
+                </aside>
 
-        <div class="sidebar-bottom">
-          <a href="../auth/login.html" class="logout-link">
-            <span class="nav-icon">↩</span>
-            <span class="nav-label">Logout</span>
-          </a>
-        </div>
-      </aside>
+                <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+                <div class="main-wrapper">
+                    <header class="topbar">
+                        <div class="topbar-left">
+                            <button
+                                class="sidebar-toggle"
+                                id="sidebarToggle"
+                                type="button"
+                                aria-label="Open menu"
+                            >
+                                ≡
+                            </button>
+                            <div class="search-box">
+                                <span class="search-icon">⌕</span>
+                                <input
+                                    type="text"
+                                    placeholder="Search lessons, homework, mentors..."
+                                />
+                            </div>
+                        </div>
 
-      <div class="main-wrapper">
-        <header class="topbar">
-          <div class="topbar-left">
-            <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Open menu">
-              ≡
-            </button>
-            <div class="search-box">
-              <span class="search-icon">⌕</span>
-              <input type="text" placeholder="Search lessons, homework, mentors..." />
-            </div>
-          </div>
+                        <div class="topbar-right">
+                            <button class="topbar-icon" type="button" aria-label="Messages">
+                                ✉
+                            </button>
+                            <button class="topbar-icon" type="button" aria-label="Notifications">
+                                ⚑
+                            </button>
+                            <button
+                                class="theme-toggle"
+                                id="themeToggle"
+                                type="button"
+                                aria-label="Toggle dark mode"
+                                title="Toggle dark mode"
+                            >
+                                <span class="theme-toggle-ring">
+                                    <span class="theme-toggle-core"></span>
+                                </span>
+                            </button>
 
-          <div class="topbar-right">
-            <button class="topbar-icon" type="button" aria-label="Messages">✉</button>
-            <button class="topbar-icon" type="button" aria-label="Notifications">⚑</button>
-            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode"
-              title="Toggle dark mode">
-              <span class="theme-toggle-ring">
-                <span class="theme-toggle-core"></span>
-              </span>
-            </button>
+                            <div class="topbar-user">
+                                <div class="mini-avatar">ST</div>
+                                <div class="topbar-user-copy">
+                                    <strong>Sarah Talibova</strong>
+                                    <span>Student account</span>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
 
-            <div class="topbar-user">
-              <div class="mini-avatar">ST</div>
-              <div class="topbar-user-copy">
-                <strong>Sarah Talibova</strong>
-                <span>Student account</span>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <main class="main-content">
-          <section class="section active" id="section-dashboard">
-            <div class="section-intro">
-              <div>
-                <p class="eyebrow">Student overview</p>
-                <h1 class="page-title" id="headerTitle">Dashboard</h1>
-              </div>
-              <p class="section-note">
-                Video darslar, ustoz bergan vazifalar va qolib ketgan topshiriqlarni bir joyda kuzatib boring.
-              </p>
-            </div>
+                    <main class="main-content">
+                        <section class="section active" id="section-dashboard">
+                            <div class="section-intro">
+                                <div>
+                                    <p class="eyebrow">Student overview</p>
+                                    <h1 class="page-title" id="headerTitle">Dashboard</h1>
+                                </div>
+                                <p class="section-note">
+                                    Video darslar, ustoz bergan vazifalar va qolib ketgan
+                                    topshiriqlarni bir joyda kuzatib boring.
+                                </p>
+                            </div>
 
             <div class="stats-grid">
-              <article class="metric-card pumpkin metric-action" data-target="video-lessons-panel">
-                <div class="metric-icon">▶</div>
-                <div class="metric-copy">
-                  <span class="metric-label">Video Darslar</span>
-                  <strong class="metric-value" id="stat-video-count">6</strong>
-                  <span class="metric-foot">Bosilganda video darslar ro‘yxatiga o‘tadi</span>
-                </div>
-              </article>
+                                <article
+                                    class="metric-card pumpkin metric-action"
+                                    data-target="video-lessons-panel"
+                                >
+                                    <div class="metric-icon">▶</div>
+                                    <div class="metric-copy">
+                                        <span class="metric-label">Video Darslar</span>
+                                        <strong class="metric-value" id="stat-video-count"
+                                            >6</strong
+                                        >
+                                        <span class="metric-foot"
+                                            >Bosilganda video darslar ro‘yxatiga o‘tadi</span
+                                        >
+                                    </div>
+                                </article>
 
-              <article class="metric-card terracotta metric-action" data-target="assignments-panel">
-                <div class="metric-icon">✓</div>
-                <div class="metric-copy">
-                  <span class="metric-label">Yangi Vazifalar</span>
-                  <strong class="metric-value" id="stat-assignment-count">5</strong>
-                  <span class="metric-foot">Essay draft, React page, vocabulary va boshqalar</span>
-                </div>
-              </article>
+                                <article
+                                    class="metric-card terracotta metric-action"
+                                    data-target="assignments-panel"
+                                >
+                                    <div class="metric-icon">✓</div>
+                                    <div class="metric-copy">
+                                        <span class="metric-label">Yangi Vazifalar</span>
+                                        <strong class="metric-value" id="stat-assignment-count"
+                                            >5</strong
+                                        >
+                                        <span class="metric-foot"
+                                            >Essay draft, React page, vocabulary va boshqalar</span
+                                        >
+                                    </div>
+                                </article>
 
-              <article class="metric-card coral metric-action" data-target="backlog-panel" data-expand-backlog="true">
-                <div class="metric-icon">!</div>
-                <div class="metric-copy">
-                  <span class="metric-label">Qolib Ketgan Vazifalar</span>
-                  <strong class="metric-value" id="stat-backlog-count">4</strong>
-                  <span class="metric-foot">Chala yoki xato bajarilgan ishlarni ko‘rsatadi</span>
-                </div>
+                                <article
+                                    class="metric-card coral metric-action"
+                                    data-target="backlog-panel"
+                                    data-expand-backlog="true"
+                                >
+                                    <div class="metric-icon">!</div>
+                                    <div class="metric-copy">
+                                        <span class="metric-label">Qolib Ketgan Vazifalar</span>
+                                        <strong class="metric-value" id="stat-backlog-count"
+                                            >4</strong
+                                        >
+                                        <span class="metric-foot"
+                                            >Chala yoki xato bajarilgan ishlarni ko‘rsatadi</span
+                                        >
+                                    </div>
               </article>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <div>
+                  <h2 class="panel-title">CEFR Learning Paths</h2>
+                  <p class="panel-subtitle">Choose your current level to see only matching tasks and lessons.</p>
+                </div>
+              </div>
+
+              <div class="cefr-filter-grid">
+                <button class="cefr-card" type="button" data-level="A1">A1</button>
+                <button class="cefr-card" type="button" data-level="A2">A2</button>
+                <button class="cefr-card" type="button" data-level="B1">B1</button>
+                <button class="cefr-card" type="button" data-level="B2">B2</button>
+                <button class="cefr-card" type="button" data-level="C1">C1</button>
+                <button class="cefr-card" type="button" data-level="C2">C2</button>
+              </div>
+
+              <div id="level-content" class="level-content-grid"></div>
             </div>
 
             <div class="dashboard-grid">
-              <article class="panel panel-wide" id="video-lessons-panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Ustoz Tomonidan Berilgan Video Darslar</h2>
-                    <p class="panel-subtitle">Har bir link ustiga bosib video darsni ochishingiz mumkin</p>
-                  </div>
-                  <span class="panel-chip">6 lessons</span>
+                                <article class="panel panel-wide" id="video-lessons-panel">
+                                    <div class="panel-header">
+                                        <div>
+                                            <h2 class="panel-title">
+                                                Ustoz Tomonidan Berilgan Video Darslar
+                                            </h2>
+                                            <p class="panel-subtitle">
+                                                Har bir link ustiga bosib video darsni ochishingiz
+                                                mumkin
+                                            </p>
+                                        </div>
+                                        <span class="panel-chip">6 lessons</span>
+                                    </div>
+
+                                    <div class="lesson-list" id="video-lessons-list"></div>
+                                    <button
+                                        class="panel-link"
+                                        type="button"
+                                        data-open-section="videos"
+                                    >
+                                        Barcha video darslarni ko‘rish
+                                    </button>
+                                </article>
+
+                                <aside class="panel panel-side" id="assignments-panel">
+                                    <div class="panel-header">
+                                        <div>
+                                            <h2 class="panel-title">Yangi Vazifalar</h2>
+                                            <p class="panel-subtitle">
+                                                Ustoz yuklagan topshiriqlar va ularning soni
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="task-list" id="assignment-list"></div>
+
+                                    <button
+                                        id="goAssignmentsBtn"
+                                        class="btn btn-primary panel-link"
+                                        type="button"
+                                    >
+                                        Barcha vazifalarni ko‘rish
+                                    </button>
+                                </aside>
+                            </div>
+
+                            <div class="panel panel-backlog" id="backlog-panel">
+                                <div class="panel-header">
+                                    <div>
+                                        <h2 class="panel-title">
+                                            Oldingi Darslardan Qolgan Vazifalar
+                                        </h2>
+                                        <p class="panel-subtitle">
+                                            Chala yoki xato bajarilgan topshiriqlarning qisqa
+                                            ro‘yxati
+                                        </p>
+                                    </div>
+                                    <button
+                                        class="panel-chip panel-chip-button"
+                                        id="toggleBacklogBtn"
+                                        type="button"
+                                    >
+                                        Hammasini ko‘rish
+                                    </button>
+                                </div>
+
+                                <div
+                                    class="task-list backlog-list collapsed"
+                                    id="backlog-list"
+                                ></div>
+                            </div>
+                        </section>
+
+                        <section class="section" id="section-results">
+                            <div class="section-intro compact">
+                                <div>
+                                    <p class="eyebrow">Assessment</p>
+                                    <h2 class="page-title">Results</h2>
+                                </div>
+                                <p class="section-note">
+                                    Every score below is generated from the tasks you have already
+                                    completed.
+                                </p>
+                            </div>
+
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <div>
+                                        <h2 class="panel-title">Task Results</h2>
+                                        <p class="panel-subtitle">
+                                            Task percentages are converted into IELTS bands and an
+                                            overall CEFR level
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div id="results-summary" class="results-summary"></div>
+
+                                <div class="table-wrapper results-table">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Skill</th>
+                                                <th>Task Name</th>
+                                                <th>Score (%)</th>
+                                                <th>Feedback</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="results-tbody"></tbody>
+                                    </table>
+                                </div>
+
+                                <div id="results-cards" class="results-cards"></div>
+                            </div>
+                        </section>
+                        <section class="section" id="section-videos">
+                            <div class="section-intro compact">
+                                <div>
+                                    <p class="eyebrow">Lesson stream</p>
+                                    <h2 class="page-title">Video Lessons</h2>
+                                </div>
+                                <p class="section-note">
+                                    Watch uploaded lessons or open external video links shared by
+                                    your teacher.
+                                </p>
+                            </div>
+
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <div>
+                                        <h2 class="panel-title">Available video lessons</h2>
+                                        <p class="panel-subtitle">
+                                            Every linked task can be started right after the lesson
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div id="student-video-grid" class="student-video-grid"></div>
+                            </div>
+                        </section>
+                        <section class="section" id="section-listening">
+                            <div class="section-intro compact">
+                                <div>
+                                    <p class="eyebrow">IELTS lab</p>
+                                    <h2 class="page-title">Listening</h2>
+                                </div>
+                                <p class="section-note">
+                                    Play the required audio, complete your answer sheet, and submit
+                                    your work for review.
+                                </p>
+                            </div>
+
+                            <div
+                                class="panel listening-workspace-panel field-hidden"
+                                id="listeningWorkspacePanel"
+                            >
+                                <div class="listening-workspace-top">
+                                    <div>
+                                        <h2 class="panel-title" id="listeningWorkspaceTitle">
+                                            Listening Task
+                                        </h2>
+                                        <p class="panel-subtitle" id="listeningWorkspaceSubtitle">
+                                            Audio is required before you can answer.
+                                        </p>
+                                    </div>
+
+                                    <div class="listening-top-meta">
+                                        <span class="panel-chip" id="listeningStatusChip"
+                                            >Locked</span
+                                        >
+                                        <span class="panel-chip" id="listeningTimerChip"
+                                            >30:00</span
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="listening-media-shell">
+                                    <div class="listening-audio-block">
+                                        <label class="listening-label">IELTS Audio</label>
+                                        <audio
+                                            id="listeningAudioPlayer"
+                                            controls
+                                            preload="auto"
+                                        ></audio>
+                                        <p
+                                            class="listening-audio-message"
+                                            id="listeningAudioMessage"
+                                        >
+                                            Audio is loading...
+                                        </p>
+                                    </div>
+
+                                    <div
+                                        class="listening-media-actions"
+                                        id="listeningMediaActions"
+                                    ></div>
+                                </div>
+
+                                <div class="result-progress listening-timeline">
+                                    <span id="listeningAudioTimeline" style="width: 0%"></span>
+                                </div>
+
+                                <div class="listening-lock-banner" id="listeningLockBanner">
+                                    Please wait for the audio to load and play it once to unlock the
+                                    answer fields.
+                                </div>
+
+                                <form id="listeningAnswerForm" class="listening-answer-form">
+                                    <div id="listeningSections"></div>
+
+                                    <div class="modal-footer listening-actions">
+                                        <button
+                                            type="button"
+                                            class="btn btn-ghost"
+                                            id="closeListeningTaskBtn"
+                                        >
+                                            Close Task
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary"
+                                            id="submitListeningAnswersBtn"
+                                        >
+                                            Submit Answers
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <div>
+                                        <h2 class="panel-title">Available listening tasks</h2>
+                                        <p class="panel-subtitle">
+                                            Every test includes mandatory audio and optional support
+                                            media.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div
+                                    id="student-listening-grid"
+                                    class="student-listening-grid"
+                                ></div>
+                            </div>
+                        </section>
+                        <section class="section" id="section-assignments">
+                            <div class="section-intro compact">
+                                <div>
+                                    <p class="eyebrow">Practice flow</p>
+                                    <h2 class="page-title">Assignments</h2>
+                                </div>
+                                <p class="section-note">
+                                    Complete grammar, vocabulary, listening, writing, and speaking
+                                    tasks to improve your IELTS result.
+                                </p>
+                            </div>
+
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <div>
+                                        <h2 class="panel-title">Assigned Tasks</h2>
+                                        <p class="panel-subtitle">
+                                            Each completed task updates your result bands
+                                            automatically
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="tasks-grid" id="tasks-grid"></div>
+                            </div>
+                        </section>
+                        <section class="section" id="section-library">
+                            <div class="section-intro compact">
+                                <div>
+                                    <p class="eyebrow">Study resources</p>
+                                    <h2 class="page-title">Library</h2>
+                                </div>
+                                <p class="section-note">IELTS va CEFR tayyorlanish kitoblari</p>
+                            </div>
+
+                            <div class="panel">
+                                <div class="library-toolbar">
+                                    <label class="library-search" for="library-search">
+                                        <span class="search-icon">⌕</span>
+                                        <input
+                                            id="library-search"
+                                            type="text"
+                                            placeholder="Kitob nomi bo'yicha qidirish"
+                                        />
+                                    </label>
+
+                                    <div class="library-filters" id="library-filters">
+                                        <button
+                                            class="library-filter is-active"
+                                            type="button"
+                                            data-library-filter="All"
+                                        >
+                                            All
+                                        </button>
+                                        <button
+                                            class="library-filter"
+                                            type="button"
+                                            data-library-filter="IELTS"
+                                        >
+                                            IELTS
+                                        </button>
+                                        <button
+                                            class="library-filter"
+                                            type="button"
+                                            data-library-filter="CEFR"
+                                        >
+                                            CEFR
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div id="library-grid" class="library-grid"></div>
+                            </div>
+                        </section>
+                    </main>
                 </div>
+            </div>
+        </div>
 
-                <div class="lesson-list" id="video-lessons-list"></div>
-              </article>
-
-              <aside class="panel panel-side" id="assignments-panel">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Yangi Vazifalar</h2>
-                    <p class="panel-subtitle">Ustoz yuklagan topshiriqlar va ularning soni</p>
-                  </div>
+        <div class="video-player-overlay" id="videoPlayerOverlay">
+            <div class="video-player-modal">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="videoPlayerTitle">Video Lesson</h3>
+                    <button class="modal-close" id="videoPlayerClose" type="button">&times;</button>
                 </div>
-
-                <div class="task-list" id="assignment-list"></div>
-
-                <button id="goAssignmentsBtn" class="btn btn-primary panel-link" type="button">Barcha vazifalarni ko‘rish</button>
-              </aside>
-            </div>
-
-            <div class="panel panel-backlog" id="backlog-panel">
-              <div class="panel-header">
-                <div>
-                  <h2 class="panel-title">Oldingi Darslardan Qolgan Vazifalar</h2>
-                  <p class="panel-subtitle">Chala yoki xato bajarilgan topshiriqlarning qisqa ro‘yxati</p>
+                <div class="video-player-body">
+                    <video id="videoPlayer" controls playsinline></video>
                 </div>
-                <button class="panel-chip panel-chip-button" id="toggleBacklogBtn" type="button">
-                  Hammasini ko‘rish
-                </button>
-              </div>
-
-              <div class="task-list backlog-list collapsed" id="backlog-list"></div>
             </div>
-          </section>
+        </div>
 
-          <section class="section" id="section-results">
-            <div class="section-intro compact">
-              <div>
-                <p class="eyebrow">Assessment</p>
-                <h2 class="page-title">Results</h2>
-              </div>
-              <p class="section-note">Every score below is generated from the tasks you have already completed.</p>
-            </div>
-
-            <div class="panel">
-              <div class="panel-header">
-                <div>
-                  <h2 class="panel-title">Task Results</h2>
-                  <p class="panel-subtitle">Task percentages are converted into IELTS bands and an overall CEFR level</p>
-                </div>
-              </div>
-
-              <div id="results-summary" class="results-summary"></div>
-
-              <div class="table-wrapper">
-                <table class="data-table">
-                  <thead>
-                    <tr>
-                      <th>Skill</th>
-                      <th>Task Name</th>
-                      <th>Score (%)</th>
-                      <th>Feedback</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody id="results-tbody"></tbody>
-                </table>
-              </div>
-            </div>
-          </section>
-          <section class="section" id="section-assignments">
-            <div class="section-intro compact">
-              <div>
-                <p class="eyebrow">Practice flow</p>
-                <h2 class="page-title">Assignments</h2>
-              </div>
-              <p class="section-note">Complete grammar, vocabulary, listening, writing, and speaking tasks to improve
-                your IELTS result.</p>
-            </div>
-
-            <div class="panel">
-              <div class="panel-header">
-                <div>
-                  <h2 class="panel-title">Assigned Tasks</h2>
-                  <p class="panel-subtitle">Each completed task updates your result bands automatically</p>
-                </div>
-              </div>
-
-              <div class="tasks-grid" id="tasks-grid"></div>
-            </div>
-          </section>
-          <section class="section" id="section-library">
-            <div class="section-intro compact">
-              <div>
-                <p class="eyebrow">Study resources</p>
-                <h2 class="page-title">Library</h2>
-              </div>
-              <p class="section-note">IELTS va CEFR tayyorlanish kitoblari</p>
-            </div>
-
-            <div class="panel">
-              <div class="library-toolbar">
-                <label class="library-search" for="library-search">
-                  <span class="search-icon">⌕</span>
-                  <input id="library-search" type="text" placeholder="Kitob nomi bo'yicha qidirish" />
-                </label>
-
-                <div class="library-filters" id="library-filters">
-                  <button class="library-filter is-active" type="button" data-library-filter="All">
-                    All
-                  </button>
-                  <button class="library-filter" type="button" data-library-filter="IELTS">
-                    IELTS
-                  </button>
-                  <button class="library-filter" type="button" data-library-filter="CEFR">
-                    CEFR
-                  </button>
-                </div>
-              </div>
-
-              <div id="library-grid" class="library-grid"></div>
-            </div>
-          </section>
-        </main>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="student.js"></script>
-</body>
-
+        <div id="toast-container"></div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="student.js"></script>
+    </body>
 </html>
-

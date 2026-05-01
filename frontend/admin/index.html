@@ -41,6 +41,14 @@
               <span class="nav-icon">&#128218;</span>
               <span class="nav-label">Library</span>
             </a>
+            <a href="#" class="nav-link" data-section="videos">
+              <span class="nav-icon">&#9654;</span>
+              <span class="nav-label">Video Lessons</span>
+            </a>
+            <a href="#" class="nav-link" data-section="listening">
+              <span class="nav-icon">&#127911;</span>
+              <span class="nav-label">Listening Tasks</span>
+            </a>
           </nav>
 <!-- // -- Log out --------- -->
           <div class="sidebar-bottom">
@@ -290,6 +298,48 @@
                 <div id="book-grid" class="book-grid"></div>
               </div>
             </section>
+
+            <section class="section" id="section-videos">
+              <div class="section-intro compact">
+                <div>
+                  <p class="eyebrow">Lesson library</p>
+                  <h2 class="page-title">Video Lessons</h2>
+                </div>
+                <button id="addVideoBtn" class="btn btn-primary btn-shine" type="button">+ Add Video</button>
+              </div>
+
+              <div class="panel">
+                <div class="panel-header library-header">
+                  <div>
+                    <h2 class="panel-title">Manage video lessons</h2>
+                    <p class="panel-subtitle">Upload lessons or attach YouTube links, then connect them to student tasks.</p>
+                  </div>
+                </div>
+
+                <div id="video-grid" class="video-grid"></div>
+              </div>
+            </section>
+
+            <section class="section" id="section-listening">
+              <div class="section-intro compact">
+                <div>
+                  <p class="eyebrow">IELTS practice lab</p>
+                  <h2 class="page-title">Listening Tasks</h2>
+                </div>
+                <button id="addListeningBtn" class="btn btn-primary btn-shine" type="button">+ Add Listening Task</button>
+              </div>
+
+              <div class="panel">
+                <div class="panel-header library-header">
+                  <div>
+                    <h2 class="panel-title">Manage IELTS listening tasks</h2>
+                    <p class="panel-subtitle">Audio is required. Add one IELTS-style section, correct answers, and optional support video.</p>
+                  </div>
+                </div>
+
+                <div id="listening-grid" class="listening-grid"></div>
+              </div>
+            </section>
           </main>
         </div>
       </div>
@@ -379,6 +429,277 @@
       </div>
     </div>
 
+    <div class="modal-overlay" id="videoModalOverlay">
+      <div class="modal" id="videoModal">
+        <div class="modal-header">
+          <h3 class="modal-title" id="videoModalTitle">Add Video</h3>
+          <button class="modal-close" id="videoModalClose" type="button">&times;</button>
+        </div>
+        <form class="modal-form" id="videoForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="videoTitle">Title <span class="required">*</span></label>
+              <input type="text" id="videoTitle" placeholder="e.g. IELTS Listening Walkthrough" required />
+              <span class="field-error" id="video-err-title"></span>
+            </div>
+            <div class="form-group">
+              <label for="videoAuthor">Author <span class="required">*</span></label>
+              <input type="text" id="videoAuthor" placeholder="e.g. John Academy" required />
+              <span class="field-error" id="video-err-author"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="videoDescription">Description <span class="required">*</span></label>
+            <textarea id="videoDescription" rows="4" placeholder="Short lesson summary" required></textarea>
+            <span class="field-error" id="video-err-description"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="videoLevel">CEFR level <span class="required">*</span></label>
+            <select id="videoLevel" required>
+              <option value="">Select Level</option>
+              <option>A1</option>
+              <option>A2</option>
+              <option>B1</option>
+              <option>B2</option>
+              <option>C1</option>
+              <option>C2</option>
+            </select>
+            <span class="field-error" id="video-err-level"></span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="videoType">Video type <span class="required">*</span></label>
+              <select id="videoType" required>
+                <option value="upload">Upload file</option>
+                <option value="link">YouTube link</option>
+              </select>
+              <span class="field-error" id="video-err-type"></span>
+            </div>
+            <div class="form-group">
+              <label for="videoTaskId">Attach task</label>
+              <select id="videoTaskId">
+                <option value="">No linked task</option>
+              </select>
+              <span class="field-error" id="video-err-task"></span>
+            </div>
+          </div>
+
+          <div class="form-group" id="videoUploadField">
+            <label for="videoFile">Video file <span class="required">*</span></label>
+            <input type="file" id="videoFile" accept="video/*" />
+            <span class="field-error" id="video-err-file"></span>
+          </div>
+
+          <div class="form-group field-hidden" id="videoLinkField">
+            <label for="videoUrl">YouTube link <span class="required">*</span></label>
+            <input type="text" id="videoUrl" placeholder="https://www.youtube.com/watch?v=..." />
+            <span class="field-error" id="video-err-url"></span>
+          </div>
+
+          <p class="book-file-hint" id="videoSourceHint">Upload an MP4 or switch to a lesson link.</p>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-ghost" id="videoModalCancel">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-shine" id="videoModalSubmit">Save Video</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="deleteVideoModalOverlay">
+      <div class="modal modal-sm" id="deleteVideoModal">
+        <div class="modal-header">
+          <h3 class="modal-title">Delete Video</h3>
+          <button class="modal-close" id="deleteVideoModalClose" type="button">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="delete-icon">&#9658;</div>
+          <p class="delete-message">
+            Are you sure you want to delete
+            <strong id="deleteVideoName"></strong>?
+          </p>
+          <p class="delete-sub">This lesson will disappear for students right away.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="deleteVideoModalCancel">Cancel</button>
+          <button type="button" class="btn btn-danger-solid btn-shine" id="deleteVideoModalConfirm">Yes, Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="listeningModalOverlay">
+      <div class="modal" id="listeningModal">
+        <div class="modal-header">
+          <h3 class="modal-title" id="listeningModalTitle">Add Listening Task</h3>
+          <button class="modal-close" id="listeningModalClose" type="button">&times;</button>
+        </div>
+        <form class="modal-form" id="listeningForm" novalidate>
+          <div class="form-group">
+            <label for="listeningTitle">Task title <span class="required">*</span></label>
+            <input type="text" id="listeningTitle" placeholder="e.g. IELTS Listening Part 1 - Hotel Booking" required />
+            <span class="field-error" id="listening-err-title"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="listeningLevel">CEFR level <span class="required">*</span></label>
+            <select id="listeningLevel" required>
+              <option value="">Select Level</option>
+              <option>A1</option>
+              <option>A2</option>
+              <option>B1</option>
+              <option>B2</option>
+              <option>C1</option>
+              <option>C2</option>
+            </select>
+            <span class="field-error" id="listening-err-level"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="listeningAudio">Audio upload <span class="required">*</span></label>
+            <input type="file" id="listeningAudio" accept=".mp3,.wav,audio/mpeg,audio/wav" required />
+            <span class="field-error" id="listening-err-audio"></span>
+          </div>
+
+          <p class="book-file-hint" id="listeningAudioHint">Audio is mandatory for every listening task.</p>
+
+          <div class="listening-generator-panel">
+            <div class="panel-header listening-generator-header">
+              <div>
+                <h4 class="panel-title">AI Test Generator</h4>
+                <p class="panel-subtitle">Upload a listening worksheet PDF or image, extract text, and let AI build the draft structure.</p>
+              </div>
+              <button type="button" class="btn btn-primary btn-shine" id="analyzeListeningBtn">Analyze</button>
+            </div>
+
+            <div class="form-group">
+              <label for="listeningSourceFile">Worksheet source (PDF / JPG / PNG)</label>
+              <input type="file" id="listeningSourceFile" accept=".pdf,.png,.jpg,.jpeg,image/png,image/jpeg,application/pdf" />
+              <span class="field-error" id="listening-err-source-file"></span>
+            </div>
+
+            <p class="book-file-hint" id="listeningGeneratorStatus">Upload a worksheet, then review the generated structure before saving.</p>
+
+            <div class="listening-preview-warning field-hidden" id="listeningPreviewWarning">
+              Please review before saving. OCR and AI structure detection can miss blanks or numbering.
+            </div>
+
+            <div class="listening-preview-wrap field-hidden" id="listeningPreviewWrap">
+              <div class="form-group">
+                <label for="listeningGeneratedContent">Generated HTML preview</label>
+                <div id="listeningGeneratedContent" class="listening-generated-content" contenteditable="true"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="listeningGeneratedAnswers">Correct answers</label>
+                <textarea id="listeningGeneratedAnswers" rows="6" placeholder="One answer per line"></textarea>
+              </div>
+
+              <div class="listening-preview-render">
+                <strong>Rendered preview</strong>
+                <div class="listening-preview-content" id="listeningRenderedPreview"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="listeningVideoType">Optional video</label>
+              <select id="listeningVideoType">
+                <option value="none">No video</option>
+                <option value="upload">Upload video</option>
+                <option value="link">Video link</option>
+              </select>
+              <span class="field-error" id="listening-err-video-type"></span>
+            </div>
+            <div class="form-group field-hidden" id="listeningVideoUploadField">
+              <label for="listeningVideoFile">Video file</label>
+              <input type="file" id="listeningVideoFile" accept="video/*" />
+              <span class="field-error" id="listening-err-video-file"></span>
+            </div>
+            <div class="form-group field-hidden" id="listeningVideoLinkField">
+              <label for="listeningVideoLink">Video link</label>
+              <input type="text" id="listeningVideoLink" placeholder="https://www.youtube.com/watch?v=..." />
+              <span class="field-error" id="listening-err-video-link"></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="listeningSectionTitle">Section title <span class="required">*</span></label>
+              <input type="text" id="listeningSectionTitle" placeholder="e.g. Part 1" required />
+              <span class="field-error" id="listening-err-section-title"></span>
+            </div>
+            <div class="form-group">
+              <label for="listeningSectionType">Section type <span class="required">*</span></label>
+              <select id="listeningSectionType" required>
+                <option value="form">Form</option>
+                <option value="table">Table</option>
+                <option value="mcq">MCQ</option>
+                <option value="image">Image</option>
+              </select>
+              <span class="field-error" id="listening-err-section-type"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="listeningInstructions">Instructions <span class="required">*</span></label>
+            <input type="text" id="listeningInstructions" placeholder="Write ONE WORD AND/OR A NUMBER for each answer." required />
+            <span class="field-error" id="listening-err-instructions"></span>
+          </div>
+
+          <div class="form-group" id="listeningContentTextField">
+            <label for="listeningContent">Section content <span class="required">*</span></label>
+            <textarea id="listeningContent" rows="5" placeholder="Paste the IELTS prompt, table labels, or MCQ content here." required></textarea>
+            <span class="field-error" id="listening-err-content"></span>
+          </div>
+
+          <div class="form-group field-hidden" id="listeningContentImageField">
+            <label for="listeningContentImage">Question image <span class="required">*</span></label>
+            <input type="file" id="listeningContentImage" accept="image/*" />
+            <span class="field-error" id="listening-err-content-image"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="listeningAnswers">Correct answers <span class="required">*</span></label>
+            <textarea id="listeningAnswers" rows="6" placeholder="One correct answer per line. Example:&#10;Reception&#10;14 June&#10;Double room" required></textarea>
+            <span class="field-error" id="listening-err-answers"></span>
+          </div>
+
+          <p class="book-file-hint">Each answer line becomes a numbered IELTS question automatically.</p>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-ghost" id="listeningModalCancel">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-shine" id="listeningModalSubmit">Save Listening Task</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="deleteListeningModalOverlay">
+      <div class="modal modal-sm" id="deleteListeningModal">
+        <div class="modal-header">
+          <h3 class="modal-title">Delete Listening Task</h3>
+          <button class="modal-close" id="deleteListeningModalClose" type="button">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="delete-icon">&#127911;</div>
+          <p class="delete-message">
+            Are you sure you want to delete
+            <strong id="deleteListeningName"></strong>?
+          </p>
+          <p class="delete-sub">Students will lose access to this listening test immediately.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="deleteListeningModalCancel">Cancel</button>
+          <button type="button" class="btn btn-danger-solid btn-shine" id="deleteListeningModalConfirm">Yes, Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-container"></div>
     <script src="admin.js"></script>
   </body>
 </html>

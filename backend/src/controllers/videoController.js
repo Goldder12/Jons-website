@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import { videos } from "../data/db.js";
 
+const validLevels = new Set(["A1", "A2", "B1", "B2", "C1", "C2"]);
+
 function removeUploadedVideo(filePath) {
   if (!filePath || !filePath.startsWith("uploads/videos/")) {
     return;
@@ -24,6 +26,7 @@ export function createVideo(req, res) {
   const title = req.body.title?.trim();
   const author = req.body.author?.trim();
   const description = req.body.description?.trim();
+  const level = req.body.level?.trim();
   const type = req.body.type?.trim();
   const linkUrl = req.body.url?.trim();
   const taskIdValue = req.body.taskId?.trim();
@@ -34,13 +37,13 @@ export function createVideo(req, res) {
   const hasValidTaskId = taskIdValue ? !Number.isNaN(taskId) : true;
   const hasValidSource = type === "upload" ? Boolean(videoFile) : Boolean(linkUrl);
 
-  if (!title || !author || !description || !isValidType || !hasValidTaskId || !hasValidSource) {
+  if (!title || !author || !description || !validLevels.has(level) || !isValidType || !hasValidTaskId || !hasValidSource) {
     if (videoFile) {
       removeUploadedVideo(`uploads/videos/${videoFile.filename}`);
     }
 
     return res.status(400).json({
-      message: "Title, author, description, type, and a valid video source are required!",
+      message: "Title, author, description, level, type, and a valid video source are required!",
     });
   }
 
@@ -49,6 +52,7 @@ export function createVideo(req, res) {
     title,
     author,
     description,
+    level,
     type,
     url: type === "upload" ? `uploads/videos/${videoFile.filename}` : linkUrl,
     taskId,
