@@ -1,5 +1,6 @@
 import { demoActivity } from "../data/db.js";
 import { demoStudents } from "../data/db.js";
+import { demoGroups } from "../data/db.js";
 
 export async function getDashboardData(req, res) {
   return res.status(200).json({
@@ -7,6 +8,7 @@ export async function getDashboardData(req, res) {
     data: {
       activity: demoActivity,
       students: demoStudents,
+      groups: demoGroups,
     },
   });
 }

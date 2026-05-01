@@ -78,6 +78,33 @@ function renderStudents(students) {
   } 
 }
 
+function renderGroups(groups) {
+  
+  const tbody = document.getElementById("stats-grid");
+
+  if (!groups){
+    tbody.innerHTML = `<article class="metric-card purple">
+          <div class="metric-copy">
+            <span class="metric-foot">Groups not found</span>
+          </div>
+        </article>`;
+  }else {
+    tbody.innerHTML = groups
+    .map(
+      (item) => `
+        <article class="metric-card purple">
+          <div class="metric-icon">${item.level}</div>
+          <div class="metric-copy">
+            <span class="metric-label">${item.label}</span>
+            <strong class="metric-value">${item.title}</strong>
+            <span class="metric-foot">${item.description}</span>
+          </div>
+        </article>`,
+    )
+    .join("");
+  } 
+}
+
 function closeSidebar() {
   sidebar.classList.remove("open");
   sidebarOverlay.classList.remove("open");
@@ -604,4 +631,5 @@ async function loadData() {
 
   renderDashboardActivity(data.data.activity);
   renderStudents(data.data.students);
+  renderGroups(data.data.groups);
 }
