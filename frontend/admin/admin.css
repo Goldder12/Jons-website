@@ -417,6 +417,20 @@ select {
   box-shadow: 0 20px 36px rgba(156, 95, 67, 0.2);
 }
 
+.metric-link {
+  display: block;
+  color: inherit;
+}
+
+.metric-link .metric-card {
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.metric-link:hover .metric-card {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 38px rgba(156, 95, 67, 0.24);
+}
+
 .stats-grid::-webkit-scrollbar {
   height: 8px;
 }

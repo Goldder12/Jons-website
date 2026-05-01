@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Group Details</title>
+    <link rel="stylesheet" href="group.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="page-frame">
+        <header class="group-topbar">
+          <div class="topbar-left">
+            <a class="back-link" href="../admin/index.html" aria-label="Back to admin">
+              <span class="back-icon">&#8592;</span>
+              <span>Back to Admin</span>
+            </a>
+
+            <div class="group-heading">
+              <p class="eyebrow">Group Management</p>
+              <h1 class="page-title" id="groupTitle">CEFR Group</h1>
+            </div>
+          </div>
+
+          <div class="topbar-right">
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+              <span class="theme-toggle-ring">
+                <span class="theme-toggle-core"></span>
+              </span>
+            </button>
+            <button class="btn btn-primary btn-shine" id="openLessonModalBtn" type="button">+ Create Lesson</button>
+          </div>
+        </header>
+
+        <main class="main-content">
+          <section class="hero-card">
+            <div class="hero-copy">
+              <span class="hero-badge" id="groupLevelBadge">A1</span>
+              <h2 class="hero-title" id="groupHeroTitle">A1 Beginner Group</h2>
+              <p class="hero-text" id="groupDescription">
+                Group details, lesson schedule, and quick management tools for this CEFR level.
+              </p>
+            </div>
+            <div class="hero-stats">
+              <div class="hero-stat">
+                <span>Students</span>
+                <strong id="studentsCount">0</strong>
+              </div>
+              <div class="hero-stat">
+                <span>Lessons / week</span>
+                <strong id="lessonsPerWeek">0</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="info-grid">
+            <article class="panel info-card">
+              <p class="panel-label">Mentor</p>
+              <h3 class="panel-value" id="mentorName">-</h3>
+            </article>
+
+            <article class="panel info-card">
+              <p class="panel-label">Room</p>
+              <h3 class="panel-value" id="roomName">-</h3>
+            </article>
+
+            <article class="panel info-card">
+              <p class="panel-label">Status</p>
+              <h3 class="panel-value" id="groupStatus">-</h3>
+            </article>
+          </section>
+
+          <section class="content-grid">
+            <article class="panel panel-main">
+              <div class="panel-header">
+                <div>
+                  <h2 class="panel-title">Lessons</h2>
+                  <p class="panel-subtitle">Create and manage this group's active lessons.</p>
+                </div>
+                <span class="panel-chip" id="lessonCountChip">0 Lessons</span>
+              </div>
+
+              <div class="lesson-list" id="lessonList"></div>
+            </article>
+
+            <aside class="panel panel-side">
+              <div class="panel-header">
+                <div>
+                  <h2 class="panel-title">Group Notes</h2>
+                  <p class="panel-subtitle">Quick view for current teaching setup.</p>
+                </div>
+              </div>
+
+              <div class="note-stack">
+                <div class="note-card">
+                  <span class="note-badge">Focus</span>
+                  <p id="groupFocusText">Grammar, speaking practice, and lesson continuity.</p>
+                </div>
+                <div class="note-card">
+                  <span class="note-badge">Reminder</span>
+                  <p>Use the create lesson button to add new class topics for this group.</p>
+                </div>
+              </div>
+            </aside>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="lessonModalOverlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Create Lesson</h3>
+          <button class="modal-close" id="lessonModalClose" type="button">&times;</button>
+        </div>
+        <form class="modal-form" id="lessonForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="lessonTitle">Lesson title</label>
+              <input type="text" id="lessonTitle" placeholder="e.g. Present Simple Basics" required />
+            </div>
+            <div class="form-group">
+              <label for="lessonDate">Lesson date</label>
+              <input type="date" id="lessonDate" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="lessonTime">Lesson time</label>
+              <input type="time" id="lessonTime" required />
+            </div>
+            <div class="form-group">
+              <label for="lessonTeacher">Teacher</label>
+              <input type="text" id="lessonTeacher" placeholder="Teacher name" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="lessonDescription">Description</label>
+            <textarea id="lessonDescription" rows="4" placeholder="Short lesson plan or topic description"></textarea>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-ghost" id="lessonModalCancel">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-shine">Save Lesson</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="group.js"></script>
+  </body>
+</html>

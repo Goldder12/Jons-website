@@ -7,6 +7,7 @@ const sectionLabels = {
 };
 
 
+
 const navLinks = document.querySelectorAll(".nav-link[data-section]");
 const sections = document.querySelectorAll(".section");
 const headerTitle = document.getElementById("headerTitle");
@@ -80,26 +81,29 @@ function renderStudents(students) {
 
 function renderGroups(groups) {
   
-  const tbody = document.getElementById("stats-grid");
+  const statsGrid = document.getElementById("stats-grid");
+  const palette = ["purple", "blue", "peach"];
 
   if (!groups){
-    tbody.innerHTML = `<article class="metric-card purple">
+    statsGrid.innerHTML = `<article class="metric-card purple">
           <div class="metric-copy">
             <span class="metric-foot">Groups not found</span>
           </div>
         </article>`;
   }else {
-    tbody.innerHTML = groups
+    statsGrid.innerHTML = groups
     .map(
-      (item) => `
-        <article class="metric-card purple">
+      (item, index) => `
+        <a class="metric-link" href="../group/group.html?level=${encodeURIComponent(item.level)}">
+        <article class="metric-card ${palette[index % palette.length]}">
           <div class="metric-icon">${item.level}</div>
           <div class="metric-copy">
             <span class="metric-label">${item.label}</span>
             <strong class="metric-value">${item.title}</strong>
             <span class="metric-foot">${item.description}</span>
           </div>
-        </article>`,
+        </article>
+        </a>`,
     )
     .join("");
   } 
