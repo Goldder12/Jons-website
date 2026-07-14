@@ -14,35 +14,59 @@
     <div class="page-frame">
       <aside class="sidebar" id="sidebar">
         <div class="sidebar-top">
-          <div class="sidebar-title">Dashboard Admin</div>
+          <div class="brand-mark">J</div>
+          <div class="brand-copy">
+            <div class="sidebar-title">Johns LMS</div>
+            <span>Admin Panel</span>
+          </div>
           <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close menu">
             x
           </button>
         </div>
-        <!-- // -- Admin profile icon and name, with status --------- -->
-        <div class="admin-profile-card">
-          <div class="profile-avatar">
-            <span>JA</span>
-            <i class="profile-status"></i>
-          </div>
-          <div class="profile-copy">
-            <strong>John Academy</strong>
-            <span>Education Administrator</span>
-          </div>
-        </div>
         <!-- // -- Saidbar --------- -->
         <nav class="sidebar-nav">
           <a href="#" class="nav-link active" data-section="dashboard">
-            <span class="nav-icon">&#8962;</span>
+            <span class="nav-icon">&#9638;</span>
             <span class="nav-label">Dashboard</span>
           </a>
+          <span class="nav-section-label">User Management</span>
           <a href="#" class="nav-link" data-section="users">
-            <span class="nav-icon">&#9676;</span>
+            <span class="nav-icon">&#128101;</span>
             <span class="nav-label">Students</span>
           </a>
+          <a href="#" class="nav-link muted-link">
+            <span class="nav-icon">&#127891;</span>
+            <span class="nav-label">Teachers</span>
+          </a>
+          <a href="#" class="nav-link muted-link">
+            <span class="nav-icon">&#9634;</span>
+            <span class="nav-label">Groups</span>
+          </a>
+          <a href="#" class="nav-link muted-link">
+            <span class="nav-icon">&#128100;</span>
+            <span class="nav-label">Pending Approvals</span>
+          </a>
+          <span class="nav-section-label">Academic</span>
           <a href="#" class="nav-link" data-section="library">
             <span class="nav-icon">&#128218;</span>
             <span class="nav-label">Library</span>
+          </a>
+          <a href="#" class="nav-link muted-link">
+            <span class="nav-icon">&#128221;</span>
+            <span class="nav-label">Assignments</span>
+          </a>
+          <a href="#" class="nav-link muted-link">
+            <span class="nav-icon">&#128197;</span>
+            <span class="nav-label">Attendance</span>
+          </a>
+          <a href="#" class="nav-link muted-link">
+            <span class="nav-icon">&#128202;</span>
+            <span class="nav-label">Reports</span>
+          </a>
+          <span class="nav-section-label">System</span>
+          <a href="#" class="nav-link muted-link">
+            <span class="nav-icon">&#128276;</span>
+            <span class="nav-label">Notifications</span>
           </a>
         </nav>
         <!-- // -- Log out --------- -->
@@ -51,6 +75,10 @@
             <span class="nav-icon">&#8617;</span>
             <span class="nav-label">Logout</span>
           </a>
+          <button class="collapse-link" type="button">
+            <span class="nav-icon">&#8249;</span>
+            <span class="nav-label">Collapse</span>
+          </button>
         </div>
       </aside>
 
@@ -62,15 +90,14 @@
             <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Open menu">
               &#8801;
             </button>
-            <div class="search-box">
-              <span class="search-icon">&#8981;</span>
-              <input type="text" placeholder="Search courses, students, mentors..." />
+            <div class="breadcrumb-line">
+              <span>Admin</span>
+              <strong>Dashboard</strong>
             </div>
           </div>
 
           <div class="topbar-right">
-            <button class="topbar-icon" type="button" aria-label="Messages">&#9993;</button>
-            <button class="topbar-icon" type="button" aria-label="Notifications">&#9873;</button>
+            <button class="topbar-icon has-dot" type="button" aria-label="Notifications">&#128276;</button>
             <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode"
               title="Toggle dark mode">
               <span class="theme-toggle-ring">
@@ -80,11 +107,8 @@
 
             <div class="topbar-user">
               <div class="mini-avatar">JA</div>
-              <div class="topbar-user-copy">
-                <strong>Success Academy</strong>
-                <span>Lead Admin</span>
-              </div>
             </div>
+            <a class="topbar-icon" href="../auth/login.html" aria-label="Logout">&#8618;</a>
           </div>
         </header>
 
@@ -92,85 +116,82 @@
           <section class="section active" id="section-dashboard">
             <div class="section-intro">
               <div>
-                <p class="eyebrow">Admin overview</p>
                 <h1 class="page-title" id="headerTitle">Dashboard</h1>
+                <p class="section-note">
+                  Welcome back, Admin. Here's what's happening today.
+                </p>
               </div>
-              <p class="section-note">
-                Your education platform performance, course activity, and student engagement in one place.
-              </p>
+              <button class="btn btn-primary btn-shine add-student-btn" type="button">
+                <span>+</span> Add New Student
+              </button>
             </div>
 
-            <div class="stats-grid" id="stats-grid"></div>
-
-            <div class="dashboard-grid">
-              <article class="panel panel-wide">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Top 5 Students</h2>
-                    <p class="panel-subtitle">Eng yuqori ball olgan o'quvchilar ro'yxati</p>
-                  </div>
-                  <span class="panel-chip">Top 5</span>
-                </div>
-
-                <div class="table-wrapper">
-                  <table class="data-table dashboard-table">
-                    <thead>
-                      <tr>
-                        <th>Rank</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Group</th>
-                        <th>Score</th>
-                      </tr>
-                    </thead>
-                    <tbody id="dashboard-activity-tbody"></tbody>
-                  </table>
+            <div class="stats-grid dashboard-kpis">
+              <article class="metric-card kpi-card blue">
+                <div class="metric-icon">&#128101;</div>
+                <div class="metric-copy">
+                  <span class="metric-label">Total Students</span>
+                  <strong class="metric-value">128</strong>
+                  <span class="metric-foot">All groups</span>
                 </div>
               </article>
-
-              <aside class="panel panel-side">
-                <div class="panel-header">
-                  <div>
-                    <h2 class="panel-title">Quick Progress</h2>
-                    <p class="panel-subtitle">Monthly education goals</p>
-                  </div>
+              <article class="metric-card kpi-card green">
+                <div class="metric-icon">&#128197;</div>
+                <div class="metric-copy">
+                  <span class="metric-label">Today's Attendance</span>
+                  <strong class="metric-value">94%</strong>
+                  <span class="metric-foot">Present: 120 &bull; Absent: 8</span>
                 </div>
-
-                <div class="progress-list">
-                  <div class="progress-item">
-                    <div class="progress-label-row">
-                      <span>Student Retention</span>
-                      <strong>82%</strong>
-                    </div>
-                    <div class="progress-bar"><span style="width: 82%"></span></div>
-                  </div>
-
-                  <div class="progress-item">
-                    <div class="progress-label-row">
-                      <span>Course Completion</span>
-                      <strong>68%</strong>
-                    </div>
-                    <div class="progress-bar"><span style="width: 68%"></span></div>
-                  </div>
-
-                  <div class="progress-item">
-                    <div class="progress-label-row">
-                      <span>Mentor Response</span>
-                      <strong>91%</strong>
-                    </div>
-                    <div class="progress-bar"><span style="width: 91%"></span></div>
-                  </div>
+              </article>
+              <article class="metric-card kpi-card orange">
+                <div class="metric-icon">&#128203;</div>
+                <div class="metric-copy">
+                  <span class="metric-label">Today's Tasks (All Groups)</span>
+                  <span class="task-complete">Completed <strong>78%</strong></span>
+                  <div class="progress-bar kpi-progress"><span style="width: 78%"></span></div>
+                  <span class="metric-foot">Done: 100 &bull; Pending: 28</span>
                 </div>
-
-                <div class="insight-card">
-                  <span class="insight-badge">Tip</span>
-                  <h3>Launch a spring bootcamp campaign</h3>
-                  <p>
-                    Visitors are growing quickly. A highlighted cohort section can turn more traffic into enrollments.
-                  </p>
+              </article>
+              <article class="metric-card kpi-card purple">
+                <div class="metric-icon">&#9673;</div>
+                <div class="metric-copy">
+                  <span class="metric-label">Avg Accuracy</span>
+                  <strong class="metric-value">82%</strong>
+                  <span class="metric-foot">All groups</span>
                 </div>
-              </aside>
+              </article>
             </div>
+
+            <div class="groups-section-header">
+              <h2 class="panel-title">Groups Overview</h2>
+              <p class="panel-subtitle">Today's task completion and accuracy by group</p>
+            </div>
+            <div class="groups-grid" id="stats-grid"></div>
+
+            <article class="panel panel-wide top-students-panel">
+              <div class="panel-header">
+                <div>
+                  <h2 class="panel-title">Top 5 Students</h2>
+                  <p class="panel-subtitle">Eng yuqori ball olgan o'quvchilar ro'yxati</p>
+                </div>
+                <span class="panel-chip">Top 5</span>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="data-table dashboard-table">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Group</th>
+                      <th>Score</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dashboard-activity-tbody"></tbody>
+                </table>
+              </div>
+            </article>
           </section>
 
           <section class="section" id="section-users">
