@@ -1,9 +1,8 @@
 import app from "./app.js";
 import "dotenv/config";
-import pool from "./config/db.js";
+import prisma from "./config/db.js";
 
-const result = await pool.query("SELECT NOW()");
-console.log(result.rows);
+await prisma.$queryRaw`SELECT NOW()`;
 
 
 const PORT = process.env.PORT || 5500;
