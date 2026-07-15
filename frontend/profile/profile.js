@@ -15,14 +15,14 @@ const sidebarOverlay = document.getElementById("sidebarOverlay");
 const sidebarToggle = document.getElementById("sidebarToggle");
 const sidebarClose = document.getElementById("sidebarClose");
 const themeToggle = document.getElementById("themeToggle");
-const THEME_KEY = "profile-theme";
+const THEME_KEY = "edu-dashboard-theme";
 
 // Theme Management
 function applyTheme(theme) {
   const isDark = theme === "dark";
   document.body.classList.toggle("dark-mode", isDark);
-  themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
-  themeToggle.setAttribute("title", isDark ? "Light mode" : "Dark mode");
+  themeToggle?.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+  themeToggle?.setAttribute("title", isDark ? "Light mode" : "Dark mode");
 }
 
 function toggleTheme() {
@@ -67,17 +67,17 @@ function switchSection(sectionName) {
 
 // Sidebar Management
 function openSidebar() {
-  sidebar.classList.add("open");
-  sidebarOverlay.classList.add("open");
+  sidebar?.classList.add("open");
+  sidebarOverlay?.classList.add("open");
 }
 
 function closeSidebar() {
-  sidebar.classList.remove("open");
-  sidebarOverlay.classList.remove("open");
+  sidebar?.classList.remove("open");
+  sidebarOverlay?.classList.remove("open");
 }
 
 function toggleSidebar() {
-  if (sidebar.classList.contains("open")) {
+  if (sidebar?.classList.contains("open")) {
     closeSidebar();
   } else {
     openSidebar();
@@ -93,10 +93,10 @@ navLinks.forEach((link) => {
   });
 });
 
-sidebarToggle.addEventListener("click", toggleSidebar);
-sidebarClose.addEventListener("click", closeSidebar);
-sidebarOverlay.addEventListener("click", closeSidebar);
-themeToggle.addEventListener("click", toggleTheme);
+sidebarToggle?.addEventListener("click", toggleSidebar);
+sidebarClose?.addEventListener("click", closeSidebar);
+sidebarOverlay?.addEventListener("click", closeSidebar);
+themeToggle?.addEventListener("click", toggleTheme);
 
 // Window Resize Handler
 window.addEventListener("resize", () => {
